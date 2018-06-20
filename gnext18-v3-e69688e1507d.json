@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "drona-f92a2",
+  "private_key_id": "e69688e1507d83d322e751d49a914454b604987d",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQDFhLm7gKRYTG6S\npD/So3TNWB2C7YqhakuotMrmQ2IyXsIWlNGJsg+IxyAtcJt9i3AKFDTa0PYNIkys\nue8acFcNJ9h44l41HiHY4HZbBjurk+XDSu7ath4ndVjsIHmD7zjSfYCxUUcpcgUQ\no6iimHQxELAf35b7VEiVG27Ic5R2P8RUt40VuiAqZQDSSop1okc/P6VTv3rC/kgb\nK7mz170tq+SLq+a/kf+QyQlkGfNyIIMq2ZjrvKQifxNJhIHOHdM4VRxgv9FfpyGZ\nN1Cga2cvgOXtW1EQKpwIeyT4FV82sKfGT2wDW8ah2AcpYg0UY4A3UJU0emhuN/H8\nUW8lkb4RAgMBAAECggEAE9P+HS+Nz/tkQj5Q1eFo0VBeLg2QlCGqlLYJhFIRYoMW\nstOfsVX5rz5mIYmjYlgEGE7s+2ZsvObLka9crGfIpV5xobj/wg9TUIU//GVEyjWf\npBo6niQYJNfn5FRiPndeWesVZzeEkEmM7p2vSRtK1r4ZICn+6x4L50QIvAC2T6Rr\nvSiLRt6/1mmtdLV7pEUMA+7yP8UT3KGH7Q2scwIjMdEDLksiHQWWWLy6GoJMh4Zk\nZLImBLaMqVVqN08nAsh0QmrZyC61evxp2XtrGhmiR8rGVosshxhnVKb6BPB3ZG+A\ndzEeL1by+jUfZOCG+VxUmQJSwBtO7QUANlv77X2pbQKBgQD4zwFRcTbw3Nd7Ilqo\nVGkgHZnKF8rqmcp2e7ABKgF8AS2c9dqU22aQKUBXuk3ywcHGQuT0gyO3Dlq3j0Gv\nVNzy9HPJYZ9hd8okUVisJ9IXkvvbdBuYajw4PRHNGEv8EXL+nctz/dH7yWKMhyQj\no0uRbl0hyQQgbgOErqXRHPq3JwKBgQDLOjZQNfabtGBZ0ZkYu4Us2ispJX2V5G4g\nM6yw7JJscgU5uIPAyJfKNjDqWTHzJ49Dk3UP2WFYer/KA5hgYxg2L+oIXNiKnGro\nHemXxAUe1qbPqmnSKewdyk9c75rWBD90XfUb/0SsQT6DJ8oxvnobyuZO3W6dSE+e\nAb778qjkBwKBgQCUtg2Aox2Ge0jj1RXAlKs8wdSAwRXMgN1NUgJRv8yhVIbx0NSz\nsissMSu/A6DBXuO135e/OX6oVBEOs7Y72IozQL7P9+RuOk38xQ4t36Mn6fdVJKG1\nyJFzv7SbFFGeOMO1wZSwIF5YkvavLbsA/gIVy5QotGAeDgNWU5jSUvLbcwKBgFmm\n2XTzCVJQ9TxKUV5uwuYxbF7fchJgzhAYm7ME+ecrOZDoC/9MvmFvHI8VQArDRdkK\nwNZ4EBCHPfoxMdQ7gt/MrVJ5GvGy5Rp2r6jKyXN8P+RWig4zfjz6FZ6q+MQ25YNB\nO7LZHoNa2Ofk8raVD6sZDBZ4aqap0q2imYzt1IGbAoGAfSkdX9yio6EfB3/OBl/z\nnnRpuR1knwg22GVvdAcL+XnMRwRL8sqzpDt0AXzQXivIBDZmAlUnKa3ofM5s4+yN\nuD5GcJHL15N5HdsuyJpy3MSmBrRKKEZ1PHEJtBAtiJ0UHOohK3vd1kPse6nlCNLc\nmfmt0kItZ05es3+RmeeDheE=\n-----END PRIVATE KEY-----\n",
+  "client_email": "drona-service-account@drona-f92a2.iam.gserviceaccount.com",
+  "client_id": "106405861819680796743",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://accounts.google.com/o/oauth2/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/drona-service-account%40drona-f92a2.iam.gserviceaccount.com"
+}
