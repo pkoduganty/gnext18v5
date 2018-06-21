@@ -52,48 +52,30 @@ class Text(ResponseType):
           ]
     }
 
-class Card(ResponseType):
-  def __init__(self, title):
+class Button(ResponseType):
+  def __init__(self, title, uri):  
     self.title=title
-    self.buttons=[]
-    
-  def subtitle(self, text):
-    self.subtitle=text
-    return self
+    self.openUriAction={
+        "uri": uri
+    }
   
-  def imageUri(self, uri):
-    self.imageUri=uri
-    return self
-  
-  def button(self, title, postback):
-    self.buttons.append({"title":title, "postback": postback})
-    return self
-
-class Media(ResponseType):
-  pass
-  
-class Carousel(ResponseType):
-  pass
+class Card(ResponseType):
+  def __init__(self, title, description, subtitle=None, imageUri=None, imageText='', buttons=[]):
+    self.title=title
+    if subtitle is not None:
+      self.subtitle=subtitle
+    self.formattedText=description
+    if imageUri is not None:
+      self.image={
+          "imageUri": imageUri,
+          "accessibilityText": imageText
+      }
+    self.buttons=buttons    
 
 class RichResponse(ResponseType):
   def __init__(self):
     self.items=[]
     self.suggestions=[]
-    
-class GoogleResponse(ResponseType):
-  def __init__(self):
-    #self.isSsml=False
-    self.expectUserResponse=True
-    #self.finalResponse=None
-    self.richResponse=RichResponse()
-
-class FacebookResponse(ResponseType):
-  def __init__(self):
-    self.text=None
-    
-class Payload(ResponseType):
-  def __init__(self):
-    self.google=GoogleResponse()
     
 class OutputContext(ResponseType):
   def __init__(self, session, name, lifespan="5", **kwargs):
@@ -120,23 +102,39 @@ class Response(ResponseType):
   def text(self, text):
     self.fulfillmentMessages.append(Text(text))
     return self
+  
+  def link(self, title, url):
+    response={
+        "platform": "ACTIONS_ON_GOOGLE",
+        "linkOutSuggestion": {
+          "destinationName": title,
+          "uri": url
+        }
+    }
+    self.fulfillmentMessages.append(response)
+    return self
     
   def card(self, card):
-    response={"basicCard":card}
+    response={
+        "platform": "ACTIONS_ON_GOOGLE",
+        "basicCard": card
+    }
     self.fulfillmentMessages.append(response)
-    #self.payload.google.richResponse.items.append(response)
     return self
 
   def media(self, media):
     response={"mediaResponse":media}
     self.fulfillmentMessages.append(response)
-    #self.payload.google.richResponse.items.append(response)
     return self
 
-  def carouselItem(self, item):
-    response={"carouselBrowse":item}
+  def carousel(self, items):
+    response={
+        "platform":"ACTIONS_ON_GOOGLE",            
+        "carouselSelect": {
+            "items":items
+        }
+    }
     self.fulfillmentMessages.append(response)
-    #self.payload.google.richResponse.items.append(response)
     return self
   
   def noInputPrompt(self, prompt):
