@@ -35,6 +35,16 @@ class Course(Object):
     self.guardiansEnabled=guardiansEnabled
     self.calendarId=calendarId
 
+
+class Lesson(Object):
+  def __init__(self, id=None, name=None, section=None, description=None, courseId=None, activeFromDate=None, activeTillDate=None):
+    self.id=id
+    self.name=name
+    self.section=section
+    self.description=description
+    self.activeFromDate=activeFromDate
+    self.activeTillDate=activeTillDate
+    
 '''
 courses=[]
 with open('mock/courses.json') as file:

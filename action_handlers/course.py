@@ -10,49 +10,35 @@ import logging
 
 from action_handlers.session import *
 
-from response_generators.response import Response, OutputContext, Text, Media, Item
+from response_generators.response import Response, OutputContext, Text, Item
 from response_generators.messages import *
 
 from models.mock import sample_announcements, sample_lessons, sample_courses
 
 def select(session, request):
   response_text = random.choice(COURSE_SELECT)
-  context = OutputContext(session, OUT_CONTEXT_COURSE, type=OUT_CONTEXT_COURSE)
+  #context = OutputContext(session, OUT_CONTEXT_COURSE, type=OUT_CONTEXT_COURSE)
   select_cards = []
   for course in sample_courses.courses:
-    lessons=[] #as synonyms for course
-    for lesson in sample_lessons.lessons:
-      if lesson["courseId"]==course.id:
-        lessons.append(lesson["name"])
-    card=Item(id=course.id, title=course.name, description=course.description, imageUri=course.alternateLink, synonyms=lessons)
+    card=Item(id=course.id, title=course.name, description=course.description, imageUri=course.alternateLink, imageText=course.name)
     select_cards.append(card)
-  return Response(response_text).text(response_text).outputContext(context).select(response_text, select_cards).build()
+  #return Response(response_text).outputContext(context).select(response_text, select_cards).build()
+  return Response(response_text).text(response_text).select(response_text, select_cards).build()
   
 def id(session, request):
-  contexts = request.get('queryResult').get('outputContexts')
-  response_text = 'didn\'t quite understand'
-  for context in contexts:
-    if context.get('parameters') is not None and context.get('parameters').get('type')==OUT_CONTEXT_COURSE:
-      courseId = context.get('parameters').get('id')
+  error_text = 'Error, course not found'
+  if request.get('queryResult').get('parameters') is None or request.get('queryResult').get('parameters').get('courseId') is None:
+    return Response(error_text).text(error_text).build()
       
-  select_cards = []
-  for course in sample_courses.courses:
-    for lesson in sample_lessons.lessons:
-      if lesson["courseId"]==courseId:
-        card=Item(lesson["id"], lesson["name"])
-        select_cards.append(card)
-  return Response(response_text).text(response_text).outputContext(context).select(response_text, select_cards).build()
-  
+  courseId = request.get('queryResult').get('parameters').get('courseId')
   response_text = random.choice(LESSON_SELECT)
   context = OutputContext(session, OUT_CONTEXT_COURSE, type=OUT_CONTEXT_COURSE)
   select_cards = []
-  for course in sample_courses.courses:
-    lessons=[] #as synonyms for course
-    for lesson in sample_lessons.lessons:
-      if lesson["courseId"]==course.id:
-        lessons.append(lesson["name"])
-    card=Item(course.id, course.name, course.description, lessons)
-    select_cards.append(card)
+  lessons = sample_lessons.courses_id_dict.get(courseId)
+  if lessons is not None:
+    for lesson in lessons:
+      card=Item(lesson.id, lesson.name, lesson.file)
+      select_cards.append(card)
   return Response(response_text).text(response_text).outputContext(context).select(response_text, select_cards).build()
 
 def materials(session, request):

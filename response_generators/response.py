@@ -15,12 +15,13 @@ class ResponseType(object):
             sort_keys=True, indent=4))
   
 class Item(ResponseType):
-  def __init__(self, id, title, description='', imageUri=None, imageText='', synonyms=[]):
+  def __init__(self, id, title, description='', imageUri=None, imageText=None, synonyms=[]):
     self.title=title
     self.description=description
     if id is not None:
       self.info=SelectItemInfo(id)
       self.info.synonyms=synonyms
+    imageText=imageText if imageText is not None else title
     if imageUri is not None:
       self.image={"imageUri":imageUri, "accessibilityText": imageText}
 
@@ -60,7 +61,7 @@ class Button(ResponseType):
     }
   
 class Card(ResponseType):
-  def __init__(self, title, description, subtitle=None, imageUri=None, imageText='', buttons=[]):
+  def __init__(self, title, description, subtitle=None, imageUri=None, imageText=None, buttons=[]):
     self.title=title
     if subtitle is not None:
       self.subtitle=subtitle
@@ -68,7 +69,7 @@ class Card(ResponseType):
     if imageUri is not None:
       self.image={
           "imageUri": imageUri,
-          "accessibilityText": imageText
+          "accessibilityText": imageText if imageText is not None else title
       }
     self.buttons=buttons    
 
@@ -101,6 +102,7 @@ class Response(ResponseType):
   
   def text(self, text):
     self.fulfillmentMessages.append(Text(text))
+    #self.fulfillmentMessages.append({"text":{"text"}})
     return self
   
   def link(self, title, url):
