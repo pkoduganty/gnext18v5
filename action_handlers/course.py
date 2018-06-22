@@ -39,7 +39,7 @@ def id(session, request):
     for lesson in lessons:
       card=Item(lesson.id, lesson.name, lesson.file)
       select_cards.append(card)
-  return Response(response_text).text(response_text).outputContext(context).select(response_text, select_cards).build()
+  return Response(response_text).text(response_text).select(response_text, select_cards).outputContext(context).build()
 
 def materials(session, request):
   logging.info('selected course from list of select cards')

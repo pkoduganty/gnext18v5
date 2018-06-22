@@ -37,10 +37,11 @@ class Course(Object):
 
 
 class Lesson(Object):
-  def __init__(self, id=None, name=None, section=None, description=None, courseId=None, activeFromDate=None, activeTillDate=None):
+  def __init__(self, id=None, courseId=None, name=None, section=None, description=None, activeFromDate=None, activeTillDate=None):
     self.id=id
     self.name=name
     self.section=section
+    self.courseId=courseId
     self.description=description
     self.activeFromDate=activeFromDate
     self.activeTillDate=activeTillDate

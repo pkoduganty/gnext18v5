@@ -6,7 +6,7 @@ Created on Wed Jun  6 01:54:16 2018
 @author: praveen
 """
 
-#import os
+import os
 #from docx import Document
 
 from models.courses import Lesson
