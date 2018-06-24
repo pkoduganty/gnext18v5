@@ -44,15 +44,15 @@ def webhook():
   logging.info('request = %s', json.dumps(req))
   
   sessionId = req.get('session')
-  intent = req.get('queryResult').get('intent').get('displayName')
+  intent = req.get('queryResult').get('intent')
+  intent_name = intent.get('displayName') if intent is not None else None
   action = req.get('queryResult').get('action')
-  #userId = req.get('originalDetectIntentRequest').get('payload').get('user').get('userId')
   
   logging.info('invoking action handler for intent %s, action %s', intent, action)
   
   try:
-    if intent.find('.')>0:
-      action=intent
+    if intent_name.find('.')>0:
+      action=intent_name
       
     handler, method = action.rsplit('.',1)
       

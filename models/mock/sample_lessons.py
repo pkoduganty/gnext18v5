@@ -6,9 +6,7 @@ Created on Wed Jun  6 01:54:16 2018
 @author: praveen
 """
 
-import os
-#from docx import Document
-
+from models.common import *
 from models.courses import Lesson
 
 lessons = [
@@ -16,21 +14,55 @@ lessons = [
     "id": "1234",
     "name": "Our Solar System",
     "courseId": "14721899513", 
-    "description": "8th Grade Social Studies"
+    "description": "8th Grade Social Studies",
+    "materials": [
+        Video(**{
+          "title":'Planets of our Solar System',
+          "url":'https://www.youtube.com/watch?v=libKVRa01L8',
+          "imageUri":'https://upload.wikimedia.org/wikipedia/commons/8/8c/Systeme_solaire_fr.jpg'
+        })
+    ],
+    "imageUri":'https://upload.wikimedia.org/wikipedia/commons/8/8c/Systeme_solaire_fr.jpg',
+    "activeFromDate":"27/06/2018",
+    "activeTillDate":"27/08/2018"
   }),
   Lesson(**{
     "id": "2345",
     "name": "Our Earth",
     "courseId": "14722160639", 
-    "description": "7th Grade Social Studies"
+    "description": "7th Grade Social Studies",
+    "materials": [
+        Video(**{
+          "title":'Layers of Earth',
+          "url":'https://www.youtube.com/watch?v=3xLiOFjemWQ',
+          "imageUri":'https://3.bp.blogspot.com/-MCsbIihWzMI/V8zLCDW1VAI/AAAAAAAAGyQ/iCEhWGNn5cQx7Q6zz2CsEn0oHxs80NiMwCLcB/s1600/layers-of-earth.gif'
+        })
+    ],
+    "imageUri":'https://3.bp.blogspot.com/-MCsbIihWzMI/V8zLCDW1VAI/AAAAAAAAGyQ/iCEhWGNn5cQx7Q6zz2CsEn0oHxs80NiMwCLcB/s1600/layers-of-earth.gif',
+    "activeFromDate":"27/06/2018",
+    "activeTillDate":"27/08/2018"
   }),
   Lesson(**{
     "id": "3456",
     "name": "The Cell",
     "courseId": "14722164289", 
-    "description": "8th Grade Science"
+    "description": "8th Grade Science",
+    "materials": [
+        Video(**{
+          "title":'Cell structure and function',
+          "url":'https://www.youtube.com/watch?v=URUJD5NEXC8',
+          "imageUri":'https://upload.wikimedia.org/wikipedia/commons/thumb/4/40/Simple_diagram_of_animal_cell_%28en%29.svg/512px-Simple_diagram_of_animal_cell_%28en%29.svg.png'
+        }),
+    ],
+    "imageUri":'https://upload.wikimedia.org/wikipedia/commons/thumb/4/40/Simple_diagram_of_animal_cell_%28en%29.svg/512px-Simple_diagram_of_animal_cell_%28en%29.svg.png',
+    "activeFromDate":"27/06/2018",
+    "activeTillDate":"27/08/2018"
   })
 ]
+
+lesson_id_dict=dict()
+for l in lessons:
+  lesson_id_dict[l.id]=l
 
 courses_id_dict=dict()
 for l in lessons:
@@ -38,26 +70,3 @@ for l in lessons:
     courses_id_dict[l.courseId]=[]
   courses_id_dict[l.courseId].append(l)
   
-'''
-for i in range(len(sample_lessons)):
-  document = Document(sample_lessons[i]["file"])
-  sections=[]
-  section=None
-  text=''
-  for para in document.paragraphs:
-    if para.style.name=='Heading 2':
-      if section is not None:
-        sections.append({"name":section, "text":text})
-      section=para.text
-      text=''
-    elif para.style.name in ['Normal', 'BodyText', 'BodyText2', 'BodyText3', 'Caption', 'Quote']:
-      text=text+'\n'+para.text
-  sections.append({"name":section, "text":text}) #last section has no further headings below it
-  sample_lessons[i]["sections"]=sections
-  #print(sections)
-
-if __name__ == '__main__':
-  for lesson in sample_lessons:
-    for section in lesson['sections']:
-      print('Section: '+section["name"]+', text: '+section["text"])
-'''

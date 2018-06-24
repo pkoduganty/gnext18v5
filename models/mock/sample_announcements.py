@@ -5,6 +5,8 @@ Created on Mon May 28 01:21:07 2018
 
 @author: praveen
 """
+
+from models.common import *
 from models.announcements import Announcement
 
 announcements=[

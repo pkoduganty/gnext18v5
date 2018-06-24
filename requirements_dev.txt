@@ -1,17 +1,17 @@
 # Development environment pip requirements file
 # Install via 'pip install -r requirements_dev.txt'
+enum34
 Flask==0.12.4
+flask-cors==3.0.3
 gunicorn==19.7.1
-google-api-python-client==1.6.7
-Werkzeug<0.13.0,>=0.12.0
-oauth2client>=4.1.2
-google-auth>=1.4.1
-google-auth-oauthlib>=0.2.0
 certifi==2018.4.16
+Werkzeug<0.13.0,>=0.12.0
 click
 Pillow
 jinja2
-simplejson
-unittest2
-python-docx
-google-cloud-pubsub
+
+google-api-python-client==1.6.7
+oauth2client>=4.1.2
+google-auth>=1.4.1
+google-auth-oauthlib>=0.2.0
+firebase-admin

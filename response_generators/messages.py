@@ -14,6 +14,21 @@ WELCOME_SUGGESTIONS=[
     u"go to class"
 ]
 
+GENERAL_FALLBACKS=[
+    u"I didn't get that. Can you say it again?",
+    u"I missed what you said. Say it again?",
+    u"Sorry, could you say that again?",
+    u"Sorry, can you say that again?",
+    u"Can you say that again?",
+    u"Sorry, I didn't get that.",
+    u"Sorry, what was that?",
+    u"One more time?",
+    u"Say that again?",
+    u"I didn't get that.",
+    u"I missed that.",
+    u"Couldn\'t understand, try again?"
+]
+
 # 0:user, 1:# of announcements
 UNREAD_ANNOUNCEMENTS=[
     u'Hey {0}, you have {1} new announcements',
@@ -30,14 +45,19 @@ NO_UNREAD_ANNOUNCEMENTS=[
     u'No new announcements for you'
 ]
 
+NO_HOMEWORK=[
+    u'{0}, you have no homework today',
+    u'{0}, no homework today'
+]
+
 # 0:user, 1:#of assignments
-PENDING_ASSIGNMENTS=[
+PENDING_HOMEWORKS=[
     u'{0}, you have {1} assignments pending, start with the first ?',
     u'{0}, {1} assignments due, do them now ?'
 ]
 
 # 0:user, 1:assignment-title
-PENDING_ASSIGNMENT=[
+PENDING_HOMEWORK=[
     u'{0}, assignment {1} pending, begin now?',
     u'{0}, do you want to start your assignment {1} now ?'
 ]
@@ -61,4 +81,9 @@ COURSE_SELECT=[
 LESSON_SELECT=[
     u'which lesson do you want to study?',
     u'Here are your lessons, select one'
+]
+
+LESSON_MATERIAL_SELECT=[
+    u'Lesson has these study materials, choose one?',
+    u'Here are your study materials, select one'
 ]

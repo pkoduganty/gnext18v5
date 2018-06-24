@@ -8,7 +8,9 @@ Created on Tue May 29 01:30:31 2018
 
 OUT_CONTEXT_COURSE='course'
 OUT_CONTEXT_ANNOUNCEMENT='announcement'
-OUT_CONTEXT_ASSIGNMENT='assignment'
+OUT_CONTEXT_HOMEWORK='homework'
+OUT_CONTEXT_LESSON='lesson'
+OUT_CONTEXT_LESSON_MATERIAL='lesson_material'
 
 SESSION_READ_ANNOUNCEMENTS='announcements_read'
 SESSION_READ_ASSIGNMENT='assignment_read'

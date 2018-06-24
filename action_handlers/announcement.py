@@ -29,4 +29,3 @@ def select(session, request):
   for a in announcements:
     items.append(Item(id=a.id, title=sample_courses.courses_id_dict[a.courseId].name, description=a.text))
   return Response(response_text).select(response_text, items).build()
-

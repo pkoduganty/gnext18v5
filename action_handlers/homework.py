@@ -6,43 +6,66 @@ Created on Sun May 27 23:56:03 2018
 @author: praveen
 """
 import random
-import logging
 
 from action_handlers.session import *
 
-from response_generators.response import Response, OutputContext, Text, Media, Item
+from response_generators.response import Response, OutputContext, Text, Item
 from response_generators.messages import *
 
-from models.mock import sample_announcements, sample_workitems, sample_lessons, sample_courses
+from models.mock import sample_announcements, sample_homeworks, sample_lessons, sample_courses
 
-def select(session, request):
-  response_text = random.choice(COURSE_SELECT)
-  context = OutputContext(session, OUT_CONTEXT_COURSE, type=OUT_CONTEXT_COURSE)
-  select_cards = []
-  for course in sample_courses:
-    lessons=[]
-    for lesson in sample_lessons:
-      if lesson.courseId==course.id:
-        lessons.append(lesson.name)
-    card=Item(course.id, course.name, course.description, lessons)
-    select_cards.append(card)
-  return Response(response_text).text(response_text).outputContext(context).select(response_text, select_cards).build()
+def list_all(session, request):
+  grade=8 #get user grade
   
-def materials(session, request):
-  logging.info('selected course from list of select cards')
-  response_text = 'select a subject, from your enrolled courses'
-  return Response(response_text).text(response_text).followupIntent('course.select').build()
-  '''
-  contexts = request.get('queryResult').get('outputContexts')
-  for context in contexts:
-    if context.get('parameters') is not None and context.get('parameters').get('type')==OUT_CONTEXT_COURSE:
-      
-      lessons=[]
-      for lesson in sample_lessons:
-        if lesson.courseId==course.id:
-          lessons.append(lesson.name)
-      response_text='Show course materials'
-      assignments=context.get('parameters').get('id')
-      outContext = OutputContext(session, OUT_CONTEXT_ASSIGNMENT, id=assignments, type=OUT_CONTEXT_ASSIGNMENT)
-      return Response(response_text).text(response_text).setOutputContexts(contexts).outputContext(outContext).followupIntent('assignment.do').build()
-  '''
+  assignments=[]
+  for homework in sample_homeworks.activities:
+    if grade==sample_courses.courses_id_dict[homework.courseId]:
+      assignments.append(homework)
+
+  if len(assignments)==0:
+    response_text = random.choice(NO_HOMEWORK)
+  elif len(assignments)==1:
+    response_text = random.choice(PENDING_HOMEWORK).format('Susan')
+  else:
+    response_text = random.choice(PENDING_HOMEWORKS).format('Susan', len(assignments))
+  
+  items = []
+  for a in assignments:
+    items.append(Item(id='homework - '+a.id, 
+                      title=sample_courses.courses_id_dict[a.courseId].name + '-' + a.title, 
+                      description=a.description))
+  context = OutputContext(session, OUT_CONTEXT_HOMEWORK, type=OUT_CONTEXT_HOMEWORK)
+  return Response(response_text).text(response_text).outputContext(context).select(response_text, items).build()
+
+  
+def select_subject(session, request):
+  error_text = 'Error, homework not found'
+  subject = request.get('queryResult').get('parameters').get('subject')
+  grade = request.get('queryResult').get('parameters').get('grade') #TODO use students current grade
+  grade = grade if grade is not None else 8
+  
+  courses_by_subject = sample_courses.courses_subject_dict.get(subject)
+  if len(courses_by_subject)==0:
+    return Response(error_text).text(error_text).build()
+
+  course_ids_by_subject_grade = [c.id for c in courses_by_subject if c.grade==grade]
+  if len(course_ids_by_subject_grade)==0:
+    return Response(error_text).text(error_text).build()
+
+  homework_by_subject_grade = [h for h in sample_homeworks.activities if h.courseId in course_ids_by_subject_grade]
+    
+  if len(homework_by_subject_grade)==0:
+    response_text = random.choice(NO_HOMEWORK)
+  elif len(homework_by_subject_grade)==1:
+    response_text = random.choice(PENDING_HOMEWORK).format('Susan', homework_by_subject_grade.title)
+  else:
+    response_text = random.choice(PENDING_HOMEWORKS).format('Susan', len(homework_by_subject_grade))
+  
+  items = []
+  for a in assignments:
+    items.append(Item(id='homework - '+a.id, 
+                      title=sample_courses.courses_id_dict[a.courseId].name + '-' + a.title, 
+                      description=a.description))
+  context = OutputContext(session, OUT_CONTEXT_HOMEWORK, type=OUT_CONTEXT_HOMEWORK)
+  return Response(response_text).text(response_text).outputContext(context).select(response_text, items).build()
+

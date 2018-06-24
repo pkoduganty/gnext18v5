@@ -21,9 +21,11 @@ class Item(ResponseType):
     if id is not None:
       self.info=SelectItemInfo(id)
       self.info.synonyms=synonyms
-    imageText=imageText if imageText is not None else title
     if imageUri is not None:
-      self.image={"imageUri":imageUri, "accessibilityText": imageText}
+      self.image={
+          "imageUri": imageUri,
+          "accessibilityText": imageText if imageText is not None else title
+      }
 
 class SelectItemInfo(ResponseType):
   def __init__(self, key, synonyms=[]):
