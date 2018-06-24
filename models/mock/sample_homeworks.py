@@ -24,7 +24,6 @@ activities = [
       "dueDate":"2018-06-25",
       "dueTime":"15:01:23.045123456Z",
       "scheduledTime":"2018-07-05T15:01:23.045123456Z",
-      "type": ActivityType.VIDEO.value,
       "creatorUserId":"116353579384483626788"
     }),
     Homework(**{
@@ -60,7 +59,6 @@ activities = [
       "dueDate":"2018-06-25",
       "dueTime":"15:01:23.045123456Z",
       "scheduledTime":"2018-07-05T15:01:23.045123456Z",
-      "type": ActivityType.QUIZ.value,
       "creatorUserId":"116353579384483626788"
     }),
     Homework(**{
@@ -81,7 +79,6 @@ activities = [
       "dueDate":"2018-06-25",
       "dueTime":"15:01:23.045123456Z",
       "scheduledTime":"2018-07-05T15:01:23.045123456Z",
-      "type": ActivityType.TEXT.value,
       "creatorUserId":"116353579384483626788"
     }),  
     Homework(**{
@@ -109,7 +106,6 @@ activities = [
       "dueDate":"2018-06-25",
       "dueTime":"15:01:23.045123456Z",
       "scheduledTime":"2018-07-05T15:01:23.045123456Z",
-      "type": ActivityType.QUIZ.value,
       "creatorUserId":"116353579384483626788"
     }),  
     Homework(**{
@@ -127,7 +123,6 @@ activities = [
       "dueDate":"2018-06-25",
       "dueTime":"15:01:23.045123456Z",
       "scheduledTime":"2018-07-05T15:01:23.045123456Z",
-      "type": ActivityType.VIDEO.value,
       "creatorUserId":"116353579384483626788"
     })  
   ]
