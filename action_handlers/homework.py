@@ -69,8 +69,9 @@ def select_id(session, request):
   error_text = 'Error, homework not found'  
   homeworkId=None
   for context in request.get('queryResult').get('outputContexts'):
-    if context.get('name').endswith('actions_intent_option'):
-      homeworkId=context.get('parameters').get('OPTION')
+    if context.get('name').endswith('actions_intent_option') and context.get('parameters').get('OPTION') is not None:
+      option_value=context.get('parameters').get('OPTION')
+      homeworkId=option_value[option_value.startswith('homework') and len('homework')+1:]
 
   if homeworkId is None:
     if request.get('queryResult').get('parameters').get('id') is not None:

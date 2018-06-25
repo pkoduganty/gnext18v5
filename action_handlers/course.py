@@ -32,8 +32,9 @@ def select_id(session, request):
   error_text = 'Error, course not found'  
   courseId=None
   for context in request.get('queryResult').get('outputContexts'):
-    if context.get('name').endswith('actions_intent_option'):
-      courseId=context.get('parameters').get('OPTION')
+    if context.get('name').endswith('actions_intent_option') and context.get('parameters').get('OPTION') is not None:
+      option_value=context.get('parameters').get('OPTION')
+      courseId=option_value[option_value.startswith('course') and len('course')+1:]
           
   if courseId is None:
     if request.get('queryResult').get('parameters').get('id') is not None:

@@ -9,10 +9,10 @@ import random
 import logging
 
 from action_handlers.session import *
-
 from response_generators.response import *
 from response_generators.messages import *
 
+from models.common import *
 from models.mock import sample_lessons, sample_courses
 
 def list_all(session, request):
@@ -55,8 +55,9 @@ def select_id(session, request):
   error_text = 'Error, lesson not found'  
   lessonId=None
   for context in request.get('queryResult').get('outputContexts'):
-    if context.get('name').endswith('actions_intent_option'):
-      lessonId=context.get('parameters').get('OPTION')
+    if context.get('name').endswith('actions_intent_option') and context.get('parameters').get('OPTION') is not None:
+      option_value=context.get('parameters').get('OPTION')
+      lessonId=option_value[option_value.startswith('lesson') and len('lesson')+1:]
           
   if lessonId is None:
     if request.get('queryResult').get('parameters').get('id') is not None:
@@ -71,6 +72,16 @@ def select_id(session, request):
   lesson = sample_lessons.lesson_id_dict.get(lessonId)
   if lesson is not None:
     for m in lesson.materials:
-      card=Item(id='activity '+m.id, title=m.title, imageUri=m.imageUri)
-      select_cards.append(card)
-  return Response(response_text).text(response_text).select(response_text, select_cards).outputContext(context).build()
+      logging.debug('activity type=%s, %s',type(m), m)
+      if isinstance(m, Video):
+        select_cards.append(Item(id='activity '+m.id, title=m.title, imageUri=m.imageUri))
+      elif isinstance(m, Text):
+        select_cards.append(Item(id='activity '+m.id, title=m.title))
+      elif isinstance(m, Link):
+        select_cards.append(Item(id='activity '+m.id, title=m.title))
+      elif isinstance(m, Audio):
+        select_cards.append(Item(id='activity '+m.id, title=m.title))
+      elif isinstance(m, Quiz):
+        select_cards.append(Item(id='activity '+m.id, title=m.title))
+    return Response(response_text).text(response_text).select(response_text, select_cards).outputContext(context).build()
+  return Response(error_text).text(error_text).build()
