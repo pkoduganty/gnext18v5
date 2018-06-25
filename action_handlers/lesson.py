@@ -10,7 +10,7 @@ import logging
 
 from action_handlers.session import *
 
-from response_generators.response import Response, OutputContext, Text, Item
+from response_generators.response import *
 from response_generators.messages import *
 
 from models.mock import sample_lessons, sample_courses
@@ -35,21 +35,30 @@ def list_all(session, request):
   select_cards = []
   lessons = sample_lessons.courses_id_dict.get(courseIds[0])
   if lessons is not None:
-    for lesson in lessons:
-      card=Item('lesson - '+lesson.id, lesson.name, lesson.description)
-      select_cards.append(card)
-
-  response_text = random.choice(LESSON_SELECT)
-  context = OutputContext(session, OUT_CONTEXT_LESSON, type=OUT_CONTEXT_LESSON)
-  return Response(response_text).text(response_text).select(response_text, select_cards).outputContext(context).build()
+    if len(lessons)==1:
+      response_text = random.choice(LESSON_SELECT)
+      context = OutputContext(session, OUT_CONTEXT_LESSON, type=OUT_CONTEXT_LESSON)
+      return Response(response_text).text(response_text).card(Card(lessons[0].name, lessons[0].description, imageUri=lessons[0].imageUri)).outputContext(context).build()
+    elif len(lessons)>1:
+      for lesson in lessons:
+        card=Item(lesson.id, lesson.name, lesson.description)
+        select_cards.append(card)
+      response_text = random.choice(LESSON_SELECT)
+      context = OutputContext(session, OUT_CONTEXT_LESSON, type=OUT_CONTEXT_LESSON)
+      return Response(response_text).text(response_text).select(response_text, select_cards).outputContext(context).build()
+  
+  response_text='No lessons'
+  return Response(response_text).text(response_text).build()
   
 
 def select_id(session, request):
-  error_text = 'Error, course not found'
-  if request.get('queryResult').get('parameters') is None or request.get('queryResult').get('parameters').get('lessonId') is None:
+  error_text = 'Error, lesson not found'  
+  for context in request.get('queryResult').get('outputContexts'):
+    if context.get('name').endswith('actions_intent_option'):
+      lessonId=context.get('parameters').get('OPTION')
+          
+  if lessonId is None:
     return Response(error_text).text(error_text).build()
-      
-  lessonId = request.get('queryResult').get('parameters').get('lessonId')
 
   ## duplicated in input.py
   response_text = random.choice(LESSON_MATERIAL_SELECT)

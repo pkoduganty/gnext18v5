@@ -10,8 +10,8 @@ from models.homeworks import *
 
 activities = [
     Homework(**{
-      "courseId": "14721899513",
-      "id": "1",
+      "courseId": "8SoStds",
+      "id": "8SoStdsHW1",
       "title":"course 1 - assignment 1",
       "description":"course 1 - assignment 1 - ",
       "activity": Video(**{
@@ -27,8 +27,8 @@ activities = [
       "creatorUserId":"116353579384483626788"
     }),
     Homework(**{
-      "courseId": "14721899513",
-      "id": "2",
+      "courseId": "8SoStds",
+      "id": "8SoStdsHW2",
       "title":"course 1 - multiple choice 1",
       "description":"course 1 - multiple choice 1 - ",
       "activity": Quiz(**{ 
@@ -62,8 +62,8 @@ activities = [
       "creatorUserId":"116353579384483626788"
     }),
     Homework(**{
-      "courseId": "14722160639",
-      "id": "3",
+      "courseId": "8Scnce",
+      "id": "8ScnceHW3",
       "title":"course 2 - assignment 1",
       "description":"course 2 - assignment 1 - ",
       "activity": Text(**{
@@ -82,8 +82,8 @@ activities = [
       "creatorUserId":"116353579384483626788"
     }),  
     Homework(**{
-      "courseId": "14722164289",
-      "id": "4",
+      "courseId": "8Science",
+      "id": "8ScnceHW4",
       "title":"course 3 - multiple choice 1",
       "description":"course 3 - multiple choice 1 - ",
       "activity": Quiz(**{ 
@@ -109,8 +109,8 @@ activities = [
       "creatorUserId":"116353579384483626788"
     }),  
     Homework(**{
-      "courseId": "14722164289",
-      "id": "5",
+      "courseId": "8Science",
+      "id": "8ScnceHW5",
       "title":"course 3 - multiple choice 2",
       "description":"course 3 - multiple choice 2 - ",
       "activity": Video(**{

@@ -11,9 +11,9 @@ from models.courses import Lesson
 
 lessons = [
   Lesson(**{
-    "id": "1234",
+    "id": "8SoStdsL1",
     "name": "Our Solar System",
-    "courseId": "14721899513", 
+    "courseId": "8SoStds", 
     "description": "8th Grade Social Studies",
     "materials": [
         Video(**{
@@ -47,10 +47,10 @@ lessons = [
     "activeTillDate":"27/08/2018"
   }),
   Lesson(**{
-    "id": "2345",
+    "id": "8SoStdsL2",
     "name": "Our Earth",
-    "courseId": "14722160639", 
-    "description": "7th Grade Social Studies",
+    "courseId": "8SoStds", 
+    "description": "8th Grade Social Studies",
     "materials": [
         Video(**{
           "title":'Layers of Earth',
@@ -75,9 +75,9 @@ lessons = [
     "activeTillDate":"27/08/2018"
   }),
   Lesson(**{
-    "id": "3456",
+    "id": "8ScnceL1",
     "name": "The Cell",
-    "courseId": "14722164289", 
+    "courseId": "8Scnce", 
     "description": "8th Grade Science",
     "materials": [
         Video(**{
@@ -92,6 +92,40 @@ lessons = [
             Cells are of two types: eukaryotic, which contain a nucleus, and prokaryotic, which do not. 
             Prokaryotes are single-celled organisms, while eukaryotes can be either single-celled or multicellular.''',
           "imageUri":"https://upload.wikimedia.org/wikipedia/commons/thumb/8/83/Celltypes.svg/450px-Celltypes.svg.png"
+        })
+    ],
+    "imageUri":'https://upload.wikimedia.org/wikipedia/commons/thumb/4/40/Simple_diagram_of_animal_cell_%28en%29.svg/512px-Simple_diagram_of_animal_cell_%28en%29.svg.png',
+    "activeFromDate":"27/06/2018",
+    "activeTillDate":"27/08/2018"
+  }),
+  Lesson(**{
+    "id": "8ScnceL2",
+    "name": "Cell Division",
+    "courseId": "8Scnce", 
+    "description": "8th Grade Science",
+    "materials": [
+        Video(**{
+          "title":'Cell Division',
+          "url":'https://www.youtube.com/watch?v=84mA-MzNJKA',
+          "imageUri":'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f9/Three_cell_growth_types.png/400px-Three_cell_growth_types.png'
+        }),
+        Text(**{
+          "title":'Cell Division',
+          "text":'''Cell division is the process by which a cell, called the parent cell, divides into two cells, called daughter cells. 
+            When the cell divides, everything inside it divides also. The nucleus and the chromosomes divide, and the mitochondria divide also.
+            Mitosis is part of the cycle of cell division. The chromosomes of a cell are copied to make two identical sets of chromosomes,
+            and the cell nucleus divides into two identical nuclei.
+            Before mitosis, the cell creates an identical set of its own genetic information – this is called replication. 
+            The genetic information is in the DNA of the chromosomes. At the beginning of mitosis the chromosomes wind up and 
+            become visible with a light microscope. The chromosomes are now two chromatids joined at the centromere. 
+            Since the two chromatids are identical to each other, they are called sister chromatids.
+            Mitosis happens in all types of dividing cells in the human body except with sperm and ova. 
+            The sperm and ova are gametes or sex cells. The gametes are produced by a different division method called meiosis.
+            Meiosis is a special type of cell division. Unlike mitosis, the way normal body cells divide, 
+            meiosis results in cells that only have half the usual number of chromosomes, one from each pair. 
+            For that reason, meiosis is often called reduction division. In the long run, meiosis increases genetic 
+            variation, in a way which will be explained later.''',
+          "imageUri":"https://upload.wikimedia.org/wikipedia/commons/thumb/f/f9/Three_cell_growth_types.png/400px-Three_cell_growth_types.png"
         })
     ],
     "imageUri":'https://upload.wikimedia.org/wikipedia/commons/thumb/4/40/Simple_diagram_of_animal_cell_%28en%29.svg/512px-Simple_diagram_of_animal_cell_%28en%29.svg.png',

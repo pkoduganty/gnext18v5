@@ -11,7 +11,7 @@ from models.announcements import Announcement
 
 announcements=[
     Announcement(**{
-      "courseId": "14721899513",
+      "courseId": "8Scnce",
       "id": "1",
       "text":"course 1 - announcement 1",
       "state":"PUBLISHED",
@@ -21,7 +21,7 @@ announcements=[
       "creatorUserId":"116353579384483626788"
     }),
     Announcement(**{
-      "courseId": "14721899513",
+      "courseId": "8Scnce",
       "id": "2",
       "text":"course 1 - announcement 2",
       "state":"PUBLISHED",
@@ -31,7 +31,7 @@ announcements=[
       "creatorUserId":"116353579384483626788"
     }),
     Announcement(**{
-      "courseId": "14722160639",
+      "courseId": "8SoStds",
       "id": "3",
       "text":"course 2 - announcement 1",
       "state":"PUBLISHED",
@@ -41,7 +41,7 @@ announcements=[
       "creatorUserId":"116353579384483626788"
     }),  
     Announcement(**{
-      "courseId": "14722164289",
+      "courseId": "8SoStds",
       "id": "4",
       "text":"course 3 - announcement 1",
       "state":"PUBLISHED",
@@ -51,7 +51,7 @@ announcements=[
       "creatorUserId":"116353579384483626788"
     }),  
     Announcement(**{
-      "courseId": "14722164289",
+      "courseId": "8SoStds",
       "id": "5",
       "text":"course 3 - announcement 2",
       "state":"PUBLISHED",

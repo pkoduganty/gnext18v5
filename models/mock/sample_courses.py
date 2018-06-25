@@ -10,7 +10,7 @@ from models.common import *
 
 courses=[
     Course(**{
-        "id": "14721899513", 
+        "id": "8SoStds", 
         "name": "8th Grade Social Studies", 
         "section": "A", 
         "grade":8,
@@ -25,7 +25,7 @@ courses=[
         "calendarId": "classroom104678386445181366460@group.calendar.google.com"
     }),
     Course(**{
-        "id": "14722160639", 
+        "id": "7SoStds", 
         "name": "7th Grade Social Studies", 
         "section": "B", 
         "grade":7,
@@ -40,7 +40,7 @@ courses=[
         "calendarId": "classroom106976519441482224282@group.calendar.google.com"
     }),
     Course(**{
-        "id": "14722164289", 
+        "id": "8Scnce", 
         "name": "8th Grade Science", 
         "section": "A", 
         "grade":8,

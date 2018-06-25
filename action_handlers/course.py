@@ -21,7 +21,7 @@ def list_all(session, request):
   grade=8 #get user grade
   for course in sample_courses.courses:
     if course.grade==grade:
-      card=Item(id='course - '+course.id, title=course.name, description=course.description, 
+      card=Item(id=course.id, title=course.name, description=course.description, 
               imageUri=course.imageUri, imageText=course.name)
       select_cards.append(card)
   context = OutputContext(session, OUT_CONTEXT_COURSE, type=OUT_CONTEXT_COURSE)
@@ -29,18 +29,20 @@ def list_all(session, request):
 
 
 def select_id(session, request):
-  error_text = 'Error, course not found'
-  if request.get('queryResult').get('parameters') is None or request.get('queryResult').get('parameters').get('courseId') is None:
+  error_text = 'Error, course not found'  
+  for context in request.get('queryResult').get('outputContexts'):
+    if context.get('name').endswith('actions_intent_option'):
+      courseId=context.get('parameters').get('OPTION')
+          
+  if courseId is None:
     return Response(error_text).text(error_text).build()
-      
-  courseId = request.get('queryResult').get('parameters').get('courseId')
 
   ## duplicated in input.py
   select_cards = []
-  lessons = sample_lessons.courses_id_dict.get(courseId)
+  lessons = sample_lessons.courses_id_dict.get(str(courseId))
   if lessons is not None:
     for lesson in lessons:
-      card=Item('lesson - '+lesson.id, lesson.name, lesson.description)
+      card=Item(lesson.id, lesson.name, lesson.description)
       select_cards.append(card)
 
   response_text = random.choice(LESSON_SELECT)
