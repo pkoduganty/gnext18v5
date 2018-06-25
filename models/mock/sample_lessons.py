@@ -17,11 +17,13 @@ lessons = [
     "description": "8th Grade Social Studies",
     "materials": [
         Video(**{
+          "id":"v001",
           "title":'Planets of our Solar System',
           "url":'https://www.youtube.com/watch?v=libKVRa01L8',
           "imageUri":'https://upload.wikimedia.org/wikipedia/commons/8/8c/Systeme_solaire_fr.jpg'
         }),
         Text(**{
+            "id":"t001",
             "title":'Our Sun',
             "text":'''The Sun is a star like many others in our Milky Way galaxy. 
               It has existed for a little over 4.5 billion years, and is going to continue 
@@ -30,6 +32,7 @@ lessons = [
               The Earth can also fit inside the Sun 1.3 million times.'''
         }),
         Text(**{
+            "id":"t002",
             "title":'Our Sun',
             "text":'''The Sun is a star like many others in our Milky Way galaxy. 
               It has existed for a little over 4.5 billion years, and is going to continue 
@@ -38,6 +41,7 @@ lessons = [
               The Earth can also fit inside the Sun 1.3 million times.'''
         }),
         Link(**{
+            "id":"l001",
             "title":'NASA Science - Solar System Exploration',
             "url":'https://solarsystem.nasa.gov/planets/sun/indepth'
         })
@@ -53,11 +57,13 @@ lessons = [
     "description": "8th Grade Social Studies",
     "materials": [
         Video(**{
+          "id":"v011",
           "title":'Layers of Earth',
           "url":'https://www.youtube.com/watch?v=3xLiOFjemWQ',
           "imageUri":'https://3.bp.blogspot.com/-MCsbIihWzMI/V8zLCDW1VAI/AAAAAAAAGyQ/iCEhWGNn5cQx7Q6zz2CsEn0oHxs80NiMwCLcB/s1600/layers-of-earth.gif'
         }),
         Text(**{
+          "id":"t011",
           "title":'Structure of the Earth',
           "text":'''The structure of the Earth is divided into layers. 
             These layers are both physically and chemically different. 
@@ -81,11 +87,13 @@ lessons = [
     "description": "8th Grade Science",
     "materials": [
         Video(**{
+          "id":"v021",
           "title":'Cell structure and function',
           "url":'https://www.youtube.com/watch?v=URUJD5NEXC8',
           "imageUri":'https://upload.wikimedia.org/wikipedia/commons/thumb/4/40/Simple_diagram_of_animal_cell_%28en%29.svg/512px-Simple_diagram_of_animal_cell_%28en%29.svg.png'
         }),
         Text(**{
+          "id":"t021",
           "title":'The Cell',
           "text":'''The cell is the basic structural, functional, and biological unit of all known living organisms. 
             A cell is the smallest unit of life. Cells consist of cytoplasm enclosed within a membrane.
@@ -105,11 +113,13 @@ lessons = [
     "description": "8th Grade Science",
     "materials": [
         Video(**{
+          "id":"v031",
           "title":'Cell Division',
           "url":'https://www.youtube.com/watch?v=84mA-MzNJKA',
           "imageUri":'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f9/Three_cell_growth_types.png/400px-Three_cell_growth_types.png'
         }),
         Text(**{
+          "id":"t031",
           "title":'Cell Division',
           "text":'''Cell division is the process by which a cell, called the parent cell, divides into two cells, called daughter cells. 
             When the cell divides, everything inside it divides also. The nucleus and the chromosomes divide, and the mitochondria divide also.

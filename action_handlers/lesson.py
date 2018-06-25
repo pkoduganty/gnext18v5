@@ -41,7 +41,7 @@ def list_all(session, request):
       return Response(response_text).text(response_text).card(Card(lessons[0].name, lessons[0].description, imageUri=lessons[0].imageUri)).outputContext(context).build()
     elif len(lessons)>1:
       for lesson in lessons:
-        card=Item(lesson.id, lesson.name, lesson.description)
+        card=Item('lesson '+lesson.id, lesson.name, lesson.description)
         select_cards.append(card)
       response_text = random.choice(LESSON_SELECT)
       context = OutputContext(session, OUT_CONTEXT_LESSON, type=OUT_CONTEXT_LESSON)
@@ -53,12 +53,16 @@ def list_all(session, request):
 
 def select_id(session, request):
   error_text = 'Error, lesson not found'  
+  lessonId=None
   for context in request.get('queryResult').get('outputContexts'):
     if context.get('name').endswith('actions_intent_option'):
       lessonId=context.get('parameters').get('OPTION')
           
   if lessonId is None:
-    return Response(error_text).text(error_text).build()
+    if request.get('queryResult').get('parameters').get('id') is not None:
+      lessonId=request.get('queryResult').get('parameters').get('id')
+    else:
+      return Response(error_text).text(error_text).build()
 
   ## duplicated in input.py
   response_text = random.choice(LESSON_MATERIAL_SELECT)
@@ -67,6 +71,6 @@ def select_id(session, request):
   lesson = sample_lessons.lesson_id_dict.get(lessonId)
   if lesson is not None:
     for m in lesson.materials:
-      card=Item(id=m.url, title=m.title, imageUri=m.imageUri)
+      card=Item(id='activity '+m.id, title=m.title, imageUri=m.imageUri)
       select_cards.append(card)
   return Response(response_text).text(response_text).select(response_text, select_cards).outputContext(context).build()

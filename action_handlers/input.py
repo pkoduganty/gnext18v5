@@ -6,6 +6,7 @@ Created on Sun May 27 23:56:03 2018
 @author: praveen
 """
 import random
+import logging
 
 from action_handlers.session import *
 
@@ -33,14 +34,21 @@ def fallback(session, request):
       if context.get('parameters') is not None:
         select_list_type = context.get('parameters').get('type')
         option_value = context.get('parameters').get('OPTION')
-        
-    if select_list_type=='course':
-      return course_id(session, option_value)
-    elif select_list_type=='lesson':
-      return lesson_id(session, option_value)
-    elif select_list_type=='homework':
-      return homework_id(session, option_value)
     
+    logging.debug('List type=%s, value=%s', select_list_type, option_value)
+    if select_list_type=='course':
+      return course_id(session, option_value[option_value.startswith('course') and len('course')+1:])
+    elif select_list_type=='lesson':
+      return lesson_id(session, option_value[option_value.startswith('lesson') and len('lesson')+1:])
+    elif select_list_type=='homework':
+      return homework_id(session, option_value[option_value.startswith('homework') and len('homework')+1:])
+  elif query.startswith('course'):
+    return course_id(session, query[query.startswith('course') and len('course')+1:])
+  elif query.startswith('lesson'):
+    return course_id(session, query[query.startswith('lesson') and len('lesson')+1:])
+  elif query.startswith('homework'):
+    return course_id(session, query[query.startswith('homework') and len('homework')+1:])
+  
   return Response(response_text).text(response_text).suggestions(WELCOME_SUGGESTIONS).build()
 
 def course_id(session, courseId):
@@ -48,6 +56,7 @@ def course_id(session, courseId):
   context = OutputContext(session, OUT_CONTEXT_COURSE, type=OUT_CONTEXT_COURSE)
   select_cards = []
   lessons = sample_lessons.courses_id_dict.get(courseId)
+  logging.debug('courseId: %s, %d lessons in course', courseId, len(lessons))
   if lessons is not None:
     for lesson in lessons:
       card=Item(lesson.id, lesson.name, lesson.description)
@@ -59,6 +68,7 @@ def lesson_id(session, lessonId):
   context = OutputContext(session, OUT_CONTEXT_LESSON_MATERIAL, type=OUT_CONTEXT_LESSON_MATERIAL)
   select_cards = []
   lesson = sample_lessons.lesson_id_dict.get(lessonId)
+  logging.debug('lessonId: %s', lessonId)
   if lesson is not None:
     for m in lesson.materials:
       card=Item(id=m.url, title=m.title, imageUri=m.imageUri)

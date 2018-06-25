@@ -9,7 +9,7 @@ import random
 import logging
 
 from action_handlers.session import *
-
+from models.common import *
 from response_generators.response import *
 from response_generators.messages import *
 
@@ -32,31 +32,33 @@ def list_all(session, request):
     response_text = random.choice(PENDING_HOMEWORKS).format('Susan', len(assignments))
     items = []
     for a in assignments:
-      items.append(Item(id=a.id, 
+      items.append(Item(id='homework '+a.id, 
                       title=sample_courses.courses_id_dict[a.courseId].name + '-' + a.title, 
                       description=a.description))
     context = OutputContext(session, OUT_CONTEXT_HOMEWORK, type=OUT_CONTEXT_HOMEWORK)
     return Response(response_text).text(response_text).outputContext(context).select(response_text, items).build()
 
 def do_homework(session, request, assignment):
-  #response_text = random.choice(PENDING_HOMEWORK).format('Susan')    
-  if isinstance(assignment, Video):
-    button = Button('Open', assignment.url)
-    card = Card(assignment.title, description='', imageUri=assignment.get('imageUri'), buttons=[button])
+  #response_text = random.choice(PENDING_HOMEWORK).format('Susan')
+  activity=assignment.activity
+  logging.debug('activity type=%s, %s',type(activity), activity)
+  if isinstance(activity, Video):
+    button = Button('Open', activity.url)
+    card = Card(activity.title, description='', imageUri=activity.imageUri, buttons=[button])
     response_text = 'Play this video, by clicking on the button'
     context = OutputContext(session, OUT_CONTEXT_DO_HOMEWORK, type=OUT_CONTEXT_DO_HOMEWORK, lifespan=2, id=assignment.id, obj=assignment)
     return Response(response_text).text(response_text).outputContext(context).card(card).build()
-  elif isinstance(assignment, Text):
+  elif isinstance(activity, Text):
     response_text="Not Implemented yet"
     return Response(response_text).text(response_text).build()    
-  elif isinstance(assignment, Link):
+  elif isinstance(activity, Link):
     response_text = 'Click on link below'
     context = OutputContext(session, OUT_CONTEXT_DO_HOMEWORK, type=OUT_CONTEXT_DO_HOMEWORK, lifespan=2, id=assignment.id, obj=assignment)
-    return Response(response_text).text(response_text).outputContext(context).link(assignment.title, assignment.url).build()
-  elif isinstance(assignment, Audio):
+    return Response(response_text).text(response_text).outputContext(context).link(activity.title, activity.url).build()
+  elif isinstance(activity, Audio):
     response_text="Not Implemented yet"
     return Response(response_text).text(response_text).build()
-  elif isinstance(assignment, Quiz):
+  elif isinstance(activity, Quiz):
     response_text="Not Implemented yet"
     return Response(response_text).text(response_text).build()
   
@@ -65,13 +67,18 @@ def do_homework(session, request, assignment):
   
 def select_id(session, request):
   error_text = 'Error, homework not found'  
+  homeworkId=None
   for context in request.get('queryResult').get('outputContexts'):
     if context.get('name').endswith('actions_intent_option'):
       homeworkId=context.get('parameters').get('OPTION')
-          
+
   if homeworkId is None:
-    return Response(error_text).text(error_text).build()
-  return do_homework(session, request, sample_homeworks.homework_id_dict(homeworkId))
+    if request.get('queryResult').get('parameters').get('id') is not None:
+      homeworkId=request.get('queryResult').get('parameters').get('id')
+    else:
+      return Response(error_text).text(error_text).build()
+          
+  return do_homework(session, request, sample_homeworks.homework_id_dict[homeworkId])
   
 def select_subject(session, request):
   error_text = 'Error, homework not found'
@@ -98,7 +105,7 @@ def select_subject(session, request):
     response_text = random.choice(PENDING_HOMEWORKS).format('Susan', len(homework_by_subject_grade))  
     items = []
     for a in homework_by_subject_grade:
-      items.append(Item(id=a.id, 
+      items.append(Item(id='homework '+a.id, 
                         title=sample_courses.courses_id_dict[a.courseId].name + '-' + a.title, 
                         description=a.description))
     context = OutputContext(session, OUT_CONTEXT_HOMEWORK, type=OUT_CONTEXT_HOMEWORK)
