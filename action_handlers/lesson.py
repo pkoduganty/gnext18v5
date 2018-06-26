@@ -74,7 +74,7 @@ def select_id(session, request):
   lesson = sample_lessons.lesson_id_dict.get(lessonId)
   if lesson is not None:
     if len(lesson.materials)==1:
-      do_activity(session, lesson.materials[0])
+      return do_activity(session, lesson.materials[0]).build()
     else:
       for m in lesson.materials:
         logging.debug('activity type=%s, %s',type(m), m)

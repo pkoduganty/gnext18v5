@@ -30,7 +30,7 @@ def list_all(session, request):
     response_text = random.choice(NO_HOMEWORK)
     return Response(response_text).text(response_text).build()
   elif len(assignments)==1:
-    return do_homework(session, assignments[0])
+    return do_homework(session, assignments[0]).build()
   else:
     response_text = random.choice(PENDING_HOMEWORKS).format('Susan', len(assignments))
     items = []
@@ -56,7 +56,7 @@ def select_id(session, request):
     else:
       return Response(error_text).text(error_text).build()
           
-  return do_homework(session, request, sample_homeworks.homework_id_dict[homeworkId])
+  return do_homework(session, request, sample_homeworks.homework_id_dict[homeworkId]).build()
   
 
 def select_subject(session, request):
@@ -79,7 +79,7 @@ def select_subject(session, request):
     response_text = random.choice(NO_HOMEWORK)
     return Response(response_text).text(response_text).build()
   elif len(homework_by_subject_grade)==1:
-    return do_homework(session, request, homework_by_subject_grade[0])
+    return do_homework(session, request, homework_by_subject_grade[0]).build()
   else:
     response_text = random.choice(PENDING_HOMEWORKS).format('Susan', len(homework_by_subject_grade))  
     items = []

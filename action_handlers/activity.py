@@ -19,8 +19,8 @@ from models.mock import sample_announcements, sample_courses, sample_lessons, sa
 def do_homework(session, assignment):
   logging.debug('assignment id=%s',assignment.id)
 
-  context = OutputContext(session, OUT_CONTEXT_DO_HOMEWORK, type=OUT_CONTEXT_DO_HOMEWORK, lifespan=2, id=assignment.id, obj=assignment)
-  response = do_activity(assignment.activity)
+  context = OutputContext(session, OUT_CONTEXT_DO_HOMEWORK, type=OUT_CONTEXT_DO_HOMEWORK, lifespan=2, id=assignment.id)
+  response = do_activity(session, assignment.activity)
   return response.outputContext(context).build()
 
 
@@ -31,7 +31,7 @@ def do_activity(session, activity):
     button = Button('Open', activity.url)
     card = Card(activity.title, description='', imageUri=activity.imageUri, buttons=[button])
     response_text = 'Play this video, by clicking on the button'
-    context = OutputContext(session, OUT_CONTEXT_LESSON_ACTIVITY_DO, type=OUT_CONTEXT_LESSON_ACTIVITY_DO, lifespan=2, id=activity.id, obj=activity)
+    context = OutputContext(session, OUT_CONTEXT_LESSON_ACTIVITY_DO, type=OUT_CONTEXT_LESSON_ACTIVITY_DO, lifespan=2, id=activity.id)
     return Response(response_text).text(response_text).outputContext(context).card(card)
   
   if isinstance(activity, Text):
@@ -40,7 +40,7 @@ def do_activity(session, activity):
   
   if isinstance(activity, Link):
     response_text = 'Click on link below'
-    context = OutputContext(session, OUT_CONTEXT_LESSON_ACTIVITY_DO, type=OUT_CONTEXT_LESSON_ACTIVITY_DO, lifespan=2, id=activity.id, obj=activity)
+    context = OutputContext(session, OUT_CONTEXT_LESSON_ACTIVITY_DO, type=OUT_CONTEXT_LESSON_ACTIVITY_DO, lifespan=2, id=activity.id)
     return Response(response_text).text(response_text).outputContext(context).link(activity.title, activity.url)
   
   if isinstance(activity, Audio):

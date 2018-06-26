@@ -67,8 +67,8 @@ def course_id(session, courseId):
 
 def lesson_id(session, lessonId):
   logging.debug('lessonId: %s', lessonId)
-  response_text = random.choice(LESSON_MATERIAL_SELECT)
-  context = OutputContext(session, OUT_CONTEXT_LESSON_MATERIAL, type=OUT_CONTEXT_LESSON_MATERIAL)
+  response_text = random.choice(LESSON_ACTIVITY_SELECT)
+  context = OutputContext(session, OUT_CONTEXT_LESSON_ACTIVITY, type=OUT_CONTEXT_LESSON_ACTIVITY)
   select_cards = []
   lesson = sample_lessons.lesson_id_dict.get(lessonId.strip())
   if lesson is not None:
@@ -91,8 +91,8 @@ def lesson_id(session, lessonId):
 
 def homework_id(session, homeworkId):
   assignment = sample_homeworks.homework_id_dict.get(homeworkId.strip())
-  return do_homework(session, assignment)
+  return do_homework(session, assignment).build()
 
 
 def activity_id(session, activityId):
-  return do_activity(session, sample_lessons.activity_id_dict.get(activityId.strip()))
+  return do_activity(session, sample_lessons.activity_id_dict.get(activityId.strip())).build()
