@@ -153,4 +153,8 @@ for l in lessons:
   if courses_id_dict.get(l.courseId) is None:
     courses_id_dict[l.courseId]=[]
   courses_id_dict[l.courseId].append(l)
-  
+
+activity_id_dict=dict()
+for l in lessons:
+  for m in l.materials:
+      activity_id_dict[m.id]=m

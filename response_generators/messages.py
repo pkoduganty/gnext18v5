@@ -83,7 +83,11 @@ LESSON_SELECT=[
     u'Here are your lessons, select one'
 ]
 
-LESSON_MATERIAL_SELECT=[
+LESSON_ACTIVITY_SELECT=[
     u'Lesson has these study materials, choose one?',
     u'Here are your study materials, select one'
+]
+
+LESSON_ACTIVITY_DO=[
+    u'Do this activity now'
 ]

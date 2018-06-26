@@ -9,11 +9,13 @@ import random
 import logging
 
 from action_handlers.session import *
+from action_handlers.activity import do_activity
+
 from response_generators.response import *
 from response_generators.messages import *
 
 from models.common import *
-from models.mock import sample_lessons, sample_courses
+from models.mock import sample_announcements, sample_homeworks, sample_lessons, sample_courses
 
 def list_all(session, request):
   error_text = 'Error, course not found'
@@ -66,22 +68,24 @@ def select_id(session, request):
       return Response(error_text).text(error_text).build()
 
   ## duplicated in input.py
-  response_text = random.choice(LESSON_MATERIAL_SELECT)
-  context = OutputContext(session, OUT_CONTEXT_LESSON_MATERIAL, type=OUT_CONTEXT_LESSON_MATERIAL)
+  response_text = random.choice(LESSON_ACTIVITY_SELECT)
+  context = OutputContext(session, OUT_CONTEXT_LESSON_ACTIVITY, type=OUT_CONTEXT_LESSON_ACTIVITY)
   select_cards = []
   lesson = sample_lessons.lesson_id_dict.get(lessonId)
   if lesson is not None:
-    for m in lesson.materials:
-      logging.debug('activity type=%s, %s',type(m), m)
-      if isinstance(m, Video):
-        select_cards.append(Item(id='activity '+m.id, title=m.title, imageUri=m.imageUri))
-      elif isinstance(m, Text):
-        select_cards.append(Item(id='activity '+m.id, title=m.title))
-      elif isinstance(m, Link):
-        select_cards.append(Item(id='activity '+m.id, title=m.title))
-      elif isinstance(m, Audio):
-        select_cards.append(Item(id='activity '+m.id, title=m.title))
-      elif isinstance(m, Quiz):
-        select_cards.append(Item(id='activity '+m.id, title=m.title))
-    return Response(response_text).text(response_text).select(response_text, select_cards).outputContext(context).build()
-  return Response(error_text).text(error_text).build()
+    if len(lesson.materials)==1:
+      do_activity(session, lesson.materials[0])
+    else:
+      for m in lesson.materials:
+        logging.debug('activity type=%s, %s',type(m), m)
+        if isinstance(m, Video):
+          select_cards.append(Item(id='activity '+m.id, title=m.title, imageUri=m.imageUri))
+        elif isinstance(m, Text):
+          select_cards.append(Item(id='activity '+m.id, title=m.title))
+        elif isinstance(m, Link):
+          select_cards.append(Item(id='activity '+m.id, title=m.title))
+        elif isinstance(m, Audio):
+          select_cards.append(Item(id='activity '+m.id, title=m.title))
+        elif isinstance(m, Quiz):
+          select_cards.append(Item(id='activity '+m.id, title=m.title))
+      return Response(response_text).text(response_text).select(response_text, select_cards).outputContext(context).build()

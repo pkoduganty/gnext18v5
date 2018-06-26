@@ -9,11 +9,14 @@ import random
 import logging
 
 from action_handlers.session import *
+from action_handlers.activity import do_homework
+
 from models.common import *
+from models.mock import sample_announcements, sample_homeworks, sample_lessons, sample_courses
+
 from response_generators.response import *
 from response_generators.messages import *
 
-from models.mock import sample_announcements, sample_homeworks, sample_lessons, sample_courses
 
 def list_all(session, request):
   grade=8 #get user grade
@@ -27,7 +30,7 @@ def list_all(session, request):
     response_text = random.choice(NO_HOMEWORK)
     return Response(response_text).text(response_text).build()
   elif len(assignments)==1:
-    return do_homework(session, request, assignments[0])
+    return do_homework(session, assignments[0])
   else:
     response_text = random.choice(PENDING_HOMEWORKS).format('Susan', len(assignments))
     items = []
@@ -37,33 +40,7 @@ def list_all(session, request):
                       description=a.description))
     context = OutputContext(session, OUT_CONTEXT_HOMEWORK, type=OUT_CONTEXT_HOMEWORK)
     return Response(response_text).text(response_text).outputContext(context).select(response_text, items).build()
-
-def do_homework(session, request, assignment):
-  #response_text = random.choice(PENDING_HOMEWORK).format('Susan')
-  activity=assignment.activity
-  logging.debug('activity type=%s, %s',type(activity), activity)
-  if isinstance(activity, Video):
-    button = Button('Open', activity.url)
-    card = Card(activity.title, description='', imageUri=activity.imageUri, buttons=[button])
-    response_text = 'Play this video, by clicking on the button'
-    context = OutputContext(session, OUT_CONTEXT_DO_HOMEWORK, type=OUT_CONTEXT_DO_HOMEWORK, lifespan=2, id=assignment.id, obj=assignment)
-    return Response(response_text).text(response_text).outputContext(context).card(card).build()
-  elif isinstance(activity, Text):
-    response_text="Not Implemented yet"
-    return Response(response_text).text(response_text).build()    
-  elif isinstance(activity, Link):
-    response_text = 'Click on link below'
-    context = OutputContext(session, OUT_CONTEXT_DO_HOMEWORK, type=OUT_CONTEXT_DO_HOMEWORK, lifespan=2, id=assignment.id, obj=assignment)
-    return Response(response_text).text(response_text).outputContext(context).link(activity.title, activity.url).build()
-  elif isinstance(activity, Audio):
-    response_text="Not Implemented yet"
-    return Response(response_text).text(response_text).build()
-  elif isinstance(activity, Quiz):
-    response_text="Not Implemented yet"
-    return Response(response_text).text(response_text).build()
   
-  response_text='Error, new homework activity type.'
-  return Response(response_text).text(response_text).build()
   
 def select_id(session, request):
   error_text = 'Error, homework not found'  
@@ -81,6 +58,7 @@ def select_id(session, request):
           
   return do_homework(session, request, sample_homeworks.homework_id_dict[homeworkId])
   
+
 def select_subject(session, request):
   error_text = 'Error, homework not found'
   subject = request.get('queryResult').get('parameters').get('subject')

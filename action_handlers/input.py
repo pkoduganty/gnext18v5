@@ -9,6 +9,7 @@ import random
 import logging
 
 from action_handlers.session import *
+from action_handlers.activity import do_homework, do_activity
 
 from response_generators.messages import *
 from response_generators.response import Response, OutputContext, Text, Item
@@ -45,6 +46,8 @@ def fallback(session, request):
     return lesson_id(session, option_value[option_value.startswith('lesson') and len('lesson')+1:])
   elif option_value.startswith('homework'):
     return homework_id(session, option_value[option_value.startswith('homework') and len('homework')+1:])
+  elif option_value.startswith('activity'):
+    return activity_id(session, option_value[option_value.startswith('activity') and len('activity')+1:])
   
   return Response(response_text).text(response_text).suggestions(WELCOME_SUGGESTIONS).build()
 
@@ -88,5 +91,8 @@ def lesson_id(session, lessonId):
 
 def homework_id(session, homeworkId):
   assignment = sample_homeworks.homework_id_dict.get(homeworkId.strip())
-  response_text = random.choice(PENDING_HOMEWORK).format('Susan', assignment.title)
-  return Response(response_text).text(response_text).build()
+  return do_homework(session, assignment)
+
+
+def activity_id(session, activityId):
+  return do_activity(session, sample_lessons.activity_id_dict.get(activityId.strip()))
