@@ -56,7 +56,7 @@ def select_id(session, request):
     else:
       return Response(error_text).text(error_text).build()
           
-  return do_homework(session, request, sample_homeworks.homework_id_dict[homeworkId]).build()
+  return do_homework(session, sample_homeworks.homework_id_dict[homeworkId]).build()
   
 
 def select_subject(session, request):

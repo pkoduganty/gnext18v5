@@ -14,6 +14,10 @@ WELCOME_SUGGESTIONS=[
     u"go to class"
 ]
 
+WELCOME_TEXT=[
+    u'You can go to a class, do your homework, list your classes, take a quiz or read latest school announcements'
+]
+
 GENERAL_FALLBACKS=[
     u"I didn't get that. Can you say it again?",
     u"I missed what you said. Say it again?",

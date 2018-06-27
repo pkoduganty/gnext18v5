@@ -86,10 +86,10 @@ class OutputContext(ResponseType):
     self.lifespanCount=lifespan
     self.parameters=kwargs
     
-class FollowupIntent(ResponseType):
-  def __init__(self, intent, parameterDict):
+class FollowupEvent(ResponseType):
+  def __init__(self, event, parameterDict):
     self.languageCode = 'en'
-    self.name = intent
+    self.name = event
     self.parameters = parameterDict
     
 class Response(ResponseType):
@@ -185,8 +185,8 @@ class Response(ResponseType):
     self.outputContexts=contextsList
     return self
   
-  def followupIntent(self, intent, **kwargs):
-    self.__dict__["followupEventInput"]=FollowupIntent(intent, kwargs)
+  def followupEvent(self, event, **kwargs):
+    self.__dict__["followupEventInput"]=FollowupEvent(event, kwargs)
     return self
   
   def userStorage(self, obj):

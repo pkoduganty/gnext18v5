@@ -22,7 +22,7 @@ from models.mock import sample_announcements, sample_courses, sample_lessons, sa
 # start from where left off since last login if any
 def welcome(session, request):
   response_text = random.choice(WELCOME_BASIC).format('Susan')
-  return Response(response_text).text(response_text).suggestions(WELCOME_SUGGESTIONS).build()
+  return Response(response_text).text(response_text).text(WELCOME_TEXT).suggestions(WELCOME_SUGGESTIONS).build()
 
 
 def fallback(session, request):

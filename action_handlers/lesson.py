@@ -23,14 +23,17 @@ def list_all(session, request):
   grade = request.get('queryResult').get('parameters').get('grade') #TODO use students current grade
   grade = grade if grade is not None else 8
   
+  logging.info('subject=%s, grade=%d', subject, grade)
   if subject is None:
     return Response(error_text).text(error_text).build()
   else:
     courses_by_subject=sample_courses.courses_subject_dict.get(subject)
+    logging.debug('Courses with subject - '+courses_by_subject)
     if len(courses_by_subject)==0:
       return Response(error_text).text(error_text).build()
     else:
       courseIds=[c for c in courses_by_subject if c.grade==grade]
+      logging.debug('Courses with subject and grade - '+courseIds)
       if len(courseIds)==0:
         return Response(error_text).text(error_text).build()
 

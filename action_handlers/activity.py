@@ -21,7 +21,7 @@ def do_homework(session, assignment):
 
   context = OutputContext(session, OUT_CONTEXT_DO_HOMEWORK, type=OUT_CONTEXT_DO_HOMEWORK, lifespan=2, id=assignment.id)
   response = do_activity(session, assignment.activity)
-  return response.outputContext(context).build()
+  return response.outputContext(context)
 
 
 def do_activity(session, activity):
@@ -48,8 +48,11 @@ def do_activity(session, activity):
     return Response(response_text).text(response_text)
   
   if isinstance(activity, Quiz):
-    response_text="Not Implemented yet"
-    return Response(response_text).text(response_text)
+    description='{0} Questions in this quiz with 10 points for each. Ready to begin?'.format(len(activity.questions))
+    card = Card(activity.title, description=description)
+    response_text = activity.title
+    context = OutputContext(session, OUT_CONTEXT_LESSON_ACTIVITY_DO, type=OUT_CONTEXT_LESSON_ACTIVITY_DO, lifespan=2, id=activity.id)
+    return Response(response_text).text(description).outputContext(context).followupEvent('quiz_start', id=activity.id)
   
   response_text='Error, unknown activity type.'
   return Response(response_text).text(response_text)
