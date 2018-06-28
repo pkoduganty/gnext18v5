@@ -1,0 +1,35 @@
+[
+    {
+      "googleId": "abababababababababa",
+      "firstName": "Susan",
+      "lastName": "Boyle",
+      "school": "Diffendoofer",
+      "grade": 8,
+      "section": "A",
+      "email": "susan.boyle@gmail.com",
+      "address": "Diffendoofer",
+      "createdDate": "2017-12-25T08:00:00.000Z"
+    },
+    {
+      "googleId": "bcbcbcbcbcbcbcbcbcbcbcb",
+      "firstName": "John",
+      "lastName": "Doe",
+      "school": "Diffendoofer",
+      "grade": 8,
+      "section": "A",
+      "email": "john.doe@gmail.com",
+      "address": "Diffendoofer",
+      "createdDate": "2017-12-25T08:00:00.000Z"
+    },
+    {
+      "googleId": "dedededededededed",
+      "firstName": "Jane",
+      "lastName": "Doe",
+      "school": "Diffendoofer",
+      "grade": 8,
+      "section": "A",
+      "email": "jane.doe@gmail.com",
+      "address": "Diffendoofer",
+      "createdDate": "2017-12-25T08:00:00.000Z"
+    }
+]
