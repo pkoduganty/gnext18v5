@@ -13,6 +13,7 @@ OUT_CONTEXT_DO_HOMEWORK='homework_do'
 OUT_CONTEXT_LESSON='lesson'
 OUT_CONTEXT_LESSON_ACTIVITY='lesson_activity'
 OUT_CONTEXT_LESSON_ACTIVITY_DO='lesson_activity_do'
+OUT_CONTEXT_QUIZ_DO='quiz_do'
 
 SESSION_READ_ANNOUNCEMENTS='announcements_read'
 SESSION_READ_ASSIGNMENT='assignment_read'

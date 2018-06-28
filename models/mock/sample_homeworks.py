@@ -140,6 +140,10 @@ activities = [
 homework_id_dict=dict()
 for h in activities:
   homework_id_dict[h.id]=h
+  
+activity_id_dict=dict()
+for h in activities:
+  activity_id_dict[h.activity.id]=h.activity
 
 if __name__ == '__main__':
   print('homeworks: '+len(activities))

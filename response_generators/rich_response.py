@@ -12,7 +12,7 @@ import logging
 class ResponseType(object):
   def toJson(self):
         return json.loads(json.dumps(self, default=lambda o: o.__dict__, 
-            sort_keys=True, indent=6))
+            sort_keys=True, indent=4))
   
 class Item(ResponseType):
   def __init__(self, id, title, description='', imageUri=None, imageText=None, synonyms=[]):
@@ -73,7 +73,7 @@ class Card(ResponseType):
           "imageUri": imageUri,
           "accessibilityText": imageText if imageText is not None else title
       }
-    self.buttons=buttons
+    self.buttons=buttons    
 
 class RichResponse(ResponseType):
   def __init__(self):
@@ -196,9 +196,6 @@ class Response(ResponseType):
   def resetUserStorage(self):
     self.__dict__["resetUserStorage"]=True
     return self
-  
-  def permissions(self, permits):
-    followupEvent('actions_intent_PERMISSION', PERMISSION=True, )
   
   def build(self):
     logging.info(self.toJson())
