@@ -19,15 +19,21 @@ from response_generators.messages import *
 
 
 def list_all(session, request):
-  grade=8 #get user grade
+  subject = request.get('queryResult').get('parameters').get('subject')
+  grade = request.get('queryResult').get('parameters').get('grade') #TODO use students current grade
+  grade = grade if grade is not None else 8
   
-  assignments=[]
+  assignments=[]  
   for homework in sample_homeworks.activities:
     if grade==sample_courses.courses_id_dict[homework.courseId].grade:
-      assignments.append(homework)
+      if subject is None or not subject.strip():
+        assignments.append(homework)
+      else: #subject is not none nor empty
+        if subject==sample_courses.courses_id_dict[homework.courseId].subject:
+          assignments.append(homework) # only if grade and subject match if subject is specified
 
   if len(assignments)==0:
-    response_text = random.choice(NO_HOMEWORK)
+    response_text = random.choice(NO_HOMEWORK).format('Susan')
     return Response(response_text).text(response_text).build()
   elif len(assignments)==1:
     return do_homework(session, assignments[0]).build()

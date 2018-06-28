@@ -28,12 +28,12 @@ def list_all(session, request):
     return Response(error_text).text(error_text).build()
   else:
     courses_by_subject=sample_courses.courses_subject_dict.get(subject)
-    logging.debug('Courses with subject - '+courses_by_subject)
+    logging.debug('Courses with subject - '+str(courses_by_subject))
     if len(courses_by_subject)==0:
       return Response(error_text).text(error_text).build()
     else:
       courseIds=[c for c in courses_by_subject if c.grade==grade]
-      logging.debug('Courses with subject and grade - '+courseIds)
+      logging.debug('Courses with subject and grade - '+str(courseIds))
       if len(courseIds)==0:
         return Response(error_text).text(error_text).build()
 
@@ -64,11 +64,14 @@ def select_id(session, request):
       option_value=context.get('parameters').get('OPTION')
       lessonId=option_value[option_value.startswith('lesson') and len('lesson')+1:]
           
+  logging.info('lesson=%s',lessonId)
   if lessonId is None:
     if request.get('queryResult').get('parameters').get('id') is not None:
       lessonId=request.get('queryResult').get('parameters').get('id')
     else:
       return Response(error_text).text(error_text).build()
+
+  logging.info('lesson=%s',lessonId)
 
   ## duplicated in input.py
   response_text = random.choice(LESSON_ACTIVITY_SELECT)

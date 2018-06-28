@@ -198,7 +198,7 @@ class Response(ResponseType):
     return self
   
   def permissions(self, permits):
-    followupEvent('actions_intent_PERMISSION', PERMISSION=True, )
+    self.followupEvent('actions_intent_PERMISSION', PERMISSION=permits)
   
   def build(self):
     logging.info(self.toJson())
