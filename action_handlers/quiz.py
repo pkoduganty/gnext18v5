@@ -18,7 +18,9 @@ from models.common import *
 from models.mock import sample_announcements, sample_homeworks, sample_lessons, sample_courses
 
 def getQuestionById(questions, id):
-  return filter(lambda q: q.id == id, questions)  
+  filtered = filter(lambda q: q.id == id, questions)  
+  if filtered is not None or len(filtered)>0:
+    return filtered[0]
 
 def getContexts(session, request):
   contexts=[]
@@ -39,6 +41,7 @@ def getContexts(session, request):
       questionId=context.get('parameters').get('id')
       shuffled_question_ids=context.get('parameters').get('shuffled')
       question_index=context.get('parameters').get('question_index')
+      question_index=int(question_index) if question_index is not None else 0
 
   if quizId is None or not quizId.strip():
     return (contexts, None, None, None, 0)
@@ -78,8 +81,10 @@ def start_yes(session, request):
     
   random.shuffle(quiz.questions)
   shuffled_question_ids = [q.id for q in quiz.questions]
+  logging.info('shuffled questions - %s', str(shuffled_question_ids)) 
   question_index = 0
 
+  question = quiz.questions[question_index]
   title = 'Question {0} of {1}'.format(question_index+1, len(shuffled_question_ids))
   
   card = Card(title, question.question)
@@ -95,7 +100,7 @@ def answer(session, request):
     return Response(error_text).text(error_text).build()
 
   query = request.get('queryResult').get('queryText')
-  response_text = 'Your response {0}, should be {1}'.format(query, str(question.answer))
+  response_text = 'Your response {0}, should be {1}'.format(query, str(question.answers))
   context = OutputContext(session, OUT_CONTEXT_QUIZ_QUESTION, lifespan=1, shuffled=shuffled_question_ids, question_index=question_index, id=question.id)
   return Response(response_text).text(response_text).followupEvent('action_next_question').setOutputContexts(contexts).outputContext(context).build()
   
