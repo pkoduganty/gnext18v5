@@ -16,4 +16,4 @@ def get_client():
 
 if __name__ == '__main__':
   client = get_client()
-  print('homeworks: '+len(client.collections('top')))
+  print('homeworks: '+len(client.collection('top')))
