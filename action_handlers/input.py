@@ -93,6 +93,12 @@ def homework_id(session, homeworkId):
   assignment = sample_homeworks.homework_id_dict.get(homeworkId.strip())
   return do_homework(session, assignment).build()
 
-
 def activity_id(session, activityId):
-  return do_activity(session, sample_lessons.activity_id_dict.get(activityId.strip())).build()
+  activity=sample_lessons.activity_id_dict.get(activityId.strip())
+  if activity is None: #homework activity
+    activity=sample_homeworks.activity_id_dict.get(activityId.strip())
+    logging.debug('found activity %s', activity.title)
+  else:
+    logging.debug('found activity %s', activity.title)
+  
+  return do_activity(session, activity).build()

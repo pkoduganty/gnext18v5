@@ -9,6 +9,12 @@ from google.appengine.ext import vendor
 vendor.add('lib')
 # [END vendor]
 
+import logging
+
+FORMAT = "[%(filename)s:%(lineno)s - %(funcName)20s() ] %(message)s"
+logging.getLogger().handlers[0].setFormatter(logging.Formatter(FORMAT))
+
+
 def gae_mini_profiler_should_profile_production():
     """Uncomment the first two lines to enable GAE Mini Profiler on production for admin accounts"""
     # from google.appengine.api import users

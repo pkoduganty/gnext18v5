@@ -7,12 +7,15 @@ Created on Mon May 28 09:23:19 2018
 """
 import json
 import logging
-
+logger = logging.getLogger('root')
+FORMAT = "[%(filename)s:%(lineno)s - %(funcName)20s() ] %(message)s"
+logging.basicConfig(format=FORMAT)
+logger.setLevel(logging.DEBUG)
 
 class ResponseType(object):
   def toJson(self):
-        return json.loads(json.dumps(self, default=lambda o: o.__dict__, 
-            sort_keys=True, indent=6))
+    return json.loads(json.dumps(self, default=lambda o: o.__dict__, 
+        sort_keys=True, indent=6))
   
 class Item(ResponseType):
   def __init__(self, id, title, description='', imageUri=None, imageText=None, synonyms=[]):
@@ -26,11 +29,13 @@ class Item(ResponseType):
           "imageUri": imageUri,
           "accessibilityText": imageText if imageText is not None else title
       }
+    logging.debug('Created Item %s', str(self.__dict__))
       
 class SelectItemInfo(ResponseType):
   def __init__(self, key, synonyms=[]):
     self.key=key
     self.synonyms=synonyms
+    logging.debug('Created SelectItemInfo %s', str(self.__dict__))
 
 class Speech(ResponseType):
   def __init__(self, ssml, displayText):
@@ -43,6 +48,7 @@ class Speech(ResponseType):
               }
           ]
     }
+    logging.debug('Created SelectItemInfo %s', str(self.__dict__))
     
 class Text(ResponseType):
   def __init__(self, text):
@@ -54,6 +60,7 @@ class Text(ResponseType):
               }
           ]
     }
+    logging.debug('Created Text %s', str(self.__dict__))
 
 class Button(ResponseType):
   def __init__(self, title, uri):  
@@ -61,6 +68,7 @@ class Button(ResponseType):
     self.openUriAction={
         "uri": uri
     }
+    logging.debug('Created Button %s', str(self.__dict__))
   
 class Card(ResponseType):
   def __init__(self, title, description, subtitle=None, imageUri=None, imageText=None, buttons=[]):
@@ -74,23 +82,27 @@ class Card(ResponseType):
           "accessibilityText": imageText if imageText is not None else title
       }
     self.buttons=buttons
+    logging.debug('Created Card %s', str(self.__dict__))
 
 class RichResponse(ResponseType):
   def __init__(self):
     self.items=[]
     self.suggestions=[]
+    logging.debug('Created RichResponse %s', str(self.__dict__))
     
 class OutputContext(ResponseType):
   def __init__(self, session, name, lifespan="5", **kwargs):
     self.name="{0}/contexts/{1}".format(session, name)
     self.lifespanCount=lifespan
     self.parameters=kwargs
+    logging.debug('Created OutputContext %s', str(self.__dict__))
     
 class FollowupEvent(ResponseType):
   def __init__(self, event, parameterDict):
     self.languageCode = 'en'
     self.name = event
     self.parameters = parameterDict
+    logging.debug('Created FollowupEvent %s', str(self.__dict__))
     
 class Response(ResponseType):
   def __init__(self, text):
@@ -104,7 +116,6 @@ class Response(ResponseType):
   
   def text(self, text):
     self.fulfillmentMessages.append(Text(text))
-    #self.fulfillmentMessages.append({"text":{"text"}})
     return self
   
   def link(self, title, url):

@@ -15,7 +15,7 @@ WELCOME_SUGGESTIONS=[
 ]
 
 WELCOME_TEXT=[
-    u'You can go to a class, do your homework, list your classes, take a quiz or read latest school announcements'
+    u'You can go do your homework, list your classes, take a quiz or read latest school announcements'
 ]
 
 GENERAL_FALLBACKS=[
@@ -85,6 +85,11 @@ COURSE_SELECT=[
 LESSON_SELECT=[
     u'which lesson do you want to study?',
     u'Here are your lessons, select one'
+]
+
+QUIZ_SELECT=[
+    u'which quiz do you want to take?',
+    u'Here are your quizzes, select one'
 ]
 
 LESSON_ACTIVITY_SELECT=[

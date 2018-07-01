@@ -11,6 +11,8 @@ libraries:
 
 skip_files:
 - firebase/
+- ^(.*/)?.*\.py[co]
+- ^(.*/)?.*\.zip
 
 handlers:
 - url: /favicon.ico

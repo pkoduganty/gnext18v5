@@ -23,7 +23,7 @@ def list_all(session, request):
   grade = request.get('queryResult').get('parameters').get('grade') #TODO use students current grade
   grade = grade if grade is not None else 8
   
-  assignments=[]  
+  assignments=[]
   for homework in sample_homeworks.activities:
     if grade==sample_courses.courses_id_dict[homework.courseId].grade:
       if subject is None or not subject.strip():
