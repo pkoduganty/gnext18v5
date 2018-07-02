@@ -128,12 +128,27 @@ def next_question(session, request):
     logging.debug('skipped question {0} - {1}', question.id, question.question)
   
   question_index += 1 #next question
-  if question_index > len(quiz.questions):
+  if question_index >= len(quiz.questions):
     logging.debug('quiz end, printing report')
-    return Response('Quiz Completed - congratulations').text('Quiz Completed - congratulations').build()
+    total_points=0
+    response=Response('Quiz Completed')
+    for context in contexts:
+      if str(context.name).endswith(OUT_CONTEXT_QUIZ_QUESTION):
+        questionId=context.parameters.get('id')
+        question=getQuestionById(quiz.questions, questionId)
+        student_answer=context.parameters.get('answer')
+        point=context.parameters.get('points')
+        logging.debug('Question: {0}, response: {1}, answer:{2}, point={3}'.format(question.question, student_answer, str(question.answers), point))
+        if int(point)==0:
+          response=response.text(random.choice(INCORRECT_ANSWER).format(question.question, question.answers[0]))
+        else:
+          response=response.text(random.choice(CORRECT_ANSWER).format(question.question, question.answers[0]))
+          total_points += 1 #TODO have question specific points
+          
+    return response.text(random.choice(QUIZ_REPORT).format(total_points, len(quiz.questions))).suggestions(WELCOME_SUGGESTIONS).build()
   else: 
     question = quiz.questions[question_index]
-    logging.debug('display new question {0} - {1}', question.id, question.title)
+    logging.debug('display new question {0} - {1}', question.id, question.question)
     title = 'Question {0} of {1}'.format(question_index+1, len(shuffled_question_ids))
   
     card = Card(title, question.question)
@@ -160,6 +175,7 @@ def getContexts(session, request):
   for context in request.get('queryResult').get('outputContexts'):
     logging.debug('context: {0}, parameters: {1}', context.get('name'), str(context.get('parameters')))
     if context.get('name').endswith(OUT_CONTEXT_DO_HOMEWORK):
+      homeworkId=context.get('parameters').get('id')
       contexts.append(OutputContext(session,OUT_CONTEXT_DO_HOMEWORK, lifespan=2, type=OUT_CONTEXT_DO_HOMEWORK, id=homeworkId))
     elif context.get('name').endswith(OUT_CONTEXT_LESSON_ACTIVITY_DO):
       quizId=context.get('parameters').get('id')

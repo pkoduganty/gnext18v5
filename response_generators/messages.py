@@ -100,3 +100,16 @@ LESSON_ACTIVITY_SELECT=[
 LESSON_ACTIVITY_DO=[
     u'Do this activity now'
 ]
+
+INCORRECT_ANSWER=[
+    u'INCORRECT\nCorrect answer for question - {0} is {1}'
+]
+
+CORRECT_ANSWER=[
+    u'CORRECT\nCorrect answer for - {0} is indeed {1}',
+    u'RIGHT\nanswer for - {0} is {1}'
+]
+
+QUIZ_REPORT=[
+    u'You got {0} out of {1} right'
+]
