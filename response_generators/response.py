@@ -204,6 +204,10 @@ class Response(ResponseType):
     self.__dict__["userStorage"]=json.dumps(obj)
     return self
   
+  def resetContexts(self):
+    self.__dict__['resetContexts']=True
+    return self
+  
   def resetUserStorage(self):
     self.__dict__["resetUserStorage"]=True
     return self

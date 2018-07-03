@@ -101,16 +101,15 @@ def answer(session, request):
   score_cutoff = 95
   result = process.extractOne(query, question.answers, score_cutoff=score_cutoff, scorer=fuzz.token_set_ratio)
   
+  
   if result is not None:
-    point=1
     response_text = 'Right answer {0}'.format(query)
   else:
-    point=0
     response_text = 'Your response {0}, should be {1}'.format(query, str(question.answers))
   
   context = OutputContext(session, OUT_CONTEXT_QUIZ_QUESTION, lifespan=1, 
                           shuffled=shuffled_question_ids, question_index=int(question_index), 
-                          id=question.id, answer=query, points=point)
+                          id=question.id, answer=query, isCorrect=(result is not None))
   return Response(response_text).text(response_text).followupEvent(EVENT_NEXT_QUESTION).setOutputContexts(contexts).outputContext(context).build()
   
 
@@ -126,38 +125,49 @@ def next_question(session, request):
     logging.debug('answered question {0} - {1}', question.id, question.question)
   else:
     logging.debug('skipped question {0} - {1}', question.id, question.question)
+
+  result = getPrevQuestionResult(contexts, quiz)
+  if result is None:
+    error='Error, developer error - previous question context not found'
+    return Response(error).text(error).build()
+  
+  questionId, question, student_answer, isCorrect, totalCorrect = result 
+  prev_question_result=''
+  if bool(isCorrect):
+    prev_question_result=random.choice(CORRECT_ANSWER).format(question.question, question.answers[0])
+    totalCorrect += 1 #TODO have question specific points
+  else:
+    prev_question_result=random.choice(INCORRECT_ANSWER).format(question.question, question.answers[0])
   
   question_index += 1 #next question
   if question_index >= len(quiz.questions):
-    logging.debug('quiz end, printing report')
-    total_points=0
-    response=Response('Quiz Completed')
-    for context in contexts:
-      if str(context.name).endswith(OUT_CONTEXT_QUIZ_QUESTION):
-        questionId=context.parameters.get('id')
-        question=getQuestionById(quiz.questions, questionId)
-        student_answer=context.parameters.get('answer')
-        point=context.parameters.get('points')
-        logging.debug('Question: {0}, response: {1}, answer:{2}, point={3}'.format(question.question, student_answer, str(question.answers), point))
-        if int(point)==0:
-          response=response.text(random.choice(INCORRECT_ANSWER).format(question.question, question.answers[0]))
-        else:
-          response=response.text(random.choice(CORRECT_ANSWER).format(question.question, question.answers[0]))
-          total_points += 1 #TODO have question specific points
-          
-    return response.text(random.choice(QUIZ_REPORT).format(total_points, len(quiz.questions))).suggestions(WELCOME_SUGGESTIONS).build()
+    logging.debug('quiz end, printing report')          
+    return Response('Quiz Completed').resetContexts().text(prev_question_result).text(random.choice(QUIZ_REPORT).format(totalCorrect, len(quiz.questions))).suggestions(WELCOME_SUGGESTIONS).build()
   else: 
     question = quiz.questions[question_index]
     logging.debug('display new question {0} - {1}', question.id, question.question)
     title = 'Question {0} of {1}'.format(question_index+1, len(shuffled_question_ids))
   
     card = Card(title, question.question)
-    response_text = title +' :' + question.question
+    response_text = title +' : \n' + question.question
     context = OutputContext(session, OUT_CONTEXT_QUIZ_QUESTION, lifespan=1, 
                           shuffled=shuffled_question_ids, question_index=question_index, 
                           id=question.id)
-    return Response(response_text).text(response_text).card(card).suggestions(question.choices).setOutputContexts(contexts).outputContext(context).build()
-  
+    return Response(response_text).text(prev_question_result).card(card).suggestions(question.choices).setOutputContexts(contexts).outputContext(context).build()
+
+def getPrevQuestionResult(contexts, quiz):
+  for context in contexts:
+    if str(context.name).endswith(OUT_CONTEXT_QUIZ_QUESTION):
+      questionId=context.parameters.get('id')
+      question=getQuestionById(quiz.questions, questionId)
+      student_answer=context.parameters.get('answer')
+      isCorrect=context.parameters.get('isCorrect')
+      totalCorrect=context.parameters.get('totalCorrect')
+      
+      logging.debug('Question: {0}, response: {1}, answer:{2}, isCorrect={3}, totalCorrect={4}'.format(question.question, student_answer, str(question.answers), isCorrect, totalCorrect))      
+      return (questionId, question, student_answer, isCorrect, totalCorrect)
+  return None
+
 
 def getQuestionById(questions, id):
   filtered = filter(lambda q: q.id == id, questions)  
