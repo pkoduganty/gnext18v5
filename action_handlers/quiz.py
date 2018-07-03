@@ -53,7 +53,7 @@ def list_all(session, request):
 
 
 def start(session, request):
-  contexts, quiz, question, shuffled_question_ids, question_index = getContexts(session, request)        
+  contexts, quiz, question, shuffled_question_ids, question_index, current_answer_correct, total_correct = getContexts(session, request)        
   
   if quiz is None:
     error_text = 'Error, quiz not found'  
@@ -67,7 +67,7 @@ def start(session, request):
 
 
 def start_yes(session, request):
-  contexts, quiz, question, shuffled_question_ids, question_index = getContexts(session, request)
+  contexts, quiz, question, shuffled_question_ids, question_index, current_answer_correct, total_correct = getContexts(session, request)
   
   if quiz is None:
     error_text = 'Error, developer error - quiz not found'  
@@ -85,12 +85,12 @@ def start_yes(session, request):
   response_text = title +' :' + question.question
   context = OutputContext(session, OUT_CONTEXT_QUIZ_QUESTION, lifespan=1, 
                           shuffled=shuffled_question_ids, question_index=question_index, 
-                          id=question.id)
+                          id=question.id, total_correct=0)
   return Response(response_text).text(response_text).card(card).suggestions(question.choices).setOutputContexts(contexts).outputContext(context).build()
   
 
 def answer(session, request):
-  contexts, quiz, question, shuffled_question_ids, question_index = getContexts(session, request)
+  contexts, quiz, question, shuffled_question_ids, question_index, current_answer_correct, total_correct = getContexts(session, request)
   
   if quiz is None:
     error_text = 'Error, developer error - quiz not found'  
@@ -100,17 +100,18 @@ def answer(session, request):
   
   score_cutoff = 95
   result = process.extractOne(query, question.answers, score_cutoff=score_cutoff, scorer=fuzz.token_set_ratio)
-  
-  
+    
   if result is not None:
-    response_text = 'Right answer {0}'.format(query)
+    logging.debug('Right answer {0}'.format(query))
+    current_answer_correct=True
+    total_correct += 1
   else:
-    response_text = 'Your response {0}, should be {1}'.format(query, str(question.answers))
+    logging.debug('Incorrect answer {0}, should be {1}'.format(query, str(question.answers)))
   
   context = OutputContext(session, OUT_CONTEXT_QUIZ_QUESTION, lifespan=1, 
                           shuffled=shuffled_question_ids, question_index=int(question_index), 
-                          id=question.id, answer=query, isCorrect=(result is not None))
-  return Response(response_text).text(response_text).followupEvent(EVENT_NEXT_QUESTION).setOutputContexts(contexts).outputContext(context).build()
+                          id=question.id, answer=query, is_correct=current_answer_correct, total_correct=total_correct)
+  return Response('Followup to next question').followupEvent(EVENT_NEXT_QUESTION).setOutputContexts(contexts).outputContext(context).build()
   
 
 def next_question(session, request):
@@ -152,7 +153,7 @@ def next_question(session, request):
     response_text = title +' : \n' + question.question
     context = OutputContext(session, OUT_CONTEXT_QUIZ_QUESTION, lifespan=1, 
                           shuffled=shuffled_question_ids, question_index=question_index, 
-                          id=question.id)
+                          id=question.id,)
     return Response(response_text).text(prev_question_result).card(card).suggestions(question.choices).setOutputContexts(contexts).outputContext(context).build()
 
 def getPrevQuestionResult(contexts, quiz):
