@@ -18,3 +18,4 @@ argparse
 firebase-admin
 fuzzywuzzy
 python-levenshtein
+google-cloud-firestore

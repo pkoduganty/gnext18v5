@@ -35,8 +35,8 @@ def do_activity(session, activity):
     return Response(response_text).text(response_text).outputContext(context).card(card)
   
   if isinstance(activity, Text):
-    response_text="Not Implemented yet"
-    return Response(response_text).text(response_text)
+    context = OutputContext(session, OUT_CONTEXT_LESSON_ACTIVITY_DO, type=OUT_CONTEXT_LESSON_ACTIVITY_DO, lifespan=2, id=activity.id)
+    return Response(activity.title).speech(activity.ssml, activity.text).outputContext(context)
   
   if isinstance(activity, Link):
     response_text = 'Click on link below'
@@ -44,8 +44,8 @@ def do_activity(session, activity):
     return Response(response_text).text(response_text).outputContext(context).link(activity.title, activity.url)
   
   if isinstance(activity, Audio):
-    response_text="Not Implemented yet"
-    return Response(response_text).text(response_text)
+    context = OutputContext(session, OUT_CONTEXT_LESSON_ACTIVITY_DO, type=OUT_CONTEXT_LESSON_ACTIVITY_DO, lifespan=2, id=activity.id)
+    return Response(activity.title).text(activity.title).audio(activity.title, activity.url).outputContext(context)
   
   if isinstance(activity, Quiz):
     description='{0} Questions in this quiz with 10 points for each. Ready to begin?'.format(len(activity.questions))

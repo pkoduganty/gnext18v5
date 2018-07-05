@@ -75,15 +75,13 @@ class Button(ResponseType):
 class Card(ResponseType):
   def __init__(self, title, description, subtitle=None, imageUri=None, imageText=None, buttons=[]):
     
-    import pdb
-    pdb.set_trace()
     self.title=title
     self.formattedText=description
     if subtitle is not None:
-      self.__dict_['subtitle']=subtitle
+      self.__dict__['subtitle']=subtitle
     if imageUri is not None and imageUri.startswith('http'):
       logging.debug('card.image=%s', imageUri)
-      self.__dict_['image']={
+      self.__dict__['image']={
           "imageUri": imageUri,
           "accessibilityText": imageText if imageText is not None else title
       }
@@ -116,6 +114,11 @@ class Response(ResponseType):
     self.fulfillmentText=text
     self.fulfillmentMessages=[]
 
+  def audio(self, title, url):
+    ssml='<speak>{0} <audio src="{1}"></audio></speak>'.format(title, url)
+    self.fulfillmentMessages.append(Speech(ssml, title))
+    return self
+  
   def speech(self, ssml, text):
     self.fulfillmentMessages.append(Speech(ssml, text))
     return self

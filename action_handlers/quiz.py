@@ -8,6 +8,8 @@ Created on Sun May 27 23:56:03 2018
 import random
 import logging
 
+import json
+
 from fuzzywuzzy import fuzz
 from fuzzywuzzy import process
 
@@ -20,6 +22,23 @@ from response_generators.messages import *
 from models.common import *
 from models.mock import sample_announcements, sample_homeworks, sample_lessons, sample_courses
 
+def as_quiz_context(dct):
+  return QuizContext(dct['id'],dct['questions'], dct['state'])
+
+def as_question_context(dct):
+  return QuestionContext(dct['id'],dct['answer'],dct['correct'])
+
+class QuizContext(object):
+  def __init__(self, id, questions, state):
+    self.id=id
+    self.questions=json.loads(questions, object_hook=as_question_context)
+    self.state=state
+    
+class QuestionContext(object):
+  def __init__(self, id, answer, correct):
+    self.id=id
+    self.answer=answer
+    self.correct=correct
 
 def list_all(session, request):
   subject = request.get('queryResult').get('parameters').get('subject')
@@ -166,8 +185,11 @@ def next_question(session, request):
   if question_index >= len(quiz.questions):
     logging.debug('quiz end, printing report')
     #reset output contexts
+    for context in contexts:
+      context.lifespanCount=0
+      
     #return Response('Quiz Completed').text(prev_question_result).setOutputContexts([]) \
-    return Response('Quiz Completed').setOutputContexts([]) \
+    return Response('Quiz Completed').setOutputContexts(contexts) \
             .text(random.choice(QUIZ_REPORT).format(total_correct, len(quiz.questions))) \
             .suggestions(WELCOME_SUGGESTIONS).build()
   else: 

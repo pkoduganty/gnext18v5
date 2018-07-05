@@ -18,6 +18,7 @@ from models.mock import sample_announcements, sample_courses
 def select(session, request):
   announcements = random.sample(sample_announcements.announcements, 
                                 random.randint(0, len(sample_announcements.announcements)-1))
+  
   if len(announcements)==0:
     response_text = random.choice(NO_UNREAD_ANNOUNCEMENTS)
   elif len(announcements)==1:

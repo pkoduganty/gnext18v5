@@ -9,6 +9,13 @@ Created on Wed Jun  6 01:54:16 2018
 from models.common import *
 from models.courses import Lesson
 
+# glossary, answer definitional questions
+# review messages and add ssml for naturalized tts
+# implement basic search by title, should be invoked from fallback
+# deep linking intents and fallback handling, talk to miss fiona about weather
+# intelligent fallbacks
+# system events - actions_PLAY_GAME - snake words
+# 
 lessons = [
   Lesson(**{
     "id": "8SoStdsL1",
@@ -74,6 +81,11 @@ lessons = [
             The mantle is the layer of the Earth right below the crust. 
             The Earth's core is made of solid iron and nickel, and is about 5000–6000 centigrade.''',
           "imageUri":"https://upload.wikimedia.org/wikipedia/commons/thumb/e/ee/Earth-crust-cutaway-english.svg/995px-Earth-crust-cutaway-english.svg.png"
+        }),
+        Audio(**{
+          "id":"a011",
+          "title":'Audio',
+          "url":'https://drive.google.com/open?id=1HLyiaHeYCFLpihfKt5q7vHvsRmq6cScD'
         })
     ],
     "imageUri":'https://3.bp.blogspot.com/-MCsbIihWzMI/V8zLCDW1VAI/AAAAAAAAGyQ/iCEhWGNn5cQx7Q6zz2CsEn0oHxs80NiMwCLcB/s1600/layers-of-earth.gif',
