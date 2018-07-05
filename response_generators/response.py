@@ -14,8 +14,9 @@ logger.setLevel(logging.DEBUG)
 
 class ResponseType(object):
   def toJson(self):
-    return json.loads(json.dumps(self, default=lambda o: o.__dict__, 
-        sort_keys=True, indent=6))
+    return json.loads(json.dumps(self, default=lambda o: 
+            dict((key,value) for key, value in o.__dict__.iteritems() if value is not None and len(str(value).strip())>0), 
+        sort_keys=True, indent=4))
   
 class Item(ResponseType):
   def __init__(self, id, title, description='', imageUri=None, imageText=None, synonyms=[]):
@@ -24,7 +25,8 @@ class Item(ResponseType):
     if id is not None:
       self.info=SelectItemInfo(id)
       self.info.synonyms=synonyms
-    if imageUri is not None:
+    if imageUri is not None and imageUri.startswith('http'):
+      logging.debug('item.image=%s', imageUri)
       self.image={
           "imageUri": imageUri,
           "accessibilityText": imageText if imageText is not None else title
@@ -72,12 +74,16 @@ class Button(ResponseType):
   
 class Card(ResponseType):
   def __init__(self, title, description, subtitle=None, imageUri=None, imageText=None, buttons=[]):
+    
+    import pdb
+    pdb.set_trace()
     self.title=title
-    if subtitle is not None:
-      self.subtitle=subtitle
     self.formattedText=description
-    if imageUri is not None:
-      self.image={
+    if subtitle is not None:
+      self.__dict_['subtitle']=subtitle
+    if imageUri is not None and imageUri.startswith('http'):
+      logging.debug('card.image=%s', imageUri)
+      self.__dict_['image']={
           "imageUri": imageUri,
           "accessibilityText": imageText if imageText is not None else title
       }
@@ -202,10 +208,6 @@ class Response(ResponseType):
   
   def userStorage(self, obj):
     self.__dict__["userStorage"]=json.dumps(obj)
-    return self
-  
-  def resetContexts(self):
-    self.__dict__['resetContexts']=True
     return self
   
   def resetUserStorage(self):

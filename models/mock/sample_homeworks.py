@@ -33,7 +33,7 @@ activities = [
       "title":"course 1 - multiple choice 1",
       "description":"course 1 - multiple choice 1 - ",
       "activity": Quiz(**{
-        "id":"q001",
+        "id":"qz001",
         "title":'Quiz on our planets',
         "questions":[
             Question(**{
@@ -44,7 +44,7 @@ activities = [
                 }),
             Question(**{
                 "id":"qt002",
-                "question":'which planet is the largest number of natural satellites?',
+                "question":'which planet has the largest number of natural satellites?',
                 "answers":["jupiter"],
                 "choices":["jupiter","uranus","neptune","saturn"]
                 }),
@@ -93,7 +93,7 @@ activities = [
       "title":"course 3 - multiple choice 1",
       "description":"course 3 - multiple choice 1 - ",
       "activity": Quiz(**{
-        "id":"q002",
+        "id":"qz002",
         "title":'Quiz on cells',
         "questions":[
             Question(**{

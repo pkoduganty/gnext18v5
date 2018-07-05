@@ -70,7 +70,7 @@ def start(session, request):
   card = Card(quiz.title, description=description)
   response_text = quiz.title
   context = OutputContext(session, OUT_CONTEXT_QUIZ_DO, type=OUT_CONTEXT_QUIZ_DO, lifespan=2, id=quiz.id)
-  return Response(response_text).text(description).card(card).suggestions(['Yes','No']) \
+  return Response(description).text(response_text).card(card).suggestions(['Yes','No']) \
           .setOutputContexts(contexts).outputContext(context).build()
 
 
@@ -96,11 +96,11 @@ def start_yes(session, request):
   title = 'Question {0} of {1}'.format(question_index+1, len(shuffled_question_ids))
   
   card = Card(title, question.question)
-  response_text = title +' :' + question.question
+  response_text = title +' : \n' + question.question
   context = OutputContext(session, OUT_CONTEXT_QUIZ_QUESTION, lifespan=1, 
                           shuffled=shuffled_question_ids, question_index=question_index, 
                           id=question.id, total_correct=0)
-  return Response(response_text).text(response_text).card(card).suggestions(question.choices) \
+  return Response('Question').text(response_text).card(card).suggestions(question.choices) \
           .setOutputContexts(contexts).outputContext(context).build()
   
 
@@ -166,7 +166,8 @@ def next_question(session, request):
   if question_index >= len(quiz.questions):
     logging.debug('quiz end, printing report')
     #reset output contexts
-    return Response('Quiz Completed').text(prev_question_result).setOutputContexts([]) \
+    #return Response('Quiz Completed').text(prev_question_result).setOutputContexts([]) \
+    return Response('Quiz Completed').setOutputContexts([]) \
             .text(random.choice(QUIZ_REPORT).format(total_correct, len(quiz.questions))) \
             .suggestions(WELCOME_SUGGESTIONS).build()
   else: 
@@ -179,22 +180,10 @@ def next_question(session, request):
     context = OutputContext(session, OUT_CONTEXT_QUIZ_QUESTION, lifespan=1, 
                           shuffled=shuffled_question_ids, question_index=question_index, 
                           id=question.id, total_correct=total_correct)
-    return Response(response_text).text(prev_question_result).card(card) \
+    #return Response(response_text).text(prev_question_result).card(card) \
+    return Response('Question').text(response_text).card(card) \
             .suggestions(question.choices).setOutputContexts(contexts) \
             .outputContext(context).build()
-
-def getPrevQuestionResult(contexts, quiz):
-  for context in contexts:
-    if str(context.name).endswith(OUT_CONTEXT_QUIZ_QUESTION):
-      questionId=context.parameters.get('id')
-      question=getQuestionById(quiz.questions, questionId)
-      student_answer=context.parameters.get('answer')
-      isCorrect=context.parameters.get('isCorrect')
-      totalCorrect=context.parameters.get('totalCorrect')
-      
-      logging.debug('Question: {0}, response: {1}, answer:{2}, isCorrect={3}, totalCorrect={4}'.format(question.question, student_answer, str(question.answers), isCorrect, totalCorrect))      
-      return (questionId, question, student_answer, isCorrect, totalCorrect)
-  return None
 
 
 def getQuestionById(questions, id):
