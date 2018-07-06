@@ -177,7 +177,6 @@ def next_question(session, request):
   prev_question_result=''
   if bool(is_correct):
     prev_question_result=random.choice(CORRECT_ANSWER).format(question.question, question.answers[0])
-    total_correct += 1 #TODO have question specific points
   else:
     prev_question_result=random.choice(INCORRECT_ANSWER).format(question.question, question.answers[0])
     

@@ -47,6 +47,7 @@ def webhook():
   intent = req.get('queryResult').get('intent')
   intent_name = intent.get('displayName') if intent is not None else None
   action = req.get('queryResult').get('action')
+  slots_filled = req.get('queryResult').get('allRequiredParamsPresent')
   
   logging.info('invoking action handler for intent %s, action %s', intent, action)
   
@@ -55,6 +56,9 @@ def webhook():
       action=intent_name
       
     handler, method = action.rsplit('.',1)
+    
+    if not slots_filled:
+      method = 'slot_filler'
       
     action_handler = importlib.import_module('action_handlers.' + handler)
     func = getattr(action_handler, method)
