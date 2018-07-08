@@ -207,6 +207,42 @@ def next_question(session, request):
             .outputContext(context).build()
 
 
+def previous_question(session, request):
+  quizContext = getContexts(session, request)
+  
+  if quizContext is None:
+    error_text='Error, developer error, couldn\'t parse contexts'
+    return Response(error_text).text(error_text).build()
+  
+  contexts, quiz, question, shuffled_question_ids, question_index, is_correct, total_correct = quizContext
+  
+  if quiz is None:
+    error_text = 'Error, developer error - quiz not found'  
+    return Response(error_text).text(error_text).build()
+
+  query = request.get('queryResult').get('queryText')
+  if query == EVENT_NEXT_QUESTION:
+    logging.debug('answered question {0} - {1}', question.id, question.question)
+  else:
+    logging.debug('skipped question {0} - {1}', question.id, question.question)
+
+  if question_index > 0:
+    question_index -= 1 #previous question
+    
+  question = quiz.questions[question_index]
+  logging.debug('display previous question {0} - {1}', question.id, question.question)
+  title = 'Question {0} of {1}'.format(question_index+1, len(shuffled_question_ids))
+
+  card = Card(title, question.question)
+  response_text = title +' : \n' + question.question
+  context = OutputContext(session, OUT_CONTEXT_QUIZ_QUESTION, lifespan=1, 
+                        shuffled=shuffled_question_ids, question_index=question_index, 
+                        id=question.id, total_correct=total_correct)
+  return Response('Question').text(response_text).card(card) \
+          .suggestions(question.choices).setOutputContexts(contexts) \
+          .outputContext(context).build()
+
+
 def getQuestionById(questions, id):
   filtered = filter(lambda q: q.id == id, questions)  
   if filtered is not None or len(filtered)>0:

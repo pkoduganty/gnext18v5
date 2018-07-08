@@ -17,6 +17,15 @@ from response_generators.messages import *
 from models.common import *
 from models.mock import sample_announcements, sample_homeworks, sample_lessons, sample_courses
 
+def slot_filler(session, request):
+  response_text = random.choice(COURSE_SELECT)
+  subjects = [s.lower().replace('_',' ') for s in sample_courses.courses_subject_dict.keys()]
+  contexts = []
+  for context in request.get('queryResult').get('outputContexts'):
+    contexts.append(context)
+  return Response(response_text).text(response_text).\
+        setOutputContexts(contexts).suggestions(subjects).build()
+
 def list_all(session, request):
   error_text = 'Error, course not found'
   subject = request.get('queryResult').get('parameters').get('subject')
@@ -28,11 +37,11 @@ def list_all(session, request):
     return Response(error_text).text(error_text).build()
   else:
     courses_by_subject=sample_courses.courses_subject_dict.get(subject)
-    logging.debug('Courses with subject - '+str(courses_by_subject))
-    if len(courses_by_subject)==0:
+    if courses_by_subject is None or len(courses_by_subject)==0:
       return Response(error_text).text(error_text).build()
     else:
-      courseIds=[c for c in courses_by_subject if c.grade==grade]
+      logging.debug('Courses with subject - '+str(courses_by_subject))
+      courseIds=[c.id for c in courses_by_subject if c.grade==grade]
       logging.debug('Courses with subject and grade - '+str(courseIds))
       if len(courseIds)==0:
         return Response(error_text).text(error_text).build()
