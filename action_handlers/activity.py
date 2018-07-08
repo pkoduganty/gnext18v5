@@ -14,6 +14,7 @@ from response_generators.response import *
 from response_generators.messages import *
 
 from models.common import *
+from models.activities import *
 from models.mock import sample_announcements, sample_courses, sample_lessons, sample_homeworks
 
 def do_homework(session, assignment):

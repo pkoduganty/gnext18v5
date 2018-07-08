@@ -20,6 +20,7 @@ from response_generators.response import *
 from response_generators.messages import *
 
 from models.common import *
+from models.activities import *
 from models.mock import sample_announcements, sample_homeworks, sample_lessons, sample_courses
 
 def as_quiz_context(dct):

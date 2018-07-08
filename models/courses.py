@@ -7,6 +7,7 @@ Created on Sun May 27 00:40:44 2018
 """
 
 from models.common import *
+from models.activities import *
 
 class Course(Object):
   def __init__(self, id=None, name=None, section=None, grade=5, subject=None, description=None, descriptionHeading=None, 

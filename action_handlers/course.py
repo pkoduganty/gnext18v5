@@ -10,6 +10,9 @@ import logging
 
 from action_handlers.session import *
 
+from models.common import *
+from models.activities import *
+
 from response_generators.response import Response, OutputContext, Text, Item
 from response_generators.messages import *
 

@@ -15,6 +15,7 @@ from response_generators.messages import *
 from response_generators.response import Response, OutputContext, Text, Item
 
 from models.common import *
+from models.activities import *
 from models.mock import sample_announcements, sample_courses, sample_lessons, sample_homeworks
 
 # handle first logon for the day

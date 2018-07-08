@@ -7,6 +7,7 @@ Created on Sun May 27 00:40:44 2018
 """
 
 from models.common import *
+from models.activities import *
 
 class Homework(Object):
   def __init__(self, courseId=None, id=None, title=None, description=None, 

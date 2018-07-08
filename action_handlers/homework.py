@@ -12,6 +12,7 @@ from action_handlers.session import *
 from action_handlers.activity import do_homework
 
 from models.common import *
+from models.activities import *
 from models.mock import sample_announcements, sample_homeworks, sample_lessons, sample_courses
 
 from response_generators.response import *

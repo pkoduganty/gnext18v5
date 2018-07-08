@@ -7,6 +7,7 @@ Created on Wed Jun  6 01:54:16 2018
 """
 
 from models.common import *
+from models.activities import *
 from models.courses import Lesson
 
 # glossary, answer definitional questions
@@ -15,7 +16,8 @@ from models.courses import Lesson
 # deep linking intents and fallback handling, talk to miss fiona about weather
 # intelligent fallbacks
 # system events - actions_PLAY_GAME - snake words
-# 
+# learning paths - recommendations
+# push messages
 lessons = [
   Lesson(**{
     "id": "8SoStdsL1",

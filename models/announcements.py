@@ -6,6 +6,7 @@ Created on Sun May 27 00:40:44 2018
 @author: praveen
 """
 from models.common import *
+from models.activities import *
 
 class Announcement(Object):
   def __init__(self, courseId=None, id=None, text=None, state='PUBLISHED',
