@@ -29,6 +29,11 @@ def as_quiz_context(dct):
 def as_question_context(dct):
   return QuestionContext(dct['id'],dct['answer'],dct['correct'])
 
+class QuizFinish(object):
+  def __init__(self, id, score):
+    self.id=id
+    self.score=score
+    
 class QuizContext(object):
   def __init__(self, id, questions, state):
     self.id=id
@@ -189,7 +194,7 @@ def next_question(session, request):
       context.lifespanCount=0
       
     #return Response('Quiz Completed').text(prev_question_result).setOutputContexts([]) \
-    return Response('Quiz Completed').setOutputContexts(contexts) \
+    return Response('Quiz Completed').setOutputContexts(contexts).userStorage(QuizFinish(quiz.id, total_correct).__dict__)\
             .text(random.choice(QUIZ_REPORT).format(total_correct, len(quiz.questions))) \
             .suggestions(WELCOME_SUGGESTIONS).build()
   else: 

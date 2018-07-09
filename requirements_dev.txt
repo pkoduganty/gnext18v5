@@ -1,5 +1,6 @@
 # Development environment pip requirements file
 # Install via 'pip install -r requirements_dev.txt'
+
 enum34
 Flask==0.12.4
 flask-cors==3.0.3
@@ -18,4 +19,4 @@ argparse
 firebase-admin
 fuzzywuzzy
 python-levenshtein
-google-cloud-firestore
+marshmallow

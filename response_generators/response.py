@@ -210,15 +210,36 @@ class Response(ResponseType):
     return self
   
   def userStorage(self, obj):
-    self.__dict__["userStorage"]=json.dumps(obj)
+    self.__dict__["payload"]={
+          "google": {
+              "userStorage":json.dumps(obj)
+          }
+        }
     return self
   
   def resetUserStorage(self):
-    self.__dict__["resetUserStorage"]=True
+    self.__dict__["payload"]={
+          "google": {
+              "resetUserStorage":True
+          }
+        }
     return self
   
-  def permissions(self, permits):
-    self.followupEvent('actions_intent_PERMISSION', PERMISSION=permits)
+  def permissions(self, prompt, permits):
+    self.__dict__["payload"]={
+          "google": {
+              "expectUserResponse":True,
+              "systemIntent": {
+                  "intent": "actions.intent.PERMISSION",
+                  "data": {
+                      "@type": "type.googleapis.com/google.actions.v2.PermissionValueSpec",
+                      "optContext": prompt,
+                      "permissions": permits
+                  }
+              }
+          }
+    }
+    return self
   
   def build(self):
     logging.info(self.toJson())
