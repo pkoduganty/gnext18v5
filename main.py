@@ -17,7 +17,7 @@ from response_generators import response
 
 from flask import Flask, jsonify, session, request, render_template
 
-app = Flask(__name__)
+app = Flask(__name__, static_url_path='', static_folder='web/static')
 app.secret_key = r'Dronacharya, the great royal teacher from mahabharata'
 
 root = logging.getLogger()
@@ -76,6 +76,9 @@ def webhook():
   logging.info('Response: \n %s', str(res))
   return jsonify(res)
 
+@app.route('/play/<path:fileName>')
+def sound(fileName):
+  return app.send_static_file(fileName)
 
 # Error handlers
 @app.errorhandler(404)

@@ -87,7 +87,7 @@ lessons = [
         Audio(**{
           "id":"a011",
           "title":'Audio',
-          "url":'https://firebasestorage.googleapis.com/v0/b/gnext18-v5.appspot.com/o/Structure-of-earth.ogg?alt=media&token=f5e3c9e7-3d4c-4567-a311-888af761b19f'
+          "url":'https://gnext18-v5.appspot.com/play/Structure_of_earth.mp3'
         })
     ],
     "imageUri":'https://3.bp.blogspot.com/-MCsbIihWzMI/V8zLCDW1VAI/AAAAAAAAGyQ/iCEhWGNn5cQx7Q6zz2CsEn0oHxs80NiMwCLcB/s1600/layers-of-earth.gif',
