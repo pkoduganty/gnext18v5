@@ -37,7 +37,7 @@ def do_activity(session, activity):
   
   if isinstance(activity, Text):
     context = OutputContext(session, OUT_CONTEXT_LESSON_ACTIVITY_DO, type=OUT_CONTEXT_LESSON_ACTIVITY_DO, lifespan=2, id=activity.id)
-    return Response(activity.title).speech(activity.ssml, activity.text).outputContext(context)
+    return Response(activity.title).speech(activity.ssmlText, activity.text).outputContext(context)
   
   if isinstance(activity, Link):
     response_text = 'Click on link below'
