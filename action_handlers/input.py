@@ -7,6 +7,7 @@ Created on Sun May 27 23:56:03 2018
 """
 import random
 import logging
+from datetime import datetime
 
 from action_handlers.session import *
 from action_handlers.activity import do_homework, do_activity
@@ -22,8 +23,16 @@ from models.mock import sample_announcements, sample_courses, sample_lessons, sa
 # handle subsequent logins for the day
 # start from where left off since last login if any
 def welcome(session, request):
-  response_text = random.choice(WELCOME_BASIC).format('Susan')
-  return Response(response_text).text(response_text).text(WELCOME_TEXT).suggestions(WELCOME_SUGGESTIONS).build()
+  userContext=getUserContext(request)
+  if userContext:
+    response_text = random.choice(WELCOME_SECOND_LOGON).format('Susan')
+    userContext.last_logon=datetime.now()
+  else:
+    response_text = random.choice(WELCOME_BASIC).format('Susan')
+    userContext=UserContext() # new if one already doesn't exist
+      
+  return Response(response_text).text(response_text).text(WELCOME_TEXT) \
+          .suggestions(WELCOME_SUGGESTIONS).userStorage(userContext.toJson()).build()
 
 
 def fallback(session, request):

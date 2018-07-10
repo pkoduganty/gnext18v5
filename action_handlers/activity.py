@@ -22,6 +22,10 @@ def do_homework(session, assignment):
 
   context = OutputContext(session, OUT_CONTEXT_DO_HOMEWORK, type=OUT_CONTEXT_DO_HOMEWORK, lifespan=2, id=assignment.id)
   response = do_activity(session, assignment.activity)
+  try:
+    sample_homeworks.activities.remove(assignment)
+  except ValueError:
+    pass
   return response.outputContext(context)
 
 
@@ -37,7 +41,10 @@ def do_activity(session, activity):
   
   if isinstance(activity, Text):
     context = OutputContext(session, OUT_CONTEXT_LESSON_ACTIVITY_DO, type=OUT_CONTEXT_LESSON_ACTIVITY_DO, lifespan=2, id=activity.id)
-    return Response(activity.title).speech(activity.ssmlText, activity.text).outputContext(context)
+    if hasattr(activity, 'ssmlText'):
+      return Response(activity.title).speech(activity.ssmlText, activity.text).outputContext(context)
+    else:
+      return Response(activity.title).text(activity.text).outputContext(context)
   
   if isinstance(activity, Link):
     response_text = 'Click on link below'

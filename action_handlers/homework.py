@@ -18,7 +18,6 @@ from models.mock import sample_announcements, sample_homeworks, sample_lessons, 
 from response_generators.response import *
 from response_generators.messages import *
 
-
 def list_all(session, request):
   subject = request.get('queryResult').get('parameters').get('subject')
   grade = request.get('queryResult').get('parameters').get('grade') #TODO use students current grade

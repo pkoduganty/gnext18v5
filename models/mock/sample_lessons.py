@@ -38,7 +38,12 @@ lessons = [
               It has existed for a little over 4.5 billion years, and is going to continue 
               for at least as long. The Sun is about a hundred times as wide as the Earth. 
               It is 333,000 times the mass of the Earth. 
-              The Earth can also fit inside the Sun 1.3 million times.'''
+              The Earth can also fit inside the Sun 1.3 million times.''',
+            "ssmlText":'''<speak><s>The Sun is a star like many others in our Milky Way galaxy. </s>
+              <s>It has existed for a little over 4.5 billion years, and is going to continue 
+              for at least as long.</s> <s>The Sun is about a hundred times as wide as the Earth. </s>
+              <s>It is 333,000 times the mass of the Earth. </s>
+              <s>The Earth can also fit inside the Sun 1.3 million times.</s><speak>'''
         }),
         Text(**{
             "id":"t002",
@@ -47,7 +52,12 @@ lessons = [
               It has existed for a little over 4.5 billion years, and is going to continue 
               for at least as long. The Sun is about a hundred times as wide as the Earth. 
               It is 333,000 times the mass of the Earth. 
-              The Earth can also fit inside the Sun 1.3 million times.'''
+              The Earth can also fit inside the Sun 1.3 million times.''',
+            "ssmlText":'''<speak><s>The Sun is a star like many others in our Milky Way galaxy. </s>
+              <s>It has existed for a little over 4.5 billion years, and is going to continue 
+              for at least as long.</s> <s>The Sun is about a hundred times as wide as the Earth. </s>
+              <s>It is 333,000 times the mass of the Earth. </s>
+              <s>The Earth can also fit inside the Sun 1.3 million times.</s><speak>'''              
         }),
         Link(**{
             "id":"l001",
