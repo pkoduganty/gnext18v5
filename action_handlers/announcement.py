@@ -10,8 +10,7 @@ import random
 from action_handlers.session import *
 
 from response_generators.response import Response, Item
-from response_generators.messages import (UNREAD_ANNOUNCEMENTS, 
-    UNREAD_ANNOUNCEMENT, NO_UNREAD_ANNOUNCEMENTS)
+from response_generators.messages import *
 
 from models.mock import sample_announcements, sample_courses
 
@@ -31,7 +30,7 @@ def get_random_announcements():
   for a in announcements:
     items.append(Item(id=a.id, title=sample_courses.courses_id_dict[a.courseId].name, description=a.text))
     
-  return Response(response_text).select(response_text, items)
+  return Response(response_text).select(response_text, items).suggestions(WELCOME_SUGGESTIONS)
 
 def list_all(session, request):
   ask_setup_push_notifications = random.choice([True, False])

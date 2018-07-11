@@ -20,3 +20,4 @@ firebase-admin
 fuzzywuzzy
 python-levenshtein
 marshmallow
+SPARQLWrapper

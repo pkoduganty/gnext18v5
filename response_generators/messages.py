@@ -15,22 +15,21 @@ WELCOME_SUGGESTIONS=[
 ]
 
 WELCOME_TEXT=[
-    u'<speak>You can go do your homework,<break time="300ms"/> <p><s>list your classes,</s> <s> take a quiz</s> or <s>read latest school announcements</s></p></speak>'
+    u'<speak>Do your homework,<break time="300ms"/> <p><s>list your classes,</s> <s> take a quiz</s> or <s>read latest school announcements</s></p></speak>'
 ]
 
-GENERAL_FALLBACKS=[
-    u'<speak>I didn\'t get that. <break time="300ms"/> <prosody rate="medium" pitch="-2st">Can you say it again?</prosody><speak>',
-    u'<speak>Ohh! I missed what you said.<break time="300ms"/> <prosody rate="medium" pitch="-2st">Say it again?</prosody></speak>',
-    u'<speak>Sorry, <break time="200ms"/> <prosody rate="medium" pitch="-2st"> could you say that again?</prosody></speak>',
-    u'<speak>Sorry, <break time="200ms"/>  <prosody rate="medium" pitch="-2st">can you say that again?</prosody></speak>',
-    u'<speak><prosody rate="slow" pitch="-2st">Can you say that again?</</prosody>speak>',
-    u'<speak>Sorry, <break time="200ms"/>  <prosody rate="medium" pitch="-2st">I didn\'t get that.</prosody></speak>',
-    u'<speak>Sorry, <break time="200ms"/>  <prosody rate="medium" pitch="-2st">what was that?</prosody></speak>',
-    u'<speak>One more time?</speak>',
-    u'<speak>Say that again?</speak>',
-    u'<speak>I didn\'t get that.</speak>',
-    u'<speak>I missed that.</speak>',
-    u'<speak>Couldn\'t understand, <break time="200ms"/> try again?</speak>'
+# 0:user 
+WELCOME_BASIC=[
+    u'<speak>Hello {0}, <break time="200ms"/> every day is a learning day</speak>',
+    u'<speak>Dear {0}, <break time="200ms"/> let the learning begin</speak>',
+    u'<speak>{0}, <break time="200ms"/> kindle your curiosity</speak>',
+    u'<speak>{0}, <break time="200ms"/> I can help you with </speak>',
+    u'<speak>{0}, <break time="200ms"/> let us begin with </speak>'
+]
+
+WELCOME_SECOND_LOGON=[
+    u"Welcome back {0}, how can I help you?", 
+    u"Welcome back, start from where you left off?"
 ]
 
 # 0:user, 1:# of announcements
@@ -56,29 +55,14 @@ NO_HOMEWORK=[
 
 # 0:user, 1:#of assignments
 PENDING_HOMEWORKS=[
-    u'{0}, you have {1} assignments pending, start with the first ?',
-    u'{0}, {1} assignments due, do them now ?'
+    u'{0}, you have {1} assignments pending, choose to get started',
+    u'{0}, {1} assignments due'
 ]
 
 # 0:user, 1:assignment-title
 PENDING_HOMEWORK=[
     u'{0}, assignment {1} pending, begin now?',
     u'{0}, do you want to start your assignment {1} now ?'
-]
-
-# 0:user 
-WELCOME_BASIC=[
-    u'<speak>Hello {0}, <break time="200ms"/> every day\'s a learning day, <prosody rate="medium" pitch="-2st">what can I help you with?</prosody></speak>',
-    u'<speak>Dear {0}, <break time="200ms"/> let the learning begin, <prosody rate="medium" pitch="-2st"> here\'s what we can do ?</prosody></speak>',
-    u'<speak>{0}, <break time="200ms"/> kindle your curiosity, let us begin with </speak>',
-    u'<speak>{0}, <break time="200ms"/> I can help you with </speak>',
-    u'<speak>{0}, <break time="200ms"/> let us begin with </speak>',
-    u'<speak><prosody rate="medium" pitch="-2st">what do you want to do first </prosody></speak>'
-]
-
-WELCOME_SECOND_LOGON=[
-    u"Welcome back {0}, how can I help you?", 
-    u"Welcome back, start from where you left off?"
 ]
 
 COURSE_SELECT=[
@@ -98,7 +82,7 @@ QUIZ_SELECT=[
 ]
 
 LESSON_ACTIVITY_SELECT=[
-    u'Lesson has these study materials, choose one?',
+    u'Lesson has these study materials, choose one',
     u'Here are your study materials, select one'
 ]
 
@@ -117,4 +101,24 @@ CORRECT_ANSWER=[
 
 QUIZ_REPORT=[
     u'You got {0} out of {1} right'
+]
+
+CONCEPT_DEFINITION_UNKNOWN=[
+    u'I am afraid, I don\'t know what {0} means, do check with your teacher or elders.',
+    u'Sorry, don\'t know what {0} is'
+]
+
+GENERAL_FALLBACKS=[
+    u'<speak>I didn\'t get that. <break time="300ms"/> <prosody rate="medium" pitch="-2st">Can you say it again?</prosody></speak>',
+    u'<speak>Ohh! I missed what you said.<break time="300ms"/> <prosody rate="medium" pitch="-2st">Say it again?</prosody></speak>',
+    u'<speak>Sorry, <break time="200ms"/> <prosody rate="medium" pitch="-2st"> could you say that again?</prosody></speak>',
+    u'<speak>Sorry, <break time="200ms"/>  <prosody rate="medium" pitch="-2st">can you say that again?</prosody></speak>',
+    u'<speak><prosody rate="slow" pitch="-2st">Can you say that again?</prosody></speak>',
+    u'<speak>Sorry, <break time="200ms"/>  <prosody rate="medium" pitch="-2st">I didn\'t get that.</prosody></speak>',
+    u'<speak>Sorry, <break time="200ms"/>  <prosody rate="medium" pitch="-2st">what was that?</prosody></speak>',
+    u'<speak>One more time?</speak>',
+    u'<speak>Say that again?</speak>',
+    u'<speak>I didn\'t get that.</speak>',
+    u'<speak>I missed that.</speak>',
+    u'<speak>Couldn\'t understand, <break time="200ms"/> try again?</speak>'
 ]

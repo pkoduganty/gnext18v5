@@ -13,7 +13,7 @@ announcements=[
     Announcement(**{
       "courseId": "8Scnce",
       "id": "1",
-      "text":"course 1 - announcement 1",
+      "text":"Today\'s Science class is cancelled, instead the Social Studies class will extend till lunch.",
       "state":"PUBLISHED",
       "creationTime":"2018-06-25T15:01:23.045123456Z",
       "updateTime":"2018-06-25T15:01:23.045123456Z",
@@ -23,7 +23,7 @@ announcements=[
     Announcement(**{
       "courseId": "8Scnce",
       "id": "2",
-      "text":"course 1 - announcement 2",
+      "text":"Do remember your Science assignments are due this Friday.",
       "state":"PUBLISHED",
       "creationTime":"2018-06-25T15:01:23.045123456Z",
       "updateTime":"2018-06-25T15:01:23.045123456Z",
@@ -33,7 +33,7 @@ announcements=[
     Announcement(**{
       "courseId": "8SoStds",
       "id": "3",
-      "text":"course 2 - announcement 1",
+      "text":"Gym will be closed today for routine maintenance and repairs.",
       "state":"PUBLISHED",
       "creationTime":"2018-06-25T15:01:23.045123456Z",
       "updateTime":"2018-06-25T15:01:23.045123456Z",
@@ -43,7 +43,7 @@ announcements=[
     Announcement(**{
       "courseId": "8SoStds",
       "id": "4",
-      "text":"course 3 - announcement 1",
+      "text":"Come prepared on a planet of your choice, we will play a trivia game in class.",
       "state":"PUBLISHED",
       "creationTime":"2018-06-25T15:01:23.045123456Z",
       "updateTime":"2018-06-25T15:01:23.045123456Z",
@@ -53,7 +53,7 @@ announcements=[
     Announcement(**{
       "courseId": "8SoStds",
       "id": "5",
-      "text":"course 3 - announcement 2",
+      "text":"Next thursday is the due date for submitting your essays on our solar system.",
       "state":"PUBLISHED",
       "creationTime":"2018-06-25T15:01:23.045123456Z",
       "updateTime":"2018-06-25T15:01:23.045123456Z",

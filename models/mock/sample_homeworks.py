@@ -13,13 +13,13 @@ activities = [
     Homework(**{
       "courseId": "8SoStds",
       "id": "8SoStdsHW1",
-      "title":"course 1 - assignment 1",
-      "description":"course 1 - assignment 1 - ",
+      "title":"Video - Planets of our Solar System",
+      "description":"A very informative NatGeo video on our Solar System Planets",
       "activity": Video(**{
           "id":"v001",
           "title":'Planets of our Solar System',
           "url":'https://www.youtube.com/watch?v=libKVRa01L8',
-          "imageUri":'https://upload.wikimedia.org/wikipedia/commons/8/8c/Systeme_solaire_fr.jpg'
+          "imageUri":'https://upload.wikimedia.org/wikipedia/commons/c/cb/Planets2013.svg'
       }),
       "creationTime":"2018-06-25T15:01:23.045123456Z",
       "updateTime":"2018-06-25T15:01:23.045123456Z",
@@ -31,8 +31,8 @@ activities = [
     Homework(**{
       "courseId": "8SoStds",
       "id": "8SoStdsHW2",
-      "title":"course 1 - multiple choice 1",
-      "description":"course 1 - multiple choice 1 - ",
+      "title":"Quiz on our Planets",
+      "description":"Test your understanding of our planets",
       "activity": Quiz(**{
         "id":"qz001",
         "title":'Quiz on our planets',
@@ -51,12 +51,9 @@ activities = [
                 }),
             Question(**{
                 "id":"qt003",
-                "question":'how far is the earth from the sun?',
-                "answers":["one au", "1 au", "one astronomial unit","1 astronomial unit", 
-                           "149.6 million kilometers", "150 million kilometers"
-                           "149600000 kilometers", "150000000 kilometers"
-                           ],
-                "choices":["1 million kilometers","149.6 million kilometers","57.91 million kilometers","108.2 million kilometers"]
+                "question":'which planets have rings?',
+                "answers":["all", "giant planets", "neptune","jupiter","uranus","saturn"],
+                "choices":["neptune","jupiter","uranus","saturn","all giant planets"]
                 })
         ]
       }),
@@ -70,12 +67,12 @@ activities = [
     Homework(**{
       "courseId": "8Scnce",
       "id": "8ScnceHW3",
-      "title":"course 2 - assignment 1",
-      "description":"course 2 - assignment 1 - ",
+      "title":"The Cell - The building block of all organisms",
+      "description":"Understand basic components of all cells",
       "activity": Text(**{
           "id":"t001",
           "title":'The Cell',
-          "text":'''The cell is the basic smallest unit structure of all organisms. All cells are made by the division of other cells. 
+          "text":'''The Cell is the smallest unit structure of all organisms. All cells are made by the division of other cells. 
           The cell membrane is a thin flexible layer around the cell and seperates the outside environment from the cytoplasm inside the cell. It is sometimes called the plasma membrane or cytoplasmic membrane. 
           Cytoplasm is the gel-like material inside the cell, which along with other parts called organelles (like small organs) are inside the cell membrane.
           Organelles each do different things in the cell. Examples are the nucleus which is the most important like our brain and mitochondria which generates chemical energy for the cell.''',
@@ -91,8 +88,8 @@ activities = [
     Homework(**{
       "courseId": "8Scnce",
       "id": "8ScnceHW4",
-      "title":"course 3 - multiple choice 1",
-      "description":"course 3 - multiple choice 1 - ",
+      "title":"Quiz - The Cell",
+      "description":"Test your knowledge of the cell",
       "activity": Quiz(**{
         "id":"qz002",
         "title":'Quiz on cells',
