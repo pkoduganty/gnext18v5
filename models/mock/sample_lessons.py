@@ -38,16 +38,30 @@ lessons = [
               It has existed for a little over 4.5 billion years, and is going to continue 
               for at least as long. The Sun is about a hundred times as wide as the Earth. 
               It is 333,000 times the mass of the Earth. 
-              The Earth can also fit inside the Sun 1.3 million times.'''
+              The Earth can also fit inside the Sun 1.3 million times.''',
+            "ssmlText":'''<speak><s>The Sun is a star like many others in our Milky Way galaxy. </s>
+              <s>It has existed for a little over 4.5 billion years, and is going to continue 
+              for at least as long.</s> <s>The Sun is about a hundred times as wide as the Earth. </s>
+              <s>It is 333,000 times the mass of the Earth. </s>
+              <s>The Earth can also fit inside the Sun 1.3 million times.</s><speak>'''
         }),
         Text(**{
             "id":"t002",
-            "title":'Our Sun',
-            "text":'''The Sun is a star like many others in our Milky Way galaxy. 
-              It has existed for a little over 4.5 billion years, and is going to continue 
-              for at least as long. The Sun is about a hundred times as wide as the Earth. 
-              It is 333,000 times the mass of the Earth. 
-              The Earth can also fit inside the Sun 1.3 million times.'''
+            "title":'Our Solar System',
+            "text":'''The Solar System is the Sun and all the objects that orbit around it. 
+            The Sun is orbited by planets, asteroids, comets and other things. It is billions of years old.
+
+            The Sun is a star. It contains 99.9 percent of the Solar System's mass. This means that it has strong gravity. 
+            The other objects are pulled into orbit around the Sun. The sun is mostly made out of hydrogen and helium.
+
+            There are eight planets in the Solar System. From closest to farthest from the Sun, 
+            they are: Mercury, Venus, Earth, Mars, Jupiter, Saturn, Uranus and Neptune. 
+            The first four planets are called terrestrial planets. They are mostly made of rock and metal, and they are mostly solid. 
+            The last four planets are called gas giants. This is because they are much larger than other planets and are mostly made of gas.
+
+            The Solar System also contains other things. There are asteroids, mostly between Mars and Jupiter. 
+            Further out than Neptune, there is the Kuiper belt and the scattered disc. These areas have dwarf planets, including Pluto. 
+            There are thousands of very small objects in these areas. There are also comets, centaurs, and there is interplanetary dust.'''             
         }),
         Link(**{
             "id":"l001",
@@ -86,7 +100,7 @@ lessons = [
         }),
         Audio(**{
           "id":"a011",
-          "title":'Audio',
+          "title":'Recorded - Earth\'s structure',
           "url":'https://gnext18-v5.appspot.com/play/Structure_of_earth.mp3'
         })
     ],
@@ -128,7 +142,7 @@ lessons = [
     "materials": [
         Video(**{
           "id":"v031",
-          "title":'Cell Division',
+          "title":'Video on Cell Division',
           "url":'https://www.youtube.com/watch?v=84mA-MzNJKA',
           "imageUri":'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f9/Three_cell_growth_types.png/400px-Three_cell_growth_types.png'
         }),

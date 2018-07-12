@@ -225,7 +225,7 @@ class Response(ResponseType):
         }
     return self
   
-  def permissions(self, prompt, permits):
+  def permissions(self, prompt, permits, intent):
     self.__dict__["payload"]={
           "google": {
               "expectUserResponse":True,
@@ -234,7 +234,10 @@ class Response(ResponseType):
                   "data": {
                       "@type": "type.googleapis.com/google.actions.v2.PermissionValueSpec",
                       "optContext": prompt,
-                      "permissions": permits
+                      "permissions": permits,
+                      "updatePermissionValueSpec": {
+                          "intent": intent
+                      }
                   }
               }
           }

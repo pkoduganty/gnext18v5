@@ -9,12 +9,13 @@ import random
 import logging
 
 import json
+from marshmallow import Schema, fields, pprint
 
 from fuzzywuzzy import fuzz
 from fuzzywuzzy import process
 
 from action_handlers.session import *
-from action_handlers.activity import do_activity
+from action_handlers.activity import do_activity, ActivityType
 
 from response_generators.response import *
 from response_generators.messages import *
@@ -46,6 +47,15 @@ class QuestionContext(object):
     self.answer=answer
     self.correct=correct
 
+def slot_filler(session, request):
+  response_text = random.choice(COURSE_SELECT)
+  subjects = [s.lower().replace('_',' ') for s in sample_courses.courses_subject_dict.keys()]
+  contexts = []
+  for context in request.get('queryResult').get('outputContexts'):
+    contexts.append(context)
+  return Response(response_text).text(response_text).\
+        setOutputContexts(contexts).suggestions(subjects).build()
+        
 def list_all(session, request):
   subject = request.get('queryResult').get('parameters').get('subject')
   grade = request.get('queryResult').get('parameters').get('grade') #TODO use students current grade
@@ -76,7 +86,6 @@ def list_all(session, request):
   
   response_text='No quizzes'
   return Response(response_text).text(response_text).build()
-
 
 def start(session, request):
   quizContext = getContexts(session, request)
@@ -192,9 +201,16 @@ def next_question(session, request):
     #reset output contexts
     for context in contexts:
       context.lifespanCount=0
-      
-    #return Response('Quiz Completed').text(prev_question_result).setOutputContexts([]) \
-    return Response('Quiz Completed').setOutputContexts(contexts).userStorage(QuizFinish(quiz.id, total_correct).__dict__)\
+    
+    userContext=getUserContext(request)
+    if userContext:
+      userContext.learning_score+=total_correct
+      userContext.last_activity=quiz.id
+      userContext.last_activity_type=ActivityType.QUIZ
+    else:
+      userContext=UserContext() # new if one already doesn't exist
+          
+    return Response('Quiz Completed').setOutputContexts(contexts).userStorage(userContext.toJson()) \
             .text(random.choice(QUIZ_REPORT).format(total_correct, len(quiz.questions))) \
             .suggestions(WELCOME_SUGGESTIONS).build()
   else: 
@@ -211,7 +227,6 @@ def next_question(session, request):
     return Response('Question').text(response_text).card(card) \
             .suggestions(question.choices).setOutputContexts(contexts) \
             .outputContext(context).build()
-
 
 def previous_question(session, request):
   quizContext = getContexts(session, request)

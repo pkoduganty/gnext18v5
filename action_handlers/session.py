@@ -22,29 +22,11 @@ OUT_CONTEXT_QUIZ='quiz'
 OUT_CONTEXT_QUIZ_DO='quiz_do'
 OUT_CONTEXT_QUIZ_QUESTION='quiz_question'
 
-
-class UserContextEncoder(json.JSONEncoder): 
-  def default(self, o):
-    if isinstance(o, datetime):
-      return {'__datetime__': o.replace(microsecond=0).isoformat()}
-
-def load_user_context(json):
-  return UserContext(
-      json['enable_push_notifications'],
-      datetime.datetime.strptime(json['last_logon'], "%Y-%m-%dT%H:%M:%S.%fZ"), 
-      json['last_activity'],
-      json['activity_history'],
-      int(json['activities_started']),
-      int(json['activities_finished']),
-      int(json['learning_score']),
-      json['badges']
-      )
-
-
 class UserContextSchema(Schema):
   enable_push_notifications=fields.Boolean()
   last_logon=fields.DateTime()
   last_activity=fields.String()
+  last_activity_type=fields.String()
   activity_history=fields.List(fields.String())
   activities_started=fields.Integer()
   activities_finished=fields.Integer()
@@ -52,19 +34,33 @@ class UserContextSchema(Schema):
   
 class UserContext(object):
   def __init__(self, enable_push_notifications=False, last_logon=datetime.now(), 
-               last_activity=None, history=[], started=0, finished=0, score=0,
+               last_activity=None, last_activity_type=None, history=[], started=0, finished=0, score=0,
                badges=[]):
     self.enable_push_notifications=enable_push_notifications
     self.last_logon=last_logon
     self.last_activity=last_activity
+    self.last_activity_type=last_activity_type
     self.activity_history=history
     self.activities_started=started
     self.activities_finished=finished
     self.learning_score=score
     self.badges=badges
+
+  def toJson(self):
+    schema = UserContextSchema()
+    return schema.dumps(self)
+    
+def getUserContext(request):
+  if request.get('user') and request.get('user').get('userStorage'):
+    userContext=request.get('user').get('userStorage')
+    schema = UserContextSchema()
+    userContext=schema.loads(userContext)
+    return userContext
+  return None
+
     
 if __name__ == '__main__':
-  ctx=UserContext()
+  ctx = UserContext()
   schema = UserContextSchema()
   json_result = schema.dumps(ctx)
   pprint(json_result)  
