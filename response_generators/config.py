@@ -1,8 +1,0 @@
-lesson_select=["which lesson do you want to study?", "Here are your lessons, select one"]
-class_select=["which class would you want to begin with?", "select a class to start", "you\'re enrolled for the following, select one"]
-welcome_second_logon=["Welcome back {0}, how can I help you?", "Welcome back, start from where you left off?"]
-welcome_first_logon=["Hello {0}, every day\'s a learning day, what can I help you with ?", "Dear {0}, let the learning begin, here\'s what we can do ?", "{0}, kindle your curiosity, let us begin with ", "{0}, I can help you with", "{0}, let us begin with ", "what do you want to do first "]
-assignment_select=["{0}, you have {1} assignments pending, they are ", "{0}, {1} assignments due"]
-welcome_unread_announcement=["Hey {0}, an announcement for you - {1}", "{0}, new announcement - {1}"]
-welcome_read_announcements=["Hey {0}, you have {1} new announcements, do you want to hear them?", "{0}, {1} new class announcements, read them?"]
-welcome_suggestions=["do homework","read lessons","check messages","take quiz","list classes"]
