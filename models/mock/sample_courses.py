@@ -16,28 +16,13 @@ courses=[
         "grade":8,
         "subject":"SOCIAL_STUDIES",
         "descriptionHeading": "8th Grade Social Studies A", 
-        "description": "Geography - Earth’s Hemispheres, Continents, Cartography", 
+        "description": "Geography - Solar System, Our Planet - Earth", 
         "ownerId": "116353579384483626788", 
         "creationTime": "2018-05-26T20:10:12.481Z", 
         "updateTime": "2018-05-26T20:14:03.185Z", 
         "courseState": "ACTIVE", 
-        "imageUri": "https://web.usd475.org/school/jchs/departments/socialstudies/SiteAssets/SitePages/Home/socialstudies.gif", 
+        "imageUri": "https://gnext18-v5.appspot.com/play/img/social_studies.jpg", 
         "calendarId": "classroom104678386445181366460@group.calendar.google.com"
-    }),
-    Course(**{
-        "id": "7SoStds", 
-        "name": "7th Grade Social Studies", 
-        "section": "B", 
-        "grade":7,
-        "subject":"SOCIAL_STUDIES",
-        "descriptionHeading": "7th Grade Social Studies B", 
-        "description": "Geography - Earth’s Hemispheres, Continents, Cartography", 
-        "ownerId": "116353579384483626788", 
-        "creationTime": "2018-05-26T20:05:37.787Z", 
-        "updateTime": "2018-05-26T20:08:36.400Z", 
-        "courseState": "ACTIVE", 
-        "imageUri": "https://web.usd475.org/school/jchs/departments/socialstudies/SiteAssets/SitePages/Home/socialstudies.gif", 
-        "calendarId": "classroom106976519441482224282@group.calendar.google.com"
     }),
     Course(**{
         "id": "8Scnce", 
@@ -51,7 +36,7 @@ courses=[
         "creationTime": "2018-05-26T19:52:24.427Z", 
         "updateTime": "2018-05-26T20:09:34.010Z", 
         "courseState": "ACTIVE", 
-        "imageUri": "https://www.greatschools.org/gk/wp-content/uploads/2014/08/Science-resized-750x325.jpg", 
+        "imageUri": "https://gnext18-v5.appspot.com/play/img/science.jpg", 
         "calendarId": "classroom109210969298598032477@group.calendar.google.com"
     })
   ]

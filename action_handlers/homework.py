@@ -42,8 +42,10 @@ def list_all(session, request):
     items = []
     for a in assignments:
       items.append(Item(id='homework '+a.id, 
-                      title=sample_courses.courses_id_dict[a.courseId].name + '-' + a.title, 
-                      description=a.description))
+                      title=a.title, 
+                      description=a.description,
+                      imageUri=sample_courses.courses_id_dict[a.courseId].imageUri,
+                      imageText=sample_courses.courses_id_dict[a.courseId].name))
     context = OutputContext(session, OUT_CONTEXT_HOMEWORK, type=OUT_CONTEXT_HOMEWORK)
     return Response(response_text).text(response_text).outputContext(context).select(response_text, items).build()
   
@@ -91,8 +93,10 @@ def select_subject(session, request):
     items = []
     for a in homework_by_subject_grade:
       items.append(Item(id='homework '+a.id, 
-                        title=sample_courses.courses_id_dict[a.courseId].name + '-' + a.title, 
-                        description=a.description))
+                      title=a.title, 
+                      description=a.description,
+                      imageUri=sample_courses.courses_id_dict[a.courseId].imageUri,
+                      imageText=sample_courses.courses_id_dict[a.courseId].name))
     context = OutputContext(session, OUT_CONTEXT_HOMEWORK, type=OUT_CONTEXT_HOMEWORK)
     return Response(response_text).text(response_text).outputContext(context).select(response_text, items).build()
 

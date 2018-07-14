@@ -10,11 +10,11 @@ from models.common import *
 from models.activities import *
 from models.courses import Lesson
 
-# glossary, answer definitional questions
-# review messages and add ssml for naturalized tts
+# glossary, answer definitional questions - done
+# review messages and add ssml for naturalized tts - done
 # implement basic search by title, should be invoked from fallback
 # deep linking intents and fallback handling, talk to miss fiona about weather
-# intelligent fallbacks
+# intelligent fallbacks, universals
 # system events - actions_PLAY_GAME - snake words
 # learning paths - recommendations
 # push messages
@@ -27,13 +27,13 @@ lessons = [
     "materials": [
         Video(**{
           "id":"v001",
-          "title":'Planets of our Solar System',
+          "title":'Video: Planets of our Solar System',
           "url":'https://www.youtube.com/watch?v=libKVRa01L8',
-          "imageUri":'https://upload.wikimedia.org/wikipedia/commons/8/8c/Systeme_solaire_fr.jpg'
+          "imageUri":'https://upload.wikimedia.org/wikipedia/commons/c/cb/Planets2013.svg'
         }),
         Text(**{
             "id":"t001",
-            "title":'Our Sun',
+            "title":'Read: Our Sun',
             "text":'''The Sun is a star like many others in our Milky Way galaxy. 
               It has existed for a little over 4.5 billion years, and is going to continue 
               for at least as long. The Sun is about a hundred times as wide as the Earth. 
@@ -43,33 +43,36 @@ lessons = [
               <s>It has existed for a little over 4.5 billion years, and is going to continue 
               for at least as long.</s> <s>The Sun is about a hundred times as wide as the Earth. </s>
               <s>It is 333,000 times the mass of the Earth. </s>
-              <s>The Earth can also fit inside the Sun 1.3 million times.</s><speak>'''
+              <s>The Earth can also fit inside the Sun 1.3 million times.</s><speak>''',
+            "imageUri":'https://upload.wikimedia.org/wikipedia/commons/b/b4/The_Sun_by_the_Atmospheric_Imaging_Assembly_of_NASA%27s_Solar_Dynamics_Observatory_-_20100819.jpg'              
         }),
         Text(**{
             "id":"t002",
-            "title":'Our Solar System',
+            "title":'Read: Our Solar System',
             "text":'''The Solar System is the Sun and all the objects that orbit around it. 
-            The Sun is orbited by planets, asteroids, comets and other things. It is billions of years old.
+              The Sun is orbited by planets, asteroids, comets and other things. It is billions of years old.
 
-            The Sun is a star. It contains 99.9 percent of the Solar System's mass. This means that it has strong gravity. 
-            The other objects are pulled into orbit around the Sun. The sun is mostly made out of hydrogen and helium.
+              The Sun is a star. It contains 99.9 percent of the Solar System's mass. This means that it has strong gravity. 
+              The other objects are pulled into orbit around the Sun. The sun is mostly made out of hydrogen and helium.
 
-            There are eight planets in the Solar System. From closest to farthest from the Sun, 
-            they are: Mercury, Venus, Earth, Mars, Jupiter, Saturn, Uranus and Neptune. 
-            The first four planets are called terrestrial planets. They are mostly made of rock and metal, and they are mostly solid. 
-            The last four planets are called gas giants. This is because they are much larger than other planets and are mostly made of gas.
+              There are eight planets in the Solar System. From closest to farthest from the Sun, 
+              they are: Mercury, Venus, Earth, Mars, Jupiter, Saturn, Uranus and Neptune. 
+              The first four planets are called terrestrial planets. They are mostly made of rock and metal, and they are mostly solid. 
+              The last four planets are called gas giants. This is because they are much larger than other planets and are mostly made of gas.
 
-            The Solar System also contains other things. There are asteroids, mostly between Mars and Jupiter. 
-            Further out than Neptune, there is the Kuiper belt and the scattered disc. These areas have dwarf planets, including Pluto. 
-            There are thousands of very small objects in these areas. There are also comets, centaurs, and there is interplanetary dust.'''             
+              The Solar System also contains other things. There are asteroids, mostly between Mars and Jupiter. 
+              Further out than Neptune, there is the Kuiper belt and the scattered disc. These areas have dwarf planets, including Pluto. 
+              There are thousands of very small objects in these areas. There are also comets, centaurs, and there is interplanetary dust.''',
+            "imageUri":'https://upload.wikimedia.org/wikipedia/commons/9/9f/Solarmap.png'
         }),
         Link(**{
             "id":"l001",
-            "title":'NASA Science - Solar System Exploration',
-            "url":'https://solarsystem.nasa.gov/planets/sun/indepth'
+            "title":'Link: NASA Science - Solar System Exploration',
+            "url":'https://solarsystem.nasa.gov/planets/sun/indepth',
+            "imageUri":'https://upload.wikimedia.org/wikipedia/commons/9/9f/Solarmap.png'
         })
     ],
-    "imageUri":'https://upload.wikimedia.org/wikipedia/commons/8/8c/Systeme_solaire_fr.jpg',
+    "imageUri":'https://upload.wikimedia.org/wikipedia/commons/c/c3/Solar_sys8.jpg',
     "activeFromDate":"27/06/2018",
     "activeTillDate":"27/08/2018"
   }),
@@ -81,13 +84,13 @@ lessons = [
     "materials": [
         Video(**{
           "id":"v011",
-          "title":'Layers of Earth',
+          "title":'Video: Layers of Earth',
           "url":'https://www.youtube.com/watch?v=3xLiOFjemWQ',
-          "imageUri":'https://3.bp.blogspot.com/-MCsbIihWzMI/V8zLCDW1VAI/AAAAAAAAGyQ/iCEhWGNn5cQx7Q6zz2CsEn0oHxs80NiMwCLcB/s1600/layers-of-earth.gif'
+          "imageUri":'https://upload.wikimedia.org/wikipedia/commons/0/07/Earth_poster.svg'
         }),
         Text(**{
           "id":"t011",
-          "title":'Structure of the Earth',
+          "title":'Read: Structure of the Earth',
           "text":'''The structure of the Earth is divided into layers. 
             These layers are both physically and chemically different. 
             The Earth has an outer solid crust, a highly viscous mantle, a liquid outer core, 
@@ -96,15 +99,16 @@ lessons = [
             The crust is the outermost layer of the Earth. It is made of solid rocks.
             The mantle is the layer of the Earth right below the crust. 
             The Earth's core is made of solid iron and nickel, and is about 5000–6000 centigrade.''',
-          "imageUri":"https://upload.wikimedia.org/wikipedia/commons/thumb/e/ee/Earth-crust-cutaway-english.svg/995px-Earth-crust-cutaway-english.svg.png"
+          "imageUri":"https://upload.wikimedia.org/wikipedia/commons/e/ee/Earth-crust-cutaway-english.svg"
         }),
         Audio(**{
           "id":"a011",
-          "title":'Recorded - Earth\'s structure',
-          "url":'https://gnext18-v5.appspot.com/play/Structure_of_earth.mp3'
+          "title":'Recorded Audio - Earth\'s structure',
+          "url":'https://gnext18-v5.appspot.com/play/Structure_of_earth.mp3',
+          "imageUri":'https://upload.wikimedia.org/wikipedia/commons/5/58/Slice_earth.svg'
         })
     ],
-    "imageUri":'https://3.bp.blogspot.com/-MCsbIihWzMI/V8zLCDW1VAI/AAAAAAAAGyQ/iCEhWGNn5cQx7Q6zz2CsEn0oHxs80NiMwCLcB/s1600/layers-of-earth.gif',
+    "imageUri":'https://upload.wikimedia.org/wikipedia/commons/9/97/The_Earth_seen_from_Apollo_17.jpg',
     "activeFromDate":"27/06/2018",
     "activeTillDate":"27/08/2018"
   }),
@@ -116,21 +120,21 @@ lessons = [
     "materials": [
         Video(**{
           "id":"v021",
-          "title":'Cell structure and function',
+          "title":'Video: Cell structure and function',
           "url":'https://www.youtube.com/watch?v=URUJD5NEXC8',
-          "imageUri":'https://upload.wikimedia.org/wikipedia/commons/thumb/4/40/Simple_diagram_of_animal_cell_%28en%29.svg/512px-Simple_diagram_of_animal_cell_%28en%29.svg.png'
+          "imageUri":'https://upload.wikimedia.org/wikipedia/commons/5/5a/Average_prokaryote_cell-_en.svg'
         }),
         Text(**{
           "id":"t021",
-          "title":'The Cell',
+          "title":'Read: The Cell',
           "text":'''The cell is the basic structural, functional, and biological unit of all known living organisms. 
             A cell is the smallest unit of life. Cells consist of cytoplasm enclosed within a membrane.
             Cells are of two types: eukaryotic, which contain a nucleus, and prokaryotic, which do not. 
             Prokaryotes are single-celled organisms, while eukaryotes can be either single-celled or multicellular.''',
-          "imageUri":"https://upload.wikimedia.org/wikipedia/commons/thumb/8/83/Celltypes.svg/450px-Celltypes.svg.png"
+          "imageUri":"https://upload.wikimedia.org/wikipedia/commons/8/83/Celltypes.svg"
         })
     ],
-    "imageUri":'https://upload.wikimedia.org/wikipedia/commons/thumb/4/40/Simple_diagram_of_animal_cell_%28en%29.svg/512px-Simple_diagram_of_animal_cell_%28en%29.svg.png',
+    "imageUri":'https://upload.wikimedia.org/wikipedia/commons/a/a7/Structure_of_animal_cell.JPG',
     "activeFromDate":"27/06/2018",
     "activeTillDate":"27/08/2018"
   }),
@@ -142,13 +146,13 @@ lessons = [
     "materials": [
         Video(**{
           "id":"v031",
-          "title":'Video on Cell Division',
+          "title":'Video: Cell Division',
           "url":'https://www.youtube.com/watch?v=84mA-MzNJKA',
-          "imageUri":'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f9/Three_cell_growth_types.png/400px-Three_cell_growth_types.png'
+          "imageUri":'https://upload.wikimedia.org/wikipedia/commons/d/df/Three_cell_growth_types.svg'
         }),
         Text(**{
           "id":"t031",
-          "title":'Cell Division',
+          "title":'Read: Mitosis',
           "text":'''Cell division is the process by which a cell, called the parent cell, divides into two cells, called daughter cells. 
             When the cell divides, everything inside it divides also. The nucleus and the chromosomes divide, and the mitochondria divide also.
             Mitosis is part of the cycle of cell division. The chromosomes of a cell are copied to make two identical sets of chromosomes,
@@ -159,14 +163,11 @@ lessons = [
             Since the two chromatids are identical to each other, they are called sister chromatids.
             Mitosis happens in all types of dividing cells in the human body except with sperm and ova. 
             The sperm and ova are gametes or sex cells. The gametes are produced by a different division method called meiosis.
-            Meiosis is a special type of cell division. Unlike mitosis, the way normal body cells divide, 
-            meiosis results in cells that only have half the usual number of chromosomes, one from each pair. 
-            For that reason, meiosis is often called reduction division. In the long run, meiosis increases genetic 
-            variation, in a way which will be explained later.''',
-          "imageUri":"https://upload.wikimedia.org/wikipedia/commons/thumb/f/f9/Three_cell_growth_types.png/400px-Three_cell_growth_types.png"
+            ''',
+          "imageUri":"https://upload.wikimedia.org/wikipedia/commons/e/e0/Major_events_in_mitosis.svg"
         })
     ],
-    "imageUri":'https://upload.wikimedia.org/wikipedia/commons/thumb/4/40/Simple_diagram_of_animal_cell_%28en%29.svg/512px-Simple_diagram_of_animal_cell_%28en%29.svg.png',
+    "imageUri":'https://upload.wikimedia.org/wikipedia/commons/3/37/Wilson1900Fig2.jpg',
     "activeFromDate":"27/06/2018",
     "activeTillDate":"27/08/2018"
   })

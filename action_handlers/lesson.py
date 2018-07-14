@@ -56,7 +56,7 @@ def list_all(session, request):
       return Response(response_text).text(response_text).card(Card(lessons[0].name, lessons[0].description, imageUri=lessons[0].imageUri)).outputContext(context).build()
     elif len(lessons)>1:
       for lesson in lessons:
-        card=Item('lesson '+lesson.id, lesson.name, lesson.description)
+        card=Item('lesson '+lesson.id, lesson.name, lesson.description, imageUri=lesson.imageUri)
         select_cards.append(card)
       response_text = random.choice(LESSON_SELECT)
       context = OutputContext(session, OUT_CONTEXT_LESSON, type=OUT_CONTEXT_LESSON)
@@ -97,11 +97,11 @@ def select_id(session, request):
         if isinstance(m, Video):
           select_cards.append(Item(id='activity '+m.id, title=m.title, imageUri=m.imageUri))
         elif isinstance(m, Text):
-          select_cards.append(Item(id='activity '+m.id, title=m.title))
+          select_cards.append(Item(id='activity '+m.id, title=m.title, imageUri=m.imageUri))
         elif isinstance(m, Link):
-          select_cards.append(Item(id='activity '+m.id, title=m.title))
+          select_cards.append(Item(id='activity '+m.id, title=m.title, imageUri=m.imageUri))
         elif isinstance(m, Audio):
-          select_cards.append(Item(id='activity '+m.id, title=m.title))
+          select_cards.append(Item(id='activity '+m.id, title=m.title, imageUri=m.imageUri))
         elif isinstance(m, Quiz):
-          select_cards.append(Item(id='activity '+m.id, title=m.title))
+          select_cards.append(Item(id='activity '+m.id, title=m.title, imageUri=m.imageUri))
       return Response(response_text).text(response_text).select(response_text, select_cards).outputContext(context).build()

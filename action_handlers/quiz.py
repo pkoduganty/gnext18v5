@@ -72,7 +72,7 @@ def list_all(session, request):
       course=sample_courses.courses_id_dict[homework.courseId]
       if (grade==course.grade and subject==course.subject and isinstance(homework.activity, Quiz)):
         logging.info('activity id=%s, title=%s', homework.activity.id, homework.activity.title)
-        card=Item('activity '+homework.activity.id, homework.activity.title)
+        card=Item('activity '+homework.activity.id, homework.activity.title, imageUri=homework.activity.imageUri)
         select_cards.append(card)
         quizzes.append(homework.activity)
     
@@ -100,8 +100,8 @@ def start(session, request):
     error_text = 'Error, quiz not found'  
     return Response(error_text).text(error_text).build()
         
-  description='{0} Questions in this quiz, each for 1 point. Ready to begin?'.format(len(quiz.questions))
-  card = Card(quiz.title, description=description)
+  description='{0} Questions in this quiz. Ready to begin?'.format(len(quiz.questions))
+  card = Card(quiz.title, description=description, subtitle=quiz.description, imageUri=quiz.imageUri, imageText=quiz.title)
   response_text = quiz.title
   context = OutputContext(session, OUT_CONTEXT_QUIZ_DO, type=OUT_CONTEXT_QUIZ_DO, lifespan=2, id=quiz.id)
   return Response(description).text(response_text).card(card).suggestions(['Yes','No']) \
@@ -129,7 +129,7 @@ def start_yes(session, request):
   question = quiz.questions[question_index]
   title = 'Question {0} of {1}'.format(question_index+1, len(shuffled_question_ids))
   
-  card = Card(title, question.question)
+  card = Card(title, question.question, imageUri=quiz.imageUri, imageText=title)
   response_text = title +' : \n' + question.question
   context = OutputContext(session, OUT_CONTEXT_QUIZ_QUESTION, lifespan=1, 
                           shuffled=shuffled_question_ids, question_index=question_index, 
@@ -218,7 +218,7 @@ def next_question(session, request):
     logging.debug('display new question {0} - {1}', question.id, question.question)
     title = 'Question {0} of {1}'.format(question_index+1, len(shuffled_question_ids))
   
-    card = Card(title, question.question)
+    card = Card(title, question.question, imageUri=quiz.imageUri, imageText=title)
     response_text = title +' : \n' + question.question
     context = OutputContext(session, OUT_CONTEXT_QUIZ_QUESTION, lifespan=1, 
                           shuffled=shuffled_question_ids, question_index=question_index, 
@@ -254,7 +254,7 @@ def previous_question(session, request):
   logging.debug('display previous question {0} - {1}', question.id, question.question)
   title = 'Question {0} of {1}'.format(question_index+1, len(shuffled_question_ids))
 
-  card = Card(title, question.question)
+  card = Card(title, question.question, imageUri=quiz.imageUri, imageText=title)
   response_text = title +' : \n' + question.question
   context = OutputContext(session, OUT_CONTEXT_QUIZ_QUESTION, lifespan=1, 
                         shuffled=shuffled_question_ids, question_index=question_index, 

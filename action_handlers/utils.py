@@ -24,21 +24,6 @@ from SPARQLWrapper import SPARQLWrapper, JSON
 
 from googleapiclient.discovery import build
 
-# handle first logon for the day
-# handle subsequent logins for the day
-# start from where left off since last login if any
-def welcome(session, request):
-  userContext=getUserContext(request)
-  if userContext:
-    response_text = random.choice(WELCOME_SECOND_LOGON).format('Susan')
-    userContext.last_logon=datetime.now()
-  else:
-    response_text = random.choice(WELCOME_BASIC).format('Susan')
-    userContext=UserContext() # new if one already doesn't exist
-      
-  return Response(response_text).text(response_text).text(WELCOME_TEXT) \
-          .suggestions(WELCOME_SUGGESTIONS).userStorage(userContext.toJson()).build()
-
 
 def google_kgraph_lookup(concept):
   service = build("kgsearch", "v1", developerKey='AIzaSyBPobZc7OwY6D_XcOThmqst2Lpl9c3Ggas') #TODO hardcoded
@@ -85,43 +70,6 @@ def dbpedia_concept_lookup(concept):
       return binding.get('desc').get('value').encode('ascii', 'ignore')
   return None
 
-def definition(session, request):
-  concept = request.get('queryResult').get('parameters').get('concept')
-  desc = google_kgraph_lookup(concept)
-  
-  if desc:
-    return Response(desc).text(desc).suggestions(WELCOME_SUGGESTIONS).build()
-  
-  response_text=random.choice(CONCEPT_DEFINITION_UNKNOWN).format(concept)
-  return Response(response_text).text(response_text).suggestions(WELCOME_SUGGESTIONS).build()
-  
-def fallback(session, request):
-  response_text = random.choice(GENERAL_FALLBACKS)
-  query = request.get('queryResult').get('queryText')
-
-  contexts = request.get('queryResult').get('outputContexts')
-  option_value=None
-  if query=='actions_intent_OPTION':
-    for context in contexts:
-      if context.get('name') is not None and context.get('name').endswith('actions_intent_option'):
-        option_value = context.get('parameters').get('OPTION')
-  else:
-    option_value=query
-  
-  logging.debug('option_value=%s', option_value)
-
-  if option_value.startswith('course'):
-    return course_id(session, option_value[len('course')+1:])
-  elif option_value.startswith('lesson'):
-    return lesson_id(session, option_value[len('lesson')+1:])
-  elif option_value.startswith('homework'):
-    return homework_id(session, option_value[len('homework')+1:])
-  elif option_value.startswith('activity'):
-    return activity_id(session, option_value[len('activity')+1:])
-  
-  return Response(response_text).text(response_text).suggestions(WELCOME_SUGGESTIONS).build()
-
-
 def course_id(session, courseId):
   response_text = random.choice(LESSON_SELECT)
   context = OutputContext(session, OUT_CONTEXT_COURSE, type=OUT_CONTEXT_COURSE)
@@ -130,7 +78,7 @@ def course_id(session, courseId):
   logging.debug('courseId: %s, %d lessons in course', courseId, len(lessons))
   if lessons is not None:
     for lesson in lessons:
-      card=Item('lesson '+lesson.id, lesson.name, lesson.description, imageUri=lesson.imageUri)
+      card=Item('lesson '+lesson.id, lesson.name, lesson.description)
       select_cards.append(card)
   return Response(response_text).text(response_text).select(response_text, select_cards).outputContext(context).build()
 
@@ -147,13 +95,13 @@ def lesson_id(session, lessonId):
       if isinstance(m, Video):
         select_cards.append(Item(id='activity '+m.id, title=m.title, imageUri=m.imageUri))
       elif isinstance(m, Text):
-        select_cards.append(Item(id='activity '+m.id, title=m.title, imageUri=m.imageUri))
+        select_cards.append(Item(id='activity '+m.id, title=m.title))
       elif isinstance(m, Link):
-        select_cards.append(Item(id='activity '+m.id, title=m.title, imageUri=m.imageUri))
+        select_cards.append(Item(id='activity '+m.id, title=m.title))
       elif isinstance(m, Audio):
-        select_cards.append(Item(id='activity '+m.id, title=m.title, imageUri=m.imageUri))
+        select_cards.append(Item(id='activity '+m.id, title=m.title))
       elif isinstance(m, Quiz):
-        select_cards.append(Item(id='activity '+m.id, title=m.title, imageUri=m.imageUri))
+        select_cards.append(Item(id='activity '+m.id, title=m.title))
     return Response(response_text).text(response_text).select(response_text, select_cards).outputContext(context).build()
   error_text = 'Error, lesson not found'
   return Response(error_text).text(error_text).build()

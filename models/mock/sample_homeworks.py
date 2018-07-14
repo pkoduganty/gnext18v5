@@ -13,11 +13,11 @@ activities = [
     Homework(**{
       "courseId": "8SoStds",
       "id": "8SoStdsHW1",
-      "title":"Video - Planets of our Solar System",
-      "description":"A very informative NatGeo video on our Solar System Planets",
+      "title":"Video: Planets of our Solar System",
+      "description":"A informative NatGeo video on our Solar System Planets",
       "activity": Video(**{
           "id":"v001",
-          "title":'Planets of our Solar System',
+          "title":'Video: Planets of our Solar System',
           "url":'https://www.youtube.com/watch?v=libKVRa01L8',
           "imageUri":'https://upload.wikimedia.org/wikipedia/commons/c/cb/Planets2013.svg'
       }),
@@ -31,11 +31,13 @@ activities = [
     Homework(**{
       "courseId": "8SoStds",
       "id": "8SoStdsHW2",
-      "title":"Quiz on our Planets",
+      "title":"Quiz: Our Planets",
       "description":"Test your understanding of our planets",
       "activity": Quiz(**{
         "id":"qz001",
         "title":'Quiz on our planets',
+        "description":"Test your understanding of our planets, each question is worth 5 points.",
+        "imageUri": 'https://upload.wikimedia.org/wikipedia/commons/2/22/Astronomy_Amateur_3_V2.jpg',
         "questions":[
             Question(**{
                 "id":"qt001",
@@ -51,7 +53,7 @@ activities = [
                 }),
             Question(**{
                 "id":"qt003",
-                "question":'which planets have rings?',
+                "question":'which planets in our solar system have rings?',
                 "answers":["all", "giant planets", "neptune","jupiter","uranus","saturn"],
                 "choices":["neptune","jupiter","uranus","saturn","all giant planets"]
                 })
@@ -67,16 +69,16 @@ activities = [
     Homework(**{
       "courseId": "8Scnce",
       "id": "8ScnceHW3",
-      "title":"The Cell - The building block of all organisms",
+      "title":"Read: The Cell - The building block of all organisms",
       "description":"Understand basic components of all cells",
       "activity": Text(**{
           "id":"t001",
-          "title":'The Cell',
+          "title":'Read: The Cell',
           "text":'''The Cell is the smallest unit structure of all organisms. All cells are made by the division of other cells. 
-          The cell membrane is a thin flexible layer around the cell and seperates the outside environment from the cytoplasm inside the cell. It is sometimes called the plasma membrane or cytoplasmic membrane. 
-          Cytoplasm is the gel-like material inside the cell, which along with other parts called organelles (like small organs) are inside the cell membrane.
-          Organelles each do different things in the cell. Examples are the nucleus which is the most important like our brain and mitochondria which generates chemical energy for the cell.''',
-          "imageUri":'https://upload.wikimedia.org/wikipedia/commons/thumb/4/40/Simple_diagram_of_animal_cell_%28en%29.svg/512px-Simple_diagram_of_animal_cell_%28en%29.svg.png'
+            The cell membrane is a thin flexible layer around the cell and seperates the outside environment from the cytoplasm inside the cell. It is sometimes called the plasma membrane or cytoplasmic membrane. 
+            Cytoplasm is the gel-like material inside the cell, which along with other parts called organelles (like small organs) are inside the cell membrane.
+            Organelles each do different things in the cell. Examples are the nucleus which is the most important like our brain and mitochondria which generates chemical energy for the cell.''',
+          "imageUri":'https://upload.wikimedia.org/wikipedia/commons/8/83/Celltypes.svg'
       }),
       "creationTime":"2018-06-25T15:01:23.045123456Z",
       "updateTime":"2018-06-25T15:01:23.045123456Z",
@@ -87,12 +89,32 @@ activities = [
     }),  
     Homework(**{
       "courseId": "8Scnce",
+      "id": "8ScnceHW5",
+      "title":"Video: Cell structure and function",
+      "description":"Understand cell structure, parts and their function",
+      "activity": Video(**{
+          "id":"v022",
+          "title":'Video: Cell structure and function',
+          "url":'https://www.youtube.com/watch?v=URUJD5NEXC8',
+          "imageUri":'https://upload.wikimedia.org/wikipedia/commons/thumb/4/40/Simple_diagram_of_animal_cell_%28en%29.svg/512px-Simple_diagram_of_animal_cell_%28en%29.svg.png'
+       }),
+      "creationTime":"2018-06-25T15:01:23.045123456Z",
+      "updateTime":"2018-06-25T15:01:23.045123456Z",
+      "dueDate":"2018-06-25",
+      "dueTime":"15:01:23.045123456Z",
+      "scheduledTime":"2018-07-05T15:01:23.045123456Z",
+      "creatorUserId":"116353579384483626788"
+    }),
+    Homework(**{
+      "courseId": "8Scnce",
       "id": "8ScnceHW4",
-      "title":"Quiz - The Cell",
+      "title":"Quiz: The Cell",
       "description":"Test your knowledge of the cell",
       "activity": Quiz(**{
         "id":"qz002",
-        "title":'Quiz on cells',
+        "title":'Quiz: The Cell',
+        "description":"Test your knowledge of the cell, each question is worth 5 points.",
+        "imageUri":'https://upload.wikimedia.org/wikipedia/commons/3/37/Wilson1900Fig2.jpg',
         "questions":[
             Question(**{
                 "id":"qt011",
@@ -114,25 +136,7 @@ activities = [
       "dueTime":"15:01:23.045123456Z",
       "scheduledTime":"2018-07-05T15:01:23.045123456Z",
       "creatorUserId":"116353579384483626788"
-    }),  
-    Homework(**{
-      "courseId": "8Scnce",
-      "id": "8ScnceHW5",
-      "title":"course 3 - multiple choice 2",
-      "description":"course 3 - multiple choice 2 - ",
-      "activity": Video(**{
-          "id":"v022",
-          "title":'Cell structure and function',
-          "url":'https://www.youtube.com/watch?v=URUJD5NEXC8',
-          "imageUri":'https://upload.wikimedia.org/wikipedia/commons/thumb/4/40/Simple_diagram_of_animal_cell_%28en%29.svg/512px-Simple_diagram_of_animal_cell_%28en%29.svg.png'
-       }),
-      "creationTime":"2018-06-25T15:01:23.045123456Z",
-      "updateTime":"2018-06-25T15:01:23.045123456Z",
-      "dueDate":"2018-06-25",
-      "dueTime":"15:01:23.045123456Z",
-      "scheduledTime":"2018-07-05T15:01:23.045123456Z",
-      "creatorUserId":"116353579384483626788"
-    })  
+    })
   ]
 
 homework_id_dict=dict()

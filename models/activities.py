@@ -15,10 +15,13 @@ class ActivityType(object):
   LINK='link'
 
 class Link(Object):
-  def __init__(self, id, title, url):
+  def __init__(self, id, title, url, imageUri=None, imageText=None):
     self.id=id
     self.url=url
     self.title=title
+    if imageUri is not None:
+      self.imageUri=imageUri
+      self.imageText=imageText if imageText is not None else title
 
 class Video(Object):
   def __init__(self, id, title, url, imageUri=None, imageText=None):
@@ -50,18 +53,22 @@ class Text(Object):
       self.imageText=imageText if imageText is not None else title
 
 class Quiz(Object):
-  def __init__(self, id, title, questions, imageUri=None, imageText=None):
+  def __init__(self, id, title, description, questions, imageUri=None, imageText=None):
     self.id=id
     self.title=title
+    self.description=description
     self.questions=questions
     if imageUri is not None:
       self.imageUri=imageUri
       self.imageText=imageText if imageText is not None else title
 
 class Question(Object):
-  def __init__(self, id, question, answers, choices=[]):
+  def __init__(self, id, question, answers, choices=[], imageUri=None, imageText=None):
     self.id=id
     # if choices is empty should be a short answer question else mutliple choice
     self.question=question
     self.choices=choices
     self.answers=answers
+    if imageUri is not None:
+      self.imageUri=imageUri
+      self.imageText=imageText if imageText is not None else 'No text'
