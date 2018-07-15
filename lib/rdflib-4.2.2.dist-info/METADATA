@@ -1,13 +1,12 @@
-Metadata-Version: 2.1
+Metadata-Version: 2.0
 Name: rdflib
 Version: 4.2.2
 Summary: RDFLib is a Python library for working with RDF, a simple yet powerful language for representing information.
 Home-page: https://github.com/RDFLib/rdflib
-Author: Daniel 'eikeon' Krech
-Author-email: eikeon@eikeon.com
-Maintainer: RDFLib Team
-Maintainer-email: rdflib-dev@google.com
+Author: RDFLib Team
+Author-email: rdflib-dev@google.com
 License: https://raw.github.com/RDFLib/rdflib/master/LICENSE
+Description-Content-Type: UNKNOWN
 Platform: any
 Classifier: Programming Language :: Python
 Classifier: Programming Language :: Python :: 2
@@ -21,8 +20,6 @@ Classifier: License :: OSI Approved :: BSD License
 Classifier: Topic :: Software Development :: Libraries :: Python Modules
 Classifier: Operating System :: OS Independent
 Classifier: Natural Language :: English
-Provides-Extra: html
-Provides-Extra: sparql
 Requires-Dist: isodate
 Requires-Dist: pyparsing
 Provides-Extra: html
