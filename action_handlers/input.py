@@ -15,7 +15,7 @@ from action_handlers.utils import *
 from action_handlers.activity import do_homework, do_activity
 
 from response_generators.messages import *
-from response_generators.response import Response, OutputContext, Text, Item
+from response_generators.response import *
 
 from models.common import *
 from models.activities import *
@@ -44,7 +44,8 @@ def welcome(session, request):
 def definition(session, request):
   concept = request.get('queryResult').get('parameters').get('concept')
   results = google_kgraph_lookup(concept, ["Thing"])
-  
+  logging.debug('knowledge graph result: %s', json.dumps(results, default=lambda o: o.__dict__, 
+            sort_keys=True, indent=4))
   if results and len(results)>0:
     item=results[0]
     card=Card(item.name, item.long_description, 
@@ -58,6 +59,8 @@ def definition(session, request):
 def definition_fallback(session, request):
   concept = request.get('queryResult').get('parameters').get('concept')
   results = google_kgraph_lookup(concept, ["Thing"])  
+  logging.debug('knowledge graph result: %s', json.dumps(results, default=lambda o: o.__dict__, 
+            sort_keys=True, indent=4))
   cards=[]
   if results and len(results)>0:
     for item in results:
@@ -68,7 +71,8 @@ def definition_fallback(session, request):
 def person(session, request):
   person = request.get('queryResult').get('parameters').get('person')
   results = google_kgraph_lookup(person, ["Person"])
-  
+  logging.debug('knowledge graph result: %s', json.dumps(results, default=lambda o: o.__dict__, 
+            sort_keys=True, indent=4))
   if results and len(results)>0:
     item=results[0]
     card=Card(item.name, item.long_description, 
@@ -79,9 +83,11 @@ def person(session, request):
   response_text=random.choice(CONCEPT_DEFINITION_UNKNOWN).format(concept)
   return Response(response_text).text(response_text).suggestions(WELCOME_SUGGESTIONS).build()
 
-def person(session, request):
+def person_fallback(session, request):
   person = request.get('queryResult').get('parameters').get('person')
   results = google_kgraph_lookup(person, ["Person"])  
+  logging.debug('knowledge graph result: %s', json.dumps(results, default=lambda o: o.__dict__, 
+            sort_keys=True, indent=4))
   cards=[]
   if results and len(results)>0:
     for item in results:
