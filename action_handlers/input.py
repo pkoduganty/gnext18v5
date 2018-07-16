@@ -63,13 +63,13 @@ def definition(session, request):
               imageUri=item.imageUri)
     suggestions=["Not relevant"]
     suggestions.extend(WELCOME_SUGGESTIONS)
-    return Response(item.name).card(card).suggestions(suggestions).build()
+    return Response(item.name).text(item.name).card(card).suggestions(suggestions).build()
   
   response_text=random.choice(CONCEPT_DEFINITION_UNKNOWN).format(concept)
   return Response(response_text).text(response_text).suggestions(WELCOME_SUGGESTIONS).build()
 
 
-def definition_fallback(session, request):
+def definition_wrong(session, request):
   concept = request.get('queryResult').get('parameters').get('concept')
   results = google_kgraph_lookup(concept, ["Thing"])  
   logging.debug('knowledge graph result: %s', json.dumps(results, default=lambda o: o.__dict__, 
@@ -79,8 +79,9 @@ def definition_fallback(session, request):
     for item in results:
       card=Item(item.name, item.long_description, 
               imageUri=item.imageUri, synonyms=[item.name])
-  return Response(item.name).carousel(cards).suggestions(WELCOME_SUGGESTIONS).build()  
+  return Response(item.name).text(item.name).carousel(cards).suggestions(WELCOME_SUGGESTIONS).build()  
   
+
 def person(session, request):
   person = request.get('queryResult').get('parameters').get('person')
   results = google_kgraph_lookup(person, ["Person"])
@@ -93,12 +94,13 @@ def person(session, request):
               imageUri=item.imageUri)
     suggestions=["Not this person"]
     suggestions.extend(WELCOME_SUGGESTIONS)
-    return Response(item.name).card(card).suggestions(suggestions).build()
+    return Response(item.name).text(item.name).card(card).suggestions(suggestions).build()
   
   response_text=random.choice(CONCEPT_DEFINITION_UNKNOWN).format(concept)
   return Response(response_text).text(response_text).suggestions(WELCOME_SUGGESTIONS).build()
 
-def person_fallback(session, request):
+
+def person_wrong(session, request):
   person = request.get('queryResult').get('parameters').get('person')
   results = google_kgraph_lookup(person, ["Person"])  
   logging.debug('knowledge graph result: %s', json.dumps(results, default=lambda o: o.__dict__, 
@@ -108,7 +110,7 @@ def person_fallback(session, request):
     for item in results:
       card=Item(item.name, item.long_description, 
               imageUri=item.imageUri, synonyms=[item.name])
-  return Response(item.name).carousel(cards).suggestions(WELCOME_SUGGESTIONS).build()  
+  return Response(item.name).text(item.name).carousel(cards).suggestions(WELCOME_SUGGESTIONS).build()  
   
 def fallback(session, request):
   response_text = random.choice(GENERAL_FALLBACKS)
