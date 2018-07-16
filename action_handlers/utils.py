@@ -48,9 +48,15 @@ def google_kgraph_lookup(concept, types):
       concept=Concept(
           item.get('result').get('name').encode('ascii', 'ignore'),
           item.get('result').get('@type'),
-          item.get('result').get('description').encode('ascii', 'ignore'),
-          item.get('result').get('image').get('url').encode('ascii', 'ignore') if item.get('result').get('image').get('url') else None,
-          item.get('result').get('detailedDescription').get('articleBody').encode('ascii', 'ignore')
+          item.get('result').get('description').encode('ascii', 'ignore') \
+            if item.get('result').get('description') else '',
+          item.get('result').get('image').get('url').encode('ascii', 'ignore') \
+            if (item.get('result').get('image') and item.get('result').get('image').get('url')) \
+            else None,
+          item.get('result').get('detailedDescription').get('articleBody').encode('ascii', 'ignore') \
+            if (item.get('result').get('detailedDescription') and 
+              item.get('result').get('detailedDescription').get('articleBody')) \
+            else ''
           )
       items.append(concept)
   return items

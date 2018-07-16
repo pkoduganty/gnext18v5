@@ -61,7 +61,9 @@ def definition(session, request):
     card=Card(item.name, item.long_description, 
               subtitle=item.short_description, 
               imageUri=item.imageUri)
-    return Response(item.name).card(card).suggestions(["Not relevant"].extend(WELCOME_SUGGESTIONS)).build()
+    suggestions=["Not relevant"]
+    suggestions.extend(WELCOME_SUGGESTIONS)
+    return Response(item.name).card(card).suggestions(suggestions).build()
   
   response_text=random.choice(CONCEPT_DEFINITION_UNKNOWN).format(concept)
   return Response(response_text).text(response_text).suggestions(WELCOME_SUGGESTIONS).build()
@@ -89,7 +91,9 @@ def person(session, request):
     card=Card(item.name, item.long_description, 
               subtitle=item.short_description, 
               imageUri=item.imageUri)
-    return Response(item.name).card(card).suggestions(["Not this person"].extend(WELCOME_SUGGESTIONS)).build()
+    suggestions=["Not this person"]
+    suggestions.extend(WELCOME_SUGGESTIONS)
+    return Response(item.name).card(card).suggestions(suggestions).build()
   
   response_text=random.choice(CONCEPT_DEFINITION_UNKNOWN).format(concept)
   return Response(response_text).text(response_text).suggestions(WELCOME_SUGGESTIONS).build()
