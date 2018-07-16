@@ -24,18 +24,37 @@ from SPARQLWrapper import SPARQLWrapper, JSON
 
 from googleapiclient.discovery import build
 
+class Concept(Object):
+  def __init__(self, name, types, short_desc, image, long_desc):
+    self.name=name
+    self.types=types
+    self.short_description=short_desc
+    self.imageUri=image
+    self.long_description=long_desc
 
-def google_kgraph_lookup(concept):
+def google_kgraph_lookup(concept, types):
   service = build("kgsearch", "v1", developerKey='AIzaSyBPobZc7OwY6D_XcOThmqst2Lpl9c3Ggas') #TODO hardcoded
-  result = service.entities().search(prefix=True, query=concept, languages='en', limit=1).execute()
+  if types and len(types)>0:
+    result = service.entities().search(prefix=True, query=concept, types=types, languages='en', limit=5).execute()
+  else:
+    result = service.entities().search(prefix=True, query=concept, languages='en', limit=5).execute()
   logging.info('Knowledge Graph Response = %s', json.dumps(result))
   
+  items=[]
   if result and result.get('itemListElement') and len(result.get('itemListElement'))>0:
-    item=result.get('itemListElement')[0]
-    logging.info('ItemListElement=%s', json.dumps(item))
-    if item and item.get('result') and item.get('result').get('detailedDescription') and item.get('result').get('detailedDescription').get('articleBody'):
-      return item.get('result').get('detailedDescription').get('articleBody').encode('ascii', 'ignore')
-  return None
+    for item in result.get('itemListElement'):
+      logging.info('ItemListElement=%s', json.dumps(item))
+      if (item and item.get('result') and item.get('result').get('detailedDescription') and 
+          item.get('result').get('detailedDescription').get('articleBody')):
+        concept=Concept(
+            item.get('result').get('name').encode('ascii', 'ignore'),
+            item.get('result').get('@type'),
+            item.get('result').get('description').encode('ascii', 'ignore'),
+            item.get('result').get('image').get('url').encode('ascii', 'ignore') if item.get('result').get('image').get('url') else None,
+            item.get('result').get('detailedDescription').get('articleBody').encode('ascii', 'ignore')
+            )
+        items.append(concept)
+  return items
   
 def google_csearch(query):
   service = build("customsearch", "v1",
@@ -48,8 +67,7 @@ def google_csearch(query):
   return res
 
 def dbpedia_concept_lookup(concept):
-  query = '''PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-    
+  query = '''PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>    
     SELECT DISTINCT ?desc  WHERE {{
               ?subj rdfs:comment ?desc.
               FILTER( LANG(?desc)="en" )

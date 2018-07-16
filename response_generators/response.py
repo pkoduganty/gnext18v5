@@ -73,8 +73,7 @@ class Button(ResponseType):
     logging.debug('Created Button %s', str(self.__dict__))
   
 class Card(ResponseType):
-  def __init__(self, title, description, subtitle=None, imageUri=None, imageText=None, buttons=[]):
-    
+  def __init__(self, title, description, subtitle=None, imageUri=None, imageText=None, buttons=[]):    
     self.title=title
     self.formattedText=description
     if subtitle is not None:

@@ -14,7 +14,7 @@ from models.courses import Lesson
 # review messages and add ssml for naturalized tts - done
 # implement basic search by title, should be invoked from fallback
 # deep linking intents and fallback handling, talk to miss fiona about weather
-# intelligent fallbacks, universals
+# intelligent fallbacks, UNIVERSALS
 # system events - actions_PLAY_GAME - snake words
 # learning paths - recommendations
 # push messages
