@@ -36,7 +36,8 @@ def google_kgraph_lookup(concept):
     if item and item.get('result') and item.get('result').get('detailedDescription') and item.get('result').get('detailedDescription').get('articleBody'):
       return item.get('result').get('detailedDescription').get('articleBody').encode('ascii', 'ignore')
   return None
-  
+
+
 def google_csearch(query):
   service = build("customsearch", "v1",
             developerKey="AIzaSyDRRpR3GS1F1_jKNNM9HCNd2wJQyPG3oN0")
@@ -46,6 +47,7 @@ def google_csearch(query):
       cx='017576662512468239146:omuauf_lfve',
     ).execute()
   return res
+
 
 def dbpedia_concept_lookup(concept):
   query = '''PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
@@ -69,6 +71,7 @@ def dbpedia_concept_lookup(concept):
     if binding.get('desc') and binding.get('desc').get('value'):
       return binding.get('desc').get('value').encode('ascii', 'ignore')
   return None
+
 
 def course_id(session, courseId):
   response_text = random.choice(LESSON_SELECT)
@@ -95,13 +98,13 @@ def lesson_id(session, lessonId):
       if isinstance(m, Video):
         select_cards.append(Item(id='activity '+m.id, title=m.title, imageUri=m.imageUri))
       elif isinstance(m, Text):
-        select_cards.append(Item(id='activity '+m.id, title=m.title))
+        select_cards.append(Item(id='activity '+m.id, title=m.title, imageUri=m.imageUri))
       elif isinstance(m, Link):
-        select_cards.append(Item(id='activity '+m.id, title=m.title))
+        select_cards.append(Item(id='activity '+m.id, title=m.title, imageUri=m.imageUri))
       elif isinstance(m, Audio):
-        select_cards.append(Item(id='activity '+m.id, title=m.title))
+        select_cards.append(Item(id='activity '+m.id, title=m.title, imageUri=m.imageUri))
       elif isinstance(m, Quiz):
-        select_cards.append(Item(id='activity '+m.id, title=m.title))
+        select_cards.append(Item(id='activity '+m.id, title=m.title, imageUri=m.imageUri))
     return Response(response_text).text(response_text).select(response_text, select_cards).outputContext(context).build()
   error_text = 'Error, lesson not found'
   return Response(error_text).text(error_text).build()
@@ -110,6 +113,7 @@ def lesson_id(session, lessonId):
 def homework_id(session, homeworkId):
   assignment = sample_homeworks.homework_id_dict.get(homeworkId.strip())
   return do_homework(session, assignment).build()
+
 
 def activity_id(session, activityId):
   activity=sample_lessons.activity_id_dict.get(activityId.strip())

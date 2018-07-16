@@ -56,7 +56,7 @@ def do_activity(session, activity):
     return Response(activity.title).audio(activity.title, activity.url).outputContext(context)
   
   if isinstance(activity, Quiz):
-    description='{0} Questions in this quiz with 10 points for each. Ready to begin?'.format(len(activity.questions))
+    description=random.choice(QUIZ_DESCRIPTION).format(len(activity.questions))
     card = Card(activity.title, description=description)
     response_text = activity.title
     context = OutputContext(session, OUT_CONTEXT_LESSON_ACTIVITY_DO, type=OUT_CONTEXT_LESSON_ACTIVITY_DO, lifespan=2, id=activity.id)

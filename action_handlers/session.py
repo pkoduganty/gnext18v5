@@ -6,7 +6,8 @@ Created on Tue May 29 01:30:31 2018
 @author: praveen
 """
 import json
-from marshmallow import Schema, fields, pprint
+import logging
+from marshmallow import Schema, fields, post_load, pprint
 from datetime import datetime
 
 EVENT_NEXT_QUESTION='action_next_question'
@@ -23,20 +24,22 @@ OUT_CONTEXT_QUIZ_DO='quiz_do'
 OUT_CONTEXT_QUIZ_QUESTION='quiz_question'
 
 class UserContextSchema(Schema):
-  enable_push_notifications=fields.Boolean()
+  name=fields.String()
   last_logon=fields.DateTime()
   last_activity=fields.String()
   last_activity_type=fields.String()
   activity_history=fields.List(fields.String())
   activities_started=fields.Integer()
   activities_finished=fields.Integer()
+  learning_score=fields.Integer()
   badges=fields.List(fields.String())
   
 class UserContext(object):
-  def __init__(self, enable_push_notifications=False, last_logon=datetime.now(), 
-               last_activity=None, last_activity_type=None, history=[], started=0, finished=0, score=0,
+  def __init__(self, name='Susan', last_logon=datetime.now(), 
+               last_activity=None, last_activity_type=None, 
+               history=[], started=0, finished=0, score=0,
                badges=[]):
-    self.enable_push_notifications=enable_push_notifications
+    self.name = name
     self.last_logon=last_logon
     self.last_activity=last_activity
     self.last_activity_type=last_activity_type
@@ -46,16 +49,34 @@ class UserContext(object):
     self.learning_score=score
     self.badges=badges
 
+  @post_load
+  def fromJson(self, data):
+    logging.debug(data)
+    if isinstance(data, str):
+      data=json.loads(data).data
+    return UserContext(**data)
+  
   def toJson(self):
     schema = UserContextSchema()
-    return schema.dumps(self)
+    return schema.dumps(self).data
     
 def getUserContext(request):
-  if request.get('user') and request.get('user').get('userStorage'):
-    userContext=request.get('user').get('userStorage')
-    schema = UserContextSchema()
-    userContext=schema.loads(userContext)
-    return userContext
+  try:
+    if request.get('user') and request.get('user').get('userStorage'):
+      userContext=request.get('user').get('userStorage')
+      schema = UserContextSchema()
+      userContext=schema.loads(userContext)
+      return userContext
+    elif (request.get('originalDetectIntentRequest') and 
+          request.get('originalDetectIntentRequest').get('payload') and
+          request.get('originalDetectIntentRequest').get('payload').get('user') and
+          request.get('originalDetectIntentRequest').get('payload').get('user').get('userStorage')):
+      userContext=request.get('originalDetectIntentRequest').get('payload').get('user').get('userStorage')
+      schema = UserContextSchema()
+      userContext=schema.loads(userContext).data
+      return userContext
+  except Exception as e:
+    logging.error('Error while getting user context', e)
   return None
 
     

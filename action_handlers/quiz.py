@@ -15,6 +15,7 @@ from fuzzywuzzy import fuzz
 from fuzzywuzzy import process
 
 from action_handlers.session import *
+from action_handlers.utils import *
 from action_handlers.activity import do_activity, ActivityType
 
 from response_generators.response import *
@@ -100,7 +101,7 @@ def start(session, request):
     error_text = 'Error, quiz not found'  
     return Response(error_text).text(error_text).build()
         
-  description='{0} Questions in this quiz. Ready to begin?'.format(len(quiz.questions))
+  description=random.choice(QUIZ_DESCRIPTION).format(len(quiz.questions))
   card = Card(quiz.title, description=description, subtitle=quiz.description, imageUri=quiz.imageUri, imageText=quiz.title)
   response_text = quiz.title
   context = OutputContext(session, OUT_CONTEXT_QUIZ_DO, type=OUT_CONTEXT_QUIZ_DO, lifespan=2, id=quiz.id)

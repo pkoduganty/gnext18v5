@@ -5,43 +5,179 @@ Created on Mon May 28 11:49:03 2018
 
 @author: praveen
 """
-
 WELCOME_SUGGESTIONS=[
+    u"do your homework",
+    u"go to class",
+    u"take a quiz",
     u"list my classes",
-    u"read announcements",
-    u"pending assignments",
-    u"take quiz",
-    u"go to class"
+    u"read announcements"
 ]
 
 WELCOME_TEXT=[
-    u'<speak>Do your homework,<break time="300ms"/> <p><s>list your classes,</s> <s> take a quiz</s> or <s>read latest school announcements</s></p></speak>'
+    (
+        u'You might want to do your homework, or review a lesson, oh! or maybe a quick quiz',
+        u'<speak><prosody rate="90%">You might want to do your homework, \
+        <break time="300ms"/> or review a lesson,\
+        <break time="300ms"/> and <emphasis strength="strong">Oh!</emphasis> \
+        or maybe a quick quiz</prosody></speak>'
+    ),
+    (
+        u'Let us start with your homework, and then a quick quiz perhaps',
+        u'<speak><prosody rate="90%">Let us start with your homework,<break time="300ms"/> \
+        and then a quick quiz perhaps</prosody></speak>'
+    ),
+    (
+        u'Do your homework, or read a lesson, then maybe a quick quiz',
+        u'<speak><prosody rate="90%">Do your homework,<break time="300ms"/> \
+        or read a lesson,<break time="300ms"/>\
+        then maybe a quick quiz</prosody></speak>'
+    ),
+    (
+        u'Do your homework, or read a lesson, or how about a trivia, ah maybe a quick quiz',
+        u'<speak><prosody rate="90%">Do your homework,<break time="300ms"/> or read a lesson,\
+        <break time="300ms"/> and <emphasis strength="strong">Ah!</emphasis> maybe a quick quiz</prosody></speak>'
+    )
 ]
+
+
+ANTHEM=[
+    (
+        u'You have brains in your head,\
+You have feet in your shoes,\
+You can steer yourself any direction you choose,\
+You’re on your own and you know what you know,\
+And you’re the guy who will decide where to go,\
+Oh the places you’ll go.',
+
+        u'''
+        <speak>
+            <par>
+              <media>
+                  <audio src="https://gnext18-v5.appspot.com/play/all-by-myself_z1Xv2LBO.mp3" soundLevel="-5dB"></audio>
+              </media>
+              <media>
+                <speak>
+                    <p>
+                        <s>You have brains in your head</s>
+                        <s><prosody rate="80%">You have feet in your shoes</prosody>
+                            <break strength="weak"/></s>
+                    </p>
+                    <p>
+                        <s>You can steer yourself any direction you choose</s>
+                        <s><prosody rate="80%">You’re on your own and you know what you know</prosody></s>
+                    </p>
+                    <p>
+                        <s>And you’re the guy who will decide where to go<break time="600ms"/></s>
+                        <s><prosody rate="slow">
+                            <emphasis>Oh the places you’ll go</emphasis>
+                          </prosody>
+                        </s>
+                    </p>
+                </speak>
+              </media>
+            </par>
+        </speak>'''
+    )
+]
+
 
 # 0:user 
 WELCOME_BASIC=[
-    u'<speak>Hello {0}, <break time="200ms"/> every day is a learning day</speak>',
-    u'<speak>Dear {0}, <break time="200ms"/> let the learning begin</speak>',
-    u'<speak>{0}, <break time="200ms"/> kindle your curiosity</speak>',
-    u'<speak>{0}, <break time="200ms"/> I can help you with </speak>',
-    u'<speak>{0}, <break time="200ms"/> let us begin with </speak>'
+    (
+        u'Hello {0}, every day is a learning day',
+        u'<speak><par>\
+            <media>\
+              <speak><prosody rate="90%">\
+                <emphasis strength="strong">Hello {0}</emphasis>,\
+                every day is a learning day </prosody>\
+              </speak>\
+            </media>\
+            <media soundLevel="-10dB" fadeInDur="3s" fadeOutDur="1s">\
+              <audio clipEnd="7s" src="https://gnext18-v5.appspot.com/play/snow-white-logo_fy1ZYrVd.mp3">\
+              the learning bugle\
+              </audio>\
+            </media>\
+        </par></speak>'
+    ),
+    (
+        u'Padawan {0}, so eager to learn you are, let the learning begin',
+        u'<speak><par>\
+            <media>\
+              <speak>\
+                <prosody rate="90%">\
+                <emphasis strength="strong">Padawan {0}</emphasis>, \
+                so eager to learn you are \
+                <break time="500ms"/> let the learning begin</prosody>\
+              </speak>\
+            </media>\
+            <media soundLevel="-10dB" fadeInDur="3s" fadeOutDur="1s">\
+              <audio clipEnd="7s" src="https://gnext18-v5.appspot.com/play/paradise-on-earth_GJ6JNIBO.mp3">\
+              the learning bugle\
+              </audio>\
+            </media>\
+        </par></speak>'
+    ),
+    (
+        u'{0}, kindle your curiosity',
+        u'<speak><par>\
+            <media><speak><prosody rate="90%">\
+              <emphasis strength="strong">{0}</emphasis>, \
+              kindle your curiosity</prosody></speak>\
+            </media>\
+            <media soundLevel="-10dB" fadeInDur="3s" fadeOutDur="1s">\
+              <audio clipEnd="7s" src="https://gnext18-v5.appspot.com/play/ultimate-victory_fyiYEQB_.mp3">\
+              the learning bugle\
+              </audio>\
+            </media>\
+        </par></speak>'
+    )
 ]
 
 WELCOME_SECOND_LOGON=[
-    u"Welcome back {0}, how can I help you?", 
-    u"Welcome back, start from where you left off?"
+    (
+        u"Welcome back {0}",
+        u'<speak><par>\
+            <media><speak><prosody rate="90%">\
+              Welcome back <emphasis strength="strong">{0}</emphasis></prosody></speak>\
+            </media>\
+            <media soundLevel="-10dB" fadeInDur="3s" fadeOutDur="1s">\
+              <audio clipEnd="7s" src="https://gnext18-v5.appspot.com/play/ultimate-victory_fyiYEQB_.mp3">\
+              the learning bugle\
+              </audio>\
+            </media>\
+        </par></speak>'
+    ),
+    (
+        u"Welcome back, start where you left off?",
+        u'<speak><par>\
+            <media><speak><prosody rate="90%">\
+              start where you left off?</prosody></speak>\
+            </media>\
+            <media soundLevel="-10dB" fadeInDur="3s" fadeOutDur="1s">\
+              <audio clipEnd="7s" src="https://gnext18-v5.appspot.com/play/ultimate-victory_fyiYEQB_.mp3">\
+              the learning bugle\
+              </audio>\
+            </media>\
+        </par></speak>'
+    )
 ]
 
 # 0:user, 1:# of announcements
 UNREAD_ANNOUNCEMENTS=[
-    u'Hey {0}, you have {1} new announcements',
-    u'{0}, {1} new announcements'
+    u'<speak><prosody rate="90%"><emphasis strength="strong">Hey {0}</emphasis>,\
+      you have {1} new announcements</prosody></speak>',
+    
+    u'<speak><prosody rate="90%"><emphasis strength="strong">{0}</emphasis>, \
+      {1} new announcements</prosody></speak>'
 ]
 
 # 0:user, 1:announcement
 UNREAD_ANNOUNCEMENT=[
-    u'Hey {0}, an announcement for you',
-    u'{0}, you have one announcement'
+    u'<speak><prosody rate="90%"><emphasis strength="strong">Hey {0}</emphasis>,\
+      an announcement for you</prosody></speak>',
+      
+    u'<speak><prosody rate="90%"><emphasis strength="strong">{0}</emphasis>,\
+      you have one announcement</prosody></speak>'
 ]
 
 NO_UNREAD_ANNOUNCEMENTS=[
@@ -49,31 +185,41 @@ NO_UNREAD_ANNOUNCEMENTS=[
 ]
 
 NO_HOMEWORK=[
-    u'{0}, you have no homework today',
-    u'{0}, no homework today'
+    u'<speak><prosody rate="90%"><emphasis strength="strong">{0}</emphasis>, \
+      <audio src="https://gnext18-v5.appspot.com/play/cartoon-male-hooray-shouts_MJiAcHEO.mp3" clipEnd="1">Hooray!</audio> \
+      you have no homework today</prosody></speak>',
+    
+    u'<speak><prosody rate="90%"><emphasis strength="strong">{0}</emphasis>, \
+      <audio src="https://gnext18-v5.appspot.com/play/cartoon-male-hooray-shouts_MJiAcHEO.mp3" clipEnd="1">Hooray!</audio> \
+      no homework today</prosody></speak>'
 ]
 
 # 0:user, 1:#of assignments
 PENDING_HOMEWORKS=[
-    u'{0}, you have {1} assignments pending, choose to get started',
-    u'{0}, {1} assignments due'
+    u'<speak><prosody rate="90%"><emphasis strength="strong">{0}</emphasis>, \
+      you have {1} assignments pending, choose to get started</prosody></speak>',
+      
+    u'<speak><prosody rate="90%"><emphasis strength="strong">{0}</emphasis>, \
+      {1} assignments due</prosody></speak>'
 ]
 
 # 0:user, 1:assignment-title
 PENDING_HOMEWORK=[
-    u'{0}, assignment {1} pending, begin now?',
-    u'{0}, do you want to start your assignment {1} now ?'
+    u'<speak><prosody rate="90%"><emphasis strength="strong">{0}</emphasis>, \
+      homework on {1} is due today, begin now?</prosody></speak>',
+      
+    u'<speak><prosody rate="90%"><emphasis strength="strong">{0}</emphasis>, \
+      let us do your homework on {1} now?</prosody></speak>'
 ]
 
 COURSE_SELECT=[
-    u'which class would you want to begin with ?',
-    u'select a class to start ',
-    u'you\'re enrolled for the following, select one'
+    u'which subject would you want to begin with ?',
+    u'you"re enrolled for the following courses, select one'
 ]
 
 LESSON_SELECT=[
     u'which lesson do you want to study?',
-    u'Here are your lessons, select one'
+    u'Here are your lessons in school, select one'
 ]
 
 QUIZ_SELECT=[
@@ -88,6 +234,10 @@ LESSON_ACTIVITY_SELECT=[
 
 LESSON_ACTIVITY_DO=[
     u'Do this activity now'
+]
+
+QUIZ_DESCRIPTION=[
+    u'{0} Questions in this quiz with 10 points for each. Ready to begin?'
 ]
 
 INCORRECT_ANSWER=[
@@ -105,12 +255,14 @@ QUIZ_REPORT=[
 
 CONCEPT_DEFINITION_UNKNOWN=[
     u'I am afraid, I don\'t know what {0} means, do check with your teacher or elders.',
-    u'Sorry, don\'t know what {0} is'
+    u'Sorry, don"t know what {0} is'
 ]
 
 GENERAL_FALLBACKS=[
-    u'<speak>I didn\'t get that. <break time="300ms"/> <prosody rate="medium" pitch="-2st">Can you say it again?</prosody></speak>',
-    u'<speak>Ohh! I missed what you said.<break time="300ms"/> <prosody rate="medium" pitch="-2st">Say it again?</prosody></speak>',
+    u'<speak>I didn\'t get that. <break time="300ms"/><prosody rate="medium" pitch="-2st">\
+      Can you say it again?</prosody></speak>',
+    u'<speak>Ohh! I missed what you said.<break time="300ms"/> \
+      <prosody rate="medium" pitch="-2st">Say it again?</prosody></speak>',
     u'<speak>Sorry, <break time="200ms"/> <prosody rate="medium" pitch="-2st"> could you say that again?</prosody></speak>',
     u'<speak>Sorry, <break time="200ms"/>  <prosody rate="medium" pitch="-2st">can you say that again?</prosody></speak>',
     u'<speak><prosody rate="slow" pitch="-2st">Can you say that again?</prosody></speak>',
@@ -118,7 +270,7 @@ GENERAL_FALLBACKS=[
     u'<speak>Sorry, <break time="200ms"/>  <prosody rate="medium" pitch="-2st">what was that?</prosody></speak>',
     u'<speak>One more time?</speak>',
     u'<speak>Say that again?</speak>',
-    u'<speak>I didn\'t get that.</speak>',
+    u'<speak>I didn"t get that.</speak>',
     u'<speak>I missed that.</speak>',
-    u'<speak>Couldn\'t understand, <break time="200ms"/> try again?</speak>'
+    u'<speak>Couldn"t understand, <break time="200ms"/> try again?</speak>'
 ]

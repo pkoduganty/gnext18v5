@@ -15,7 +15,7 @@ logger.setLevel(logging.DEBUG)
 class ResponseType(object):
   def toJson(self):
     return json.loads(json.dumps(self, default=lambda o: 
-            dict((key,value) for key, value in o.__dict__.iteritems() if value is not None and len(str(value).strip())>0), 
+            dict((key,value) for key, value in o.__dict__.items() if value is not None and len(str(value).strip())>0), 
         sort_keys=True, indent=4))
   
 class Item(ResponseType):
