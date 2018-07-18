@@ -8,6 +8,8 @@ default_expiration: "5d"
 libraries:
 - name: flask
   version: 0.12
+- name: ssl
+  version: latest
 
 skip_files:
 - firebase/

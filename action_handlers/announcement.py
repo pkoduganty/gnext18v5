@@ -7,10 +7,12 @@ Created on Sun May 27 23:56:03 2018
 """
 import random
 import logging
+import logging
+import requests
 
 from action_handlers.session import *
 
-from response_generators.response import Response, Item
+from response_generators.response import Response, Item , Card
 from response_generators.messages import *
 
 from models.mock import sample_announcements, sample_courses
@@ -37,28 +39,43 @@ def get_random_announcements():
   return Response(response_text).select(response_text, items)
 
 def list_all(session, request):
-  permissions=None
-  if request.get('payload') and request.get('payload').get('user') and request.get('payload').get('user').get('permissions'):    
-    permissions = request.get('payload').get('user').get('permissions')
-  
-  if permissions and permissions.index("UPDATE"):
+  permissions=[]
+  oriReq = request.get('originalDetectIntentRequest')
+  if oriReq.get('payload') and oriReq.get('payload').get('user') and oriReq.get('payload').get('user').get('permissions'):    
+    permissions = oriReq.get('payload').get('user').get('permissions')
+  try:
+    if permissions is not None and len(permissions) > 0 and permissions.index("UPDATE",0,len(permissions)) > -1:
       return get_random_announcements().build()
-  else:
-    response_text="Get immediate alerts for school updates?"
-    return Response(response_text).permissions(response_text, ["UPDATE"],"announcement.get_notification").build()
-  
+    else:
+      response_text="Get immediate alerts for school updates?"
+      return Response(response_text).permissions(response_text, ["UPDATE"],"input.get_notification").build()
+  except :
+    return get_random_announcements().build()
+
 def setup_push_notification_yes(session, request):
+  logging.info('Push notification accepted request: '+str(request))
   return get_random_announcements().build()
 
-def get_notification(session,request):
-  logging.info("Request : " + json.dumps(request))
-  id = request.get('queryResult').get('parameters').get('id')
-  response_text = 'Announcement'
-  items = []
-  if id is not None:
+def getNotificationIdFromRequest(request):
+  if request.get('payload') and request.get('payload').get('inputs'):
+    inputs = request.get('payload').get('inputs')
+    for inp in inputs:
+      if inp['arguments'] :
+        for arg in inp['arguments']:
+          if arg.get('name') == 'id':
+            return arg.get('textValue')
+  return None
+
+def get_notification(session,request,id): 
+  
+  if id:
     for announcement in sample_announcements.announcements:
       if announcement.id == id:   
-        items.append(getAnnouncementItem(announcement))
-        return Response(response_text).select(response_text, items)
-  else:
-    return get_random_announcements().build()
+        return Response(announcement.text).build()
+
+  return get_random_announcements().build()  
+
+def getAnnouncementFromFirebase(id):
+  url = 'https://us-central1-gnext18-v5.cloudfunctions.net/getAnnouncementById?id=' + id
+  data = requests.get(url).json()
+  return data 

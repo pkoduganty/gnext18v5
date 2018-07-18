@@ -196,20 +196,16 @@ NO_HOMEWORK=[
 
 # 0:user, 1:#of assignments
 PENDING_HOMEWORKS=[
-    u'<speak><prosody rate="90%"><emphasis strength="strong">{0}</emphasis>, \
-      you have {1} assignments pending, choose to get started</prosody></speak>',
+    u'<speak><prosody rate="90%"><emphasis strength="strong">{0}</emphasis>, you have {1} assignments pending, choose to get started</prosody></speak>',
       
-    u'<speak><prosody rate="90%"><emphasis strength="strong">{0}</emphasis>, \
-      {1} assignments due</prosody></speak>'
+    u'<speak><prosody rate="90%"><emphasis strength="strong">{0}</emphasis>, {1} assignments due</prosody></speak>'
 ]
 
 # 0:user, 1:assignment-title
 PENDING_HOMEWORK=[
-    u'<speak><prosody rate="90%"><emphasis strength="strong">{0}</emphasis>, \
-      homework on {1} is due today, begin now?</prosody></speak>',
+    u'<speak><prosody rate="90%"><emphasis strength="strong">{0}</emphasis>, homework on {1} is due today, begin now?</prosody></speak>',
       
-    u'<speak><prosody rate="90%"><emphasis strength="strong">{0}</emphasis>, \
-      let us do your homework on {1} now?</prosody></speak>'
+    u'<speak><prosody rate="90%"><emphasis strength="strong">{0}</emphasis>, let us do your homework on {1} now?</prosody></speak>'
 ]
 
 COURSE_SELECT=[
