@@ -19,6 +19,18 @@ from response_generators.response import *
 from response_generators.messages import *
 
 def list_all(session, request):
+  permissions=[]
+  oriReq = request.get('originalDetectIntentRequest')
+  if oriReq.get('payload') and oriReq.get('payload').get('user') and oriReq.get('payload').get('user').get('permissions'):    
+    permissions = oriReq.get('payload').get('user').get('permissions')
+  
+  if permissions is not None and len(permissions) > 0 and permissions.index("UPDATE",0,len(permissions)) > -1:
+    return getList(session, request).build()
+  else:   
+    response_text="Get immediate alerts for Home works?"
+    return Response(response_text).permissions(response_text, ["UPDATE"],"input.get_notification").build()
+
+def getList(session, request):
   subject = request.get('queryResult').get('parameters').get('subject')
   grade = request.get('queryResult').get('parameters').get('grade') #TODO use students current grade
   grade = grade if grade is not None else 8
@@ -47,7 +59,7 @@ def list_all(session, request):
                       imageUri=sample_courses.courses_id_dict[a.courseId].imageUri,
                       imageText=sample_courses.courses_id_dict[a.courseId].name))
     context = OutputContext(session, OUT_CONTEXT_HOMEWORK, type=OUT_CONTEXT_HOMEWORK)
-    return Response(response_text).text(response_text).outputContext(context).select(response_text, items).build()
+    return Response(response_text).text(response_text).outputContext(context).select(response_text, items)
   
   
 def select_id(session, request):
@@ -87,7 +99,7 @@ def select_subject(session, request):
     response_text = random.choice(NO_HOMEWORK)
     return Response(response_text).text(response_text).build()
   elif len(homework_by_subject_grade)==1:
-    return do_homework(session, request, homework_by_subject_grade[0]).build()
+    return do_homework(session, homework_by_subject_grade[0]).build()
   else:
     response_text = random.choice(PENDING_HOMEWORKS).format('Susan', len(homework_by_subject_grade))  
     items = []
@@ -100,3 +112,12 @@ def select_subject(session, request):
     context = OutputContext(session, OUT_CONTEXT_HOMEWORK, type=OUT_CONTEXT_HOMEWORK)
     return Response(response_text).text(response_text).outputContext(context).select(response_text, items).build()
 
+def setup_push_homework_notification_yes(session, request):
+  return getList(session, request).build()
+
+def get_notification(session,request,id): 
+  if id :
+    return do_homework(session, sample_homeworks.homework_id_dict[id]).build()
+
+  logging.error('Notification is removed or doesn\'t exist any more.')
+  return Response('Notification is removed or doesn\'t exist any more').build()

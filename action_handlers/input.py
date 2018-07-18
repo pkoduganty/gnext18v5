@@ -8,6 +8,9 @@ Created on Sun May 27 23:56:03 2018
 import json
 import random
 import logging
+import os
+import sys
+import importlib
 from datetime import datetime
 
 from action_handlers.session import *
@@ -137,3 +140,29 @@ def fallback(session, request):
     return activity_id(session, option_value[len('activity')+1:])
   
   return Response(response_text).text(response_text).suggestions(WELCOME_SUGGESTIONS).build()
+
+def get_notification(session,request):
+  argData = ''
+  argData = getArgumentFromRequest(request.get('originalDetectIntentRequest'),'data')
+  
+  if argData is None:
+    argData = request.get('queryResult').get('parameters').get('data')
+
+  (notificationType,id) = argData.split("_",1)
+  logging.info("id value: " + id)
+  logging.info("notificationType value: " + notificationType)
+
+  if id is not None and notificationType is not None:
+    action_handler = importlib.import_module('action_handlers.' + notificationType)
+    func = getattr(action_handler, 'get_notification')    
+    return func(session, request,id)
+
+def getArgumentFromRequest(request,nameOfArgument):
+  if request.get('payload') and request.get('payload').get('inputs'):
+    inputs = request.get('payload').get('inputs')
+    for inp in inputs:
+      if inp['arguments'] :
+        for arg in inp['arguments']:
+          if arg.get('name') == nameOfArgument:
+            return arg.get('textValue')
+  return None
