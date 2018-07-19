@@ -174,8 +174,10 @@ lessons = [
 ]
 
 lesson_id_dict=dict()
+lesson_name_dict=dict()
 for l in lessons:
   lesson_id_dict[l.id]=l
+  lesson_name_dict[l.name.upper()]=l
 
 courses_id_dict=dict()
 for l in lessons:
@@ -187,3 +189,9 @@ activity_id_dict=dict()
 for l in lessons:
   for m in l.materials:
       activity_id_dict[m.id]=m
+
+activity_typeDict = dict()
+activity_typeDict['video'] = Video
+activity_typeDict['audio'] = Audio
+activity_typeDict['text'] = Text
+activity_typeDict['audio'] = Audio

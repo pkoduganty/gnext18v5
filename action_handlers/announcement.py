@@ -24,19 +24,25 @@ def getAnnouncementItem(announcement):
 def get_random_announcements():
   announcements = random.sample(sample_announcements.announcements, 
                                 random.randint(2, len(sample_announcements.announcements)-1))
-  
+  response_text = ''
+  response_speech = ''
   if len(announcements)==0:
-    response_text = random.choice(NO_UNREAD_ANNOUNCEMENTS)
+    response = random.choice(NO_UNREAD_ANNOUNCEMENTS)   
+    return Response(response)
   elif len(announcements)==1:
-    response_text = random.choice(UNREAD_ANNOUNCEMENT).format('Susan')
+    response = random.choice(UNREAD_ANNOUNCEMENT)
+    response_text = response[0].format('Susan')
+    response_speech = response[1].format('Susan')
   else:
-    response_text = random.choice(UNREAD_ANNOUNCEMENTS).format('Susan', len(announcements))
+    response = random.choice(UNREAD_ANNOUNCEMENTS)
+    response_text = response[0].format('Susan', len(announcements))
+    response_speech = response[1].format('Susan', len(announcements))
   
   items = []
   for a in announcements:
     items.append(getAnnouncementItem(a))
     
-  return Response(response_text).select(response_text, items)
+  return Response(response_text).speech(response_speech,response_text).select(response_text, items)
 
 def list_all(session, request):
   permissions=[]

@@ -164,20 +164,33 @@ WELCOME_SECOND_LOGON=[
 
 # 0:user, 1:# of announcements
 UNREAD_ANNOUNCEMENTS=[
-    u'<speak><prosody rate="90%"><emphasis strength="strong">Hey {0}</emphasis>,\
-      you have {1} new announcements</prosody></speak>',
-    
-    u'<speak><prosody rate="90%"><emphasis strength="strong">{0}</emphasis>, \
+    (
+        u'Hey {0}, you have {1} new announcements',
+        u'<speak><prosody rate="90%"><emphasis strength="strong">Hey {0}</emphasis>,\
+      you have {1} new announcements</prosody></speak>'
+      ),
+      (
+           u'{0}, {1} new announcements',
+          u'<speak><prosody rate="90%"><emphasis strength="strong">{0}</emphasis>, \
       {1} new announcements</prosody></speak>'
+      )
+    
+    
+    
 ]
 
 # 0:user, 1:announcement
 UNREAD_ANNOUNCEMENT=[
+    (
+        u'Hey {0}, an announcement for you',
     u'<speak><prosody rate="90%"><emphasis strength="strong">Hey {0}</emphasis>,\
       an announcement for you</prosody></speak>',
-      
+    ),
+    (
+        u'{0}, you have one announcement',
     u'<speak><prosody rate="90%"><emphasis strength="strong">{0}</emphasis>,\
       you have one announcement</prosody></speak>'
+    )
 ]
 
 NO_UNREAD_ANNOUNCEMENTS=[
@@ -185,27 +198,42 @@ NO_UNREAD_ANNOUNCEMENTS=[
 ]
 
 NO_HOMEWORK=[
+    (
+        u'{0}, you have no homework today.',
     u'<speak><prosody rate="90%"><emphasis strength="strong">{0}</emphasis>, \
       <audio src="https://gnext18-v5.appspot.com/play/cartoon-male-hooray-shouts_MJiAcHEO.mp3" clipEnd="1">Hooray!</audio> \
       you have no homework today</prosody></speak>',
-    
+    ),
+    (
+         u'{0}, no homework today.',
     u'<speak><prosody rate="90%"><emphasis strength="strong">{0}</emphasis>, \
       <audio src="https://gnext18-v5.appspot.com/play/cartoon-male-hooray-shouts_MJiAcHEO.mp3" clipEnd="1">Hooray!</audio> \
       no homework today</prosody></speak>'
+    )
 ]
 
 # 0:user, 1:#of assignments
 PENDING_HOMEWORKS=[
+    (
+        u'{0}, you have {1} assignments pending, choose to get started',
     u'<speak><prosody rate="90%"><emphasis strength="strong">{0}</emphasis>, you have {1} assignments pending, choose to get started</prosody></speak>',
-      
+    ) ,
+    (
+        u'{0}, {1} assignments due',
     u'<speak><prosody rate="90%"><emphasis strength="strong">{0}</emphasis>, {1} assignments due</prosody></speak>'
-]
+    )
+    ]
 
 # 0:user, 1:assignment-title
 PENDING_HOMEWORK=[
+    (
+        u'{0}, homework on {1} is due today, begin now?',
     u'<speak><prosody rate="90%"><emphasis strength="strong">{0}</emphasis>, homework on {1} is due today, begin now?</prosody></speak>',
-      
+    ) ,
+    (
+        u'{0}, let us do your homework on {1} now?',
     u'<speak><prosody rate="90%"><emphasis strength="strong">{0}</emphasis>, let us do your homework on {1} now?</prosody></speak>'
+    )
 ]
 
 COURSE_SELECT=[

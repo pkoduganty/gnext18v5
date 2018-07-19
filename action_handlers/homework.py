@@ -45,12 +45,16 @@ def getList(session, request):
           assignments.append(homework) # only if grade and subject match if subject is specified
 
   if len(assignments)==0:
-    response_text = random.choice(NO_HOMEWORK).format('Susan')
-    return Response(response_text).text(response_text).build()
+    random_no_homework = random.choice(NO_HOMEWORK)    
+    response_speech = random_no_homework[1].format('Susan')
+    response_text = random_no_homework[0].format('Susan')
+    return Response(response_text).speech(response_speech,response_text).build()
   elif len(assignments)==1:
     return do_homework(session, assignments[0]).build()
   else:
-    response_text = random.choice(PENDING_HOMEWORKS).format('Susan', len(assignments))
+    text_pendingHomeworks = random.choice(PENDING_HOMEWORKS)
+    response_text = text_pendingHomeworks[0].format('Susan', len(assignments))
+    response_speech = text_pendingHomeworks[1].format('Susan', len(assignments))
     items = []
     for a in assignments:
       items.append(Item(id='homework '+a.id, 
@@ -59,11 +63,11 @@ def getList(session, request):
                       imageUri=sample_courses.courses_id_dict[a.courseId].imageUri,
                       imageText=sample_courses.courses_id_dict[a.courseId].name))
     context = OutputContext(session, OUT_CONTEXT_HOMEWORK, type=OUT_CONTEXT_HOMEWORK)
-    return Response(response_text).text(response_text).outputContext(context).select(response_text, items)
+    return Response(response_text).speech(response_speech,response_text).outputContext(context).select(response_text, items)
   
   
 def select_id(session, request):
-  error_text = 'Error, homework not found'  
+  error_text = 'Sorry, homework not found'  
   homeworkId=None
   for context in request.get('queryResult').get('outputContexts'):
     if context.get('name').endswith('actions_intent_option') and context.get('parameters').get('OPTION') is not None:
@@ -80,7 +84,7 @@ def select_id(session, request):
   
 
 def select_subject(session, request):
-  error_text = 'Error, homework not found'
+  error_text = 'Sorry, homework not found'
   subject = request.get('queryResult').get('parameters').get('subject')
   grade = request.get('queryResult').get('parameters').get('grade') #TODO use students current grade
   grade = grade if grade is not None else 8

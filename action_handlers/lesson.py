@@ -7,6 +7,7 @@ Created on Sun May 27 23:56:03 2018
 """
 import random
 import logging
+import re
 
 from action_handlers.session import *
 from action_handlers.activity import do_activity
@@ -105,3 +106,44 @@ def select_id(session, request):
         elif isinstance(m, Quiz):
           select_cards.append(Item(id='activity '+m.id, title=m.title, imageUri=m.imageUri))
       return Response(response_text).text(response_text).select(response_text, select_cards).outputContext(context).build()
+
+def select(session, request):
+  lessonType = request.get('queryResult').get('parameters').get('LessonType')
+  lessonName = request.get('queryResult').get('parameters').get('LessonName')
+  context = OutputContext(session, OUT_CONTEXT_LESSON_ACTIVITY, type=OUT_CONTEXT_LESSON_ACTIVITY)
+  activity = search(lessonName,lessonType)
+  if activity :
+    return do_activity(session,activity).build()
+  else:
+    return Response("Sorry no lesson found.").text("You asked {0} from lesson {1} but we didn't find anything realted".format(lessonType,lessonName)).outputContext(context).build()
+
+
+def findActivity(lessonName,lessonType):
+    lesson = sample_lessons.lesson_name_dict[lessonName.upper()]
+    for activity in lesson.materials:
+        if isinstance(activity, sample_lessons.activity_typeDict[lessonType.lower()]):
+            return activity
+    return None
+
+def search(lessonName,lessonType):
+  words = lessonName.split(' ')
+  lessons = sample_lessons.lessons
+  matches = []
+
+  if len(words) > 0:
+    for word in words:
+        regex=re.compile(".*({0}).*".format(word.lower()))
+        midList = []
+        midList = [match.group(0) for lesson in lessons for match in [regex.search(lesson.name.lower())] if match and not any(lsn == lesson.name.lower() for lsn in matches) ]
+        for ls in midList:            
+            matches.append(ls)
+  mostMatches = dict()
+  for match in matches:
+    mostMatches[match] = [word.lower() in match.lower() for word in words].count(True)
+  mostMatched = max(mostMatches, key=mostMatches.get) 
+  
+  return findActivity(mostMatched,lessonType)
+  
+
+
+
