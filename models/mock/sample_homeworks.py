@@ -105,6 +105,7 @@ activities = [
       "scheduledTime":"2018-07-05T15:01:23.045123456Z",
       "creatorUserId":"116353579384483626788"
     }),
+    
     Homework(**{
       "courseId": "8Scnce",
       "id": "8ScnceHW4",
