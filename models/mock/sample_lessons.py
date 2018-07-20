@@ -29,7 +29,7 @@ lessons = [
           "id":"v001",
           "title":'Video: Planets of our Solar System',
           "url":'https://www.youtube.com/watch?v=libKVRa01L8',
-          "imageUri":'https://upload.wikimedia.org/wikipedia/commons/c/cb/Planets2013.svg'
+          "imageUri":'https://img.youtube.com/vi/libKVRa01L8/default.jpg'
         }),
         Text(**{
             "id":"t001",
@@ -86,7 +86,7 @@ lessons = [
           "id":"v011",
           "title":'Video: Layers of Earth',
           "url":'https://www.youtube.com/watch?v=3xLiOFjemWQ',
-          "imageUri":'https://upload.wikimedia.org/wikipedia/commons/0/07/Earth_poster.svg'
+          "imageUri":'https://img.youtube.com/vi/3xLiOFjemWQ/default.jpg'
         }),
         Text(**{
           "id":"t011",
@@ -122,7 +122,7 @@ lessons = [
           "id":"v021",
           "title":'Video: Cell structure and function',
           "url":'https://www.youtube.com/watch?v=URUJD5NEXC8',
-          "imageUri":'https://upload.wikimedia.org/wikipedia/commons/5/5a/Average_prokaryote_cell-_en.svg'
+          "imageUri":'https://img.youtube.com/vi/URUJD5NEXC8/default.jpg'
         }),
         Text(**{
           "id":"t021",
@@ -148,7 +148,7 @@ lessons = [
           "id":"v031",
           "title":'Video: Cell Division',
           "url":'https://www.youtube.com/watch?v=84mA-MzNJKA',
-          "imageUri":'https://upload.wikimedia.org/wikipedia/commons/d/df/Three_cell_growth_types.svg'
+          "imageUri":'https://img.youtube.com/vi/84mA-MzNJKA/default.jpg'
         }),
         Text(**{
           "id":"t031",
