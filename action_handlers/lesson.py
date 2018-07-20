@@ -120,9 +120,10 @@ def select(session, request):
 
 def findActivity(lessonName,lessonType):
     lesson = sample_lessons.lesson_name_dict[lessonName.upper()]
-    for activity in lesson.materials:
-        if isinstance(activity, sample_lessons.activity_typeDict[lessonType.lower()]):
-            return activity
+    if sample_lessons.activity_typeDict.has_key(lessonType.lower()):
+      for activity in lesson.materials:
+          if isinstance(activity, sample_lessons.activity_typeDict[lessonType.lower()]):
+              return activity
     return None
 
 def search(lessonName,lessonType):

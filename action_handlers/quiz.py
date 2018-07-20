@@ -156,18 +156,21 @@ def answer(session, request):
   
   score_cutoff = 95
   result = process.extractOne(query, question.answers, score_cutoff=score_cutoff, scorer=fuzz.token_set_ratio)
-    
-  if result is not None:
+  correctAnwer = None  
+  if result:
     logging.debug('Right answer {0}'.format(query))
     is_correct=True
     total_correct += 1
   else:
-    logging.debug('Incorrect answer {0}, should be {1}'.format(query, str(question.answers)))
-  
+    correctAnwer = 'Incorrect answer {0}, should be {1}'.format(query, str(question.answers))
+    logging.debug(correctAnwer)
+
   context = OutputContext(session, OUT_CONTEXT_QUIZ_QUESTION, lifespan=1, 
                           shuffled=shuffled_question_ids, question_index=int(question_index), 
                           id=question.id, answer=query, is_correct=is_correct, total_correct=total_correct)
-  return Response('Followup to next question').followupEvent(EVENT_NEXT_QUESTION) \
+  response = Response('Followup to next question')  
+
+  return response.followupEvent(EVENT_NEXT_QUESTION) \
           .setOutputContexts(contexts).outputContext(context).build()
   
 
@@ -194,7 +197,7 @@ def next_question(session, request):
   if bool(is_correct):
     prev_question_result=random.choice(CORRECT_ANSWER).format(question.question, question.answers[0])
   else:
-    prev_question_result=random.choice(INCORRECT_ANSWER).format(question.question, question.answers[0])
+    prev_question_result=random.choice(INCORRECT_ANSWER).format( question.answers[0])
     
   question_index += 1 #next question
   if question_index >= len(quiz.questions):
@@ -210,9 +213,15 @@ def next_question(session, request):
       userContext.last_activity_type=ActivityType.QUIZ
     else:
       userContext=UserContext() # new if one already doesn't exist
-          
-    return Response('Quiz Completed').setOutputContexts(contexts).userStorage(userContext.toJson()) \
-            .text(random.choice(QUIZ_REPORT).format(total_correct, len(quiz.questions))) \
+    
+    logging.info(str(userContext))
+
+    response = Response('Quiz Completed').setOutputContexts(contexts).userStorage(userContext.toJson())
+    if bool(is_correct) == False : 
+      response = response.text(prev_question_result)
+    
+    return response.text(random.choice(QUIZ_REPORT).format(total_correct, len(quiz.questions))) \
+            .card(get_Badge(total_correct,len(quiz.questions))) \
             .suggestions(WELCOME_SUGGESTIONS).build()
   else: 
     question = quiz.questions[question_index]
@@ -224,8 +233,12 @@ def next_question(session, request):
     context = OutputContext(session, OUT_CONTEXT_QUIZ_QUESTION, lifespan=1, 
                           shuffled=shuffled_question_ids, question_index=question_index, 
                           id=question.id, total_correct=total_correct)
+    response = Response('Question')
+    if bool(is_correct) == False : 
+      response = response.text(prev_question_result)
+
     #return Response(response_text).text(prev_question_result).card(card) \
-    return Response('Question').text(response_text).card(card) \
+    return response.text(response_text).card(card) \
             .suggestions(question.choices).setOutputContexts(contexts) \
             .outputContext(context).build()
 
@@ -315,3 +328,21 @@ def getContexts(session, request):
   
   logging.info('quiz - %s, question - %s, question_index - %d, shuffled questions - %s', quizId, questionId, question_index, str(shuffled_question_ids))
   return (contexts, quiz, question, shuffled_question_ids, question_index, is_correct, total_correct)
+
+def get_Badge(score,totalQuestions):
+  percent = (score / totalQuestions) * 100
+  badge_type = 0 #'BRONZE'
+  if percent == 100 :
+    badge_type = 2 #'GOLD'
+  elif percent < 100 and percent >= 70:
+    badge_type = 1 #'SILVER'
+
+  title = QUIZ_BADGE_TYPE[badge_type]
+  description = random.choice(QUIZ_BADGE_TITLE[badge_type])[1]
+  imgurl = 'https://gnext18-v5.appspot.com/img/assessment-{0}.jpg'.format(title.lower())
+  card = Card(title= title, description= description, imageUri=imgurl)
+  return card
+
+
+
+
