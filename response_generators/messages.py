@@ -265,7 +265,9 @@ QUIZ_DESCRIPTION=[
 ]
 
 INCORRECT_ANSWER=[
-    u'INCORRECT\nCorrect answer for question - {0} is {1}'
+    u'Oh!! Sorry that\'s a wrong answer \n Correct answer is\n  {0}',
+    u'Oh!! that\'s a incorrect answer \n Right answer is\n {0}',
+    u'Wrong answer! Right answer for previous question is \n  {0}'
 ]
 
 CORRECT_ANSWER=[
@@ -298,3 +300,51 @@ GENERAL_FALLBACKS=[
     u'<speak>I missed that.</speak>',
     u'<speak>Couldn"t understand, <break time="200ms"/> try again?</speak>'
 ]
+
+QUIZ_GOLD_BADGE_TITLE=[
+    (
+        u'<speak>Wow! you got a gold badge</speak>',
+        u'Wow! you got a gold badge'
+    ),
+     (
+        u'<speak>Great! you have got a gold badge</speak>',
+        u'Great! you have got a gold badge'
+    ),
+     (
+        u'<speak>Very good, you added a gold badge</speak>',
+        u'Very good, you added a gold badge'
+    )
+]
+
+QUIZ_SILVER_BADGE_TITLE=[
+    (
+        u'<speak>Good you got a silver badge</speak>',
+        u'Good you got a silver badge'
+    ),
+     (
+        u'<speak>Alright! you have got a silver badge</speak>',
+        u'Alright! you have got a silver badge'
+    ),
+]
+
+QUIZ_BRONZE_BADGE_TITLE=[
+    (
+        u'<speak>It\'s ok, you got a bronze badge</speak>',
+        u'It\'s ok, you got a bronze badge'
+    ),
+     (
+        u'<speak>You have got a bronze badge</speak>',
+        u'You have got a bronze badge'
+    ),
+]
+
+QUIZ_BADGE_TITLE = [
+    QUIZ_BRONZE_BADGE_TITLE,
+    QUIZ_SILVER_BADGE_TITLE,
+    QUIZ_GOLD_BADGE_TITLE
+]
+
+QUIZ_BADGE_TYPE= dict()
+QUIZ_BADGE_TYPE[0] = 'BRONZE'
+QUIZ_BADGE_TYPE[1] = 'SILVER'
+QUIZ_BADGE_TYPE[2] = 'GOLD'

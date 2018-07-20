@@ -194,4 +194,3 @@ activity_typeDict = dict()
 activity_typeDict['video'] = Video
 activity_typeDict['audio'] = Audio
 activity_typeDict['text'] = Text
-activity_typeDict['audio'] = Audio
