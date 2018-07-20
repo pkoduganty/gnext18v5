@@ -19,7 +19,7 @@ activities = [
           "id":"v001",
           "title":'Video: Planets of our Solar System',
           "url":'https://www.youtube.com/watch?v=libKVRa01L8',
-          "imageUri":'https://upload.wikimedia.org/wikipedia/commons/c/cb/Planets2013.svg'
+          "imageUri":'https://img.youtube.com/vi/libKVRa01L8/default.jpg'
       }),
       "creationTime":"2018-06-25T15:01:23.045123456Z",
       "updateTime":"2018-06-25T15:01:23.045123456Z",
@@ -96,7 +96,7 @@ activities = [
           "id":"v022",
           "title":'Video: Cell structure and function',
           "url":'https://www.youtube.com/watch?v=URUJD5NEXC8',
-          "imageUri":'https://upload.wikimedia.org/wikipedia/commons/thumb/4/40/Simple_diagram_of_animal_cell_%28en%29.svg/512px-Simple_diagram_of_animal_cell_%28en%29.svg.png'
+          "imageUri":'https://img.youtube.com/vi/URUJD5NEXC8/default.jpg'
        }),
       "creationTime":"2018-06-25T15:01:23.045123456Z",
       "updateTime":"2018-06-25T15:01:23.045123456Z",
