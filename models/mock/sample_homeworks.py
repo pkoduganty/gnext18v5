@@ -127,7 +127,19 @@ activities = [
                 "question":'I am the brains of the cell, who am I?',
                 "answers":["nucleus"],
                 "choices":["cell membrane","cytoplasm","nucleus","mitochondria"]
-                })
+                }),
+            Question(**{
+                "id":"qt013",
+                "question":'What organelle provides support for the cell, who is that?',
+                "answers":["cell wall"],
+                "choices":["cytoplasm","cell wall","ribosomes","nucleus"]
+            }),
+            Question(**{
+                "id":"qt014",
+                "question":'Which one of the follwing are made up of genes and protein, which contain DNA?',
+                "answers":["chromosomes"],
+                "choices":["chromosomes","cytoplasm","ribosomes","nucleus"]
+            })
         ]
       }),
       "creationTime":"2018-06-25T15:01:23.045123456Z",
