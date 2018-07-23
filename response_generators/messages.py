@@ -15,11 +15,11 @@ WELCOME_SUGGESTIONS=[
 
 WELCOME_TEXT=[
     (
-        u'You might want to do your homework, or review a lesson, oh! or maybe a quick quiz',
+        u'You might want to do your homework, or review a lesson or maybe a quick quiz',
         u'<speak><prosody rate="90%">You might want to do your homework, \
         <break time="300ms"/> or review a lesson,\
-        <break time="300ms"/> and <emphasis strength="strong">Oh!</emphasis> \
-        or maybe a quick quiz</prosody></speak>'
+        <break time="300ms"/> and <emphasis strength="strong">or</emphasis> \
+        maybe a quick quiz</prosody></speak>'
     ),
     (
         u'Let us start with your homework, and then a quick quiz perhaps',
@@ -31,11 +31,6 @@ WELCOME_TEXT=[
         u'<speak><prosody rate="90%">Do your homework,<break time="300ms"/> \
         or read a lesson,<break time="300ms"/>\
         then maybe a quick quiz</prosody></speak>'
-    ),
-    (
-        u'Do your homework, or read a lesson, or how about a trivia, ah maybe a quick quiz',
-        u'<speak><prosody rate="90%">Do your homework,<break time="300ms"/> or read a lesson,\
-        <break time="300ms"/> and <emphasis strength="strong">Ah!</emphasis> maybe a quick quiz</prosody></speak>'
     )
 ]
 
@@ -84,12 +79,12 @@ Oh the places you’ll go.',
 # 0:user 
 WELCOME_BASIC=[
     (
-        u'Hello {0}, every day is a learning day',
+        u'Hello {0}, How was your day at school? You know, every day is a learning day.',
         u'<speak><par>\
             <media>\
               <speak><prosody rate="90%">\
                 <emphasis strength="strong">Hello {0}</emphasis>,\
-                every day is a learning day </prosody>\
+                How was your day at school? You know, every day is a learning day </prosody>\
               </speak>\
             </media>\
             <media soundLevel="-10dB" fadeInDur="3s" fadeOutDur="1s">\
@@ -100,14 +95,14 @@ WELCOME_BASIC=[
         </par></speak>'
     ),
     (
-        u'Padawan {0}, so eager to learn you are, let the learning begin',
+        u'Padawan {0}, so eager to learn you are, let the learning begin this morning, enjoy your day at school. ',
         u'<speak><par>\
             <media>\
               <speak>\
                 <prosody rate="90%">\
                 <emphasis strength="strong">Padawan {0}</emphasis>, \
                 so eager to learn you are \
-                <break time="500ms"/> let the learning begin</prosody>\
+                <break time="500ms"/> let the learning begin this morning, enjoy your day at school. </prosody>\
               </speak>\
             </media>\
             <media soundLevel="-10dB" fadeInDur="3s" fadeOutDur="1s">\
@@ -118,11 +113,12 @@ WELCOME_BASIC=[
         </par></speak>'
     ),
     (
-        u'{0}, kindle your curiosity',
+        u'{0}, ready for school? an opportunity to learn something new today, pinch of curiosity will help.',
         u'<speak><par>\
             <media><speak><prosody rate="90%">\
               <emphasis strength="strong">{0}</emphasis>, \
-              kindle your curiosity</prosody></speak>\
+              ready for school? an opportunity to learn something new today, pinch of curiosity will help.\
+              </prosody></speak>\
             </media>\
             <media soundLevel="-10dB" fadeInDur="3s" fadeOutDur="1s">\
               <audio clipEnd="7s" src="https://gnext18-v5.appspot.com/play/ultimate-victory_fyiYEQB_.mp3">\
