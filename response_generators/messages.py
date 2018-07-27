@@ -135,7 +135,7 @@ WELCOME_BASIC=[
 
 WELCOME_SECOND_LOGON=[
     (
-        u"Welcome back {0}",
+        u"Welcome back {0},  ",
         u'<speak><par>\
             <media><speak><prosody rate="90%">\
               Welcome back <emphasis strength="strong">{0}</emphasis></prosody></speak>\
@@ -148,7 +148,7 @@ WELCOME_SECOND_LOGON=[
         </par></speak>'
     ),
     (
-        u"Welcome back, start where you left off?",
+        u"Welcome back, I know you are very curious to learn.\n Do you want to start where you left off?",
         u'<speak><par>\
             <media><speak><prosody rate="90%">\
               start where you left off?</prosody></speak>\
@@ -316,6 +316,24 @@ QUIZ_GOLD_BADGE_TITLE=[
     )
 ]
 
+QUIZ_GOLD_BADGE_DESC=[
+        u'You are awesome, you achievd one gold badge in quiz',
+        u'Great! you got a gold badge in the quiz',
+        u'Awesome got a gold badge for the quiz, keep doing more to get more of such badges'
+]
+
+QUIZ_SILVER_BADGE_DESC=[
+        u'Here you go... there is a silver badge added to your bucket',
+        u'Hey! you got a silver badge for the quiz',
+        u'Good you got a silver badge, keep doing more and more and get more such badges'
+]
+
+QUIZ_BRONZE_BADGE_DESC=[
+        u'You got a bronze for the quiz, you can do better',
+        u'Hey! you got a bronze badge for the quiz',
+        u'Good you just got a bronze badge, keep doing more and more and get more such badges'
+]
+
 QUIZ_SILVER_BADGE_TITLE=[
     (
         u'<speak>Good you got a silver badge</speak>',
@@ -343,6 +361,76 @@ QUIZ_BADGE_TITLE = [
     QUIZ_SILVER_BADGE_TITLE,
     QUIZ_GOLD_BADGE_TITLE
 ]
+
+QUIZ_BADGE_DESC = [
+    QUIZ_BRONZE_BADGE_DESC,
+    QUIZ_SILVER_BADGE_DESC,
+    QUIZ_GOLD_BADGE_DESC
+]
+
+SHIELD_GOLD_BADGE_TITLE=[
+    (
+        u'<speak>Wow! you got a gold shield</speak>',
+        u'Wow! you got a gold shield'
+    ),
+     (
+        u'<speak>Great! you have got a gold shield</speak>',
+        u'Great! you have got a gold shield'
+    ),
+     (
+        u'<speak>Very good, you added a gold shield</speak>',
+        u'Very good, you added a gold shield'
+    )
+]
+
+SHIELD_SILVER_BADGE_TITLE=[
+    (
+        u'<speak>Good you got a silver shield</speak>',
+        u'Good you got a silver shield'
+    ),
+     (
+        u'<speak>Alright! you have got a silver shield</speak>',
+        u'Alright! you have got a silver shield'
+    ),
+]
+
+SHIELD_BRONZE_BADGE_TITLE=[
+    (
+        u'<speak>It\'s ok, you got a bronze shield</speak>',
+        u'It\'s ok, you got a bronze shield'
+    ),
+     (
+        u'<speak>You have got a bronze shield</speak>',
+        u'You have got a bronze shield'
+    ),
+]
+
+SHIELD_BADGE_TITLE = {
+   'BRONZE' : SHIELD_BRONZE_BADGE_TITLE,
+   'SILVER' : SHIELD_SILVER_BADGE_TITLE,
+    'GOLD' :  SHIELD_GOLD_BADGE_TITLE
+}
+
+SHIELD_BRONZE_BADGE_DESC = [
+        u'You have got a bronze shield based on your quiz performances, keep doing more quizes to achieve next level shield',
+        u'This bronze shield is for your quiz scores, you can improve by doing more quizes'
+]
+
+SHIELD_SILVER_BADGE_DESC = [
+        u'Here is your silver shield in the quiz achievement',
+        u'This bronze shield is for your quiz scores, you can improve by doing more quizes'
+]
+
+SHIELD_GOLD_BADGE_DESC = [
+        u'Hey!! Congratulations on the gold shield you achieved, well done',
+        u'You are awesome you got a fold sheild, keep it up.'
+]
+
+SHIELD_BADGE_DESC = {
+   'BRONZE' : SHIELD_BRONZE_BADGE_DESC,
+   'SILVER' : SHIELD_SILVER_BADGE_DESC,
+    'GOLD' :  SHIELD_GOLD_BADGE_DESC
+}
 
 QUIZ_BADGE_TYPE= dict()
 QUIZ_BADGE_TYPE[0] = 'BRONZE'

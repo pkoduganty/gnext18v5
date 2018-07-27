@@ -13,6 +13,7 @@ from marshmallow import Schema, fields, pprint
 
 from fuzzywuzzy import fuzz
 from fuzzywuzzy import process
+from fractions import Fraction
 
 from action_handlers.session import *
 from action_handlers.utils import *
@@ -216,13 +217,19 @@ def next_question(session, request):
     
     logging.info(str(userContext))
 
-    response = Response('Quiz Completed').setOutputContexts(contexts).userStorage(userContext.toJson())
+    response = Response('Quiz Completed').setOutputContexts(contexts)
     if bool(is_correct) == False : 
       response = response.text(prev_question_result)
-    
-    return response.text(random.choice(QUIZ_REPORT).format(total_correct, len(quiz.questions))) \
-            .card(get_Badge(total_correct,len(quiz.questions))) \
-            .suggestions(WELCOME_SUGGESTIONS).build()
+
+    items = get_Badges(total_correct,len(quiz.questions),userContext)
+    res = response.userStorage(userContext.toJson()).text(random.choice(QUIZ_REPORT).format(total_correct, len(quiz.questions))) 
+    if len(items) ==1:
+      res = res.card(Card(title=items[0].title,
+              description=items[0].description,
+              imageUri=items[0].image["imageUri"]))
+    elif len(items) > 1:
+      res = res.carousel(items)
+    return  res.suggestions(WELCOME_SUGGESTIONS).build()
   else: 
     question = quiz.questions[question_index]
     logging.debug('display new question {0} - {1}', question.id, question.question)
@@ -329,19 +336,67 @@ def getContexts(session, request):
   logging.info('quiz - %s, question - %s, question_index - %d, shuffled questions - %s', quizId, questionId, question_index, str(shuffled_question_ids))
   return (contexts, quiz, question, shuffled_question_ids, question_index, is_correct, total_correct)
 
-def get_Badge(score,totalQuestions):
-  percent = (score / totalQuestions) * 100
+def get_Badges(score,totalQuestions,userContext):
+  percent = Fraction(score , totalQuestions) * 100
   badge_type = 0 #'BRONZE'
-  if percent == 100 :
+  if percent >= 85 :
     badge_type = 2 #'GOLD'
-  elif percent < 100 and percent >= 70:
+  elif percent >= 65 and percent < 85:
     badge_type = 1 #'SILVER'
-
+ 
   title = QUIZ_BADGE_TYPE[badge_type]
-  description = random.choice(QUIZ_BADGE_TITLE[badge_type])[1]
-  imgurl = 'https://gnext18-v5.appspot.com/img/assessment-{0}.jpg'.format(title.lower())
-  card = Card(title= title, description= description, imageUri=imgurl)
-  return card
+  items = []
+  items.append(Item(id = len(items) + 1, 
+                title=   random.choice(QUIZ_BADGE_TITLE[badge_type])[1], 
+                description= random.choice(QUIZ_BADGE_DESC[badge_type]),  
+                imageUri='https://gnext18-v5.appspot.com/img/quiz-{0}.jpg'.format(title.lower())))
+  userContext.quiz_badges[title] +=1
+  shield = get_shield(userContext)
+  if shield:
+    items.append(Item(id = len(items) + 1, 
+            title= random.choice(SHIELD_BADGE_TITLE[shield])[1], 
+            description= random.choice(SHIELD_BADGE_DESC[shield]), 
+            imageUri='https://gnext18-v5.appspot.com/img/shield-{0}.jpg'.format(shield.lower())))
+  return items
+
+def get_shield(userContext):
+  quiz = userContext.quiz_badges
+  gold = quiz[QUIZ_BADGE_TYPE[2]]
+  silver = quiz[QUIZ_BADGE_TYPE[1]]
+  bronze = quiz[QUIZ_BADGE_TYPE[0]]
+
+  shield = None
+ 
+  if gold == 0 and ((silver >=1 and silver <5 ) or
+     bronze >= 4):    
+     shield = QUIZ_BADGE_TYPE[0] 
+
+  if ((gold >=1 and gold < 4) or    
+     (gold == 0 and silver >= 5 ) or
+     (gold == 0 and silver == 3 and bronze >= 3 ) or
+     (gold == 0 and silver == 2 and bronze >= 5 ) or
+     (gold == 0 and silver == 4 and bronze == 1 ) or (gold == 0 and  bronze >=10) ):
+     shield = QUIZ_BADGE_TYPE[1] 
+
+  if (gold >=4 or
+     (gold == 3 and silver >= 2 ) or
+     (gold == 2 and silver >= 5 ) or
+     (gold == 1 and silver == 2 and bronze >= 5 ) or
+     (gold == 1 and silver == 4 and bronze == 1 ) or (gold == 0) and (silver >=10 or bronze >=15) ):
+     shield = QUIZ_BADGE_TYPE[2] 
+
+  userContext.shields_badge = shield
+  
+  return shield
+
+  
+  
+
+
+
+
+
+
 
 
 
