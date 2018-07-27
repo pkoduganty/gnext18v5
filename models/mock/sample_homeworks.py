@@ -105,6 +105,7 @@ activities = [
       "scheduledTime":"2018-07-05T15:01:23.045123456Z",
       "creatorUserId":"116353579384483626788"
     }),
+    
     Homework(**{
       "courseId": "8Scnce",
       "id": "8ScnceHW4",
@@ -120,7 +121,7 @@ activities = [
                 "id":"qt011",
                 "question":'I protect the cell from the harsh external world, who am I?',
                 "answers":["cell wall", "cell membrane", "membrane", "plasma membrane", "cytoplasmic membrane"],
-                "choices":["nucleus","cell membrane","cytoplasm","mitochondria"]
+                "choices":["nucleus","cell membrane","cytoplasm","mitochondria",]
                 }),
             Question(**{
                 "id":"qt012",
