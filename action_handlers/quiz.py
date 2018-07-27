@@ -221,14 +221,9 @@ def next_question(session, request):
     if bool(is_correct) == False : 
       response = response.text(prev_question_result)
 
-    items = get_Badges(total_correct,len(quiz.questions),userContext)
+    userContext.recentquiz_score  = int( 100 * float(total_correct)/float(len(quiz.questions)))
     res = response.userStorage(userContext.toJson()).text(random.choice(QUIZ_REPORT).format(total_correct, len(quiz.questions))) 
-    if len(items) ==1:
-      res = res.card(Card(title=items[0].title,
-              description=items[0].description,
-              imageUri=items[0].image["imageUri"]))
-    elif len(items) > 1:
-      res = res.carousel(items)
+    res = build_badge(userContext, res)
     return  res.suggestions(WELCOME_SUGGESTIONS).build()
   else: 
     question = quiz.questions[question_index]
@@ -248,6 +243,16 @@ def next_question(session, request):
     return response.text(response_text).card(card) \
             .suggestions(question.choices).setOutputContexts(contexts) \
             .outputContext(context).build()
+
+def build_badge(userContext, res):
+  items = get_badges(userContext)
+  if len(items) ==1:
+    res = res.card(Card(title=items[0].title,
+            description=items[0].description,
+            imageUri=items[0].image["imageUri"]))
+  elif len(items) > 1:
+    res = res.carousel(items)
+  return res
 
 def previous_question(session, request):
   quizContext = getContexts(session, request)
@@ -336,8 +341,8 @@ def getContexts(session, request):
   logging.info('quiz - %s, question - %s, question_index - %d, shuffled questions - %s', quizId, questionId, question_index, str(shuffled_question_ids))
   return (contexts, quiz, question, shuffled_question_ids, question_index, is_correct, total_correct)
 
-def get_Badges(score,totalQuestions,userContext):
-  percent = Fraction(score , totalQuestions) * 100
+def get_badges(userContext):
+  percent = userContext.recentquiz_score 
   badge_type = 0 #'BRONZE'
   if percent >= 85 :
     badge_type = 2 #'GOLD'
@@ -389,7 +394,20 @@ def get_shield(userContext):
   
   return shield
 
+def user_badges(session, request):
+  userContext=getUserContext(request)
+  if userContext is None:
+    userContext=UserContext()
+  if userContext.recentquiz_score == 0 & userContext.shields_badge is None:
+    text = 'Currently you don\'t have any badges in your bucket'
+    return Response(text).text(text).build()
+  else:
+    res = Response('Here are your badges')
+    res = build_badge(userContext,res)
+    return res.suggestions(WELCOME_SUGGESTIONS).build()
   
+    
+
   
 
 

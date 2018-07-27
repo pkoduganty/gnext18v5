@@ -56,6 +56,7 @@ class UserContextSchema(Schema):
   activities_started=fields.Integer()
   activities_finished=fields.Integer()
   learning_score=fields.Integer()
+  recentquiz_score = fields.Integer()
   quiz_badges = fields.Dict(defaultDict.copy(),allow_none=None)
   shields_badge = fields.String(allow_none=True)
   courses_badges = fields.Dict(defaultDict.copy(),allow_none=None)
@@ -72,7 +73,7 @@ class UserContext(object):
   def __init__(self, name='Susan', last_logon=datetime.now(), 
                last_activity='', last_activity_type='', 
                activity_history=[], activities_started=0, activities_finished=0, learning_score=0,
-               quiz_badges= defaultDict.copy(),shields_badge= None,courses_badges = defaultDict.copy()):
+               quiz_badges= defaultDict.copy(),recentquiz_score=0,shields_badge= None,courses_badges = defaultDict.copy()):
     self.name = name
     self.last_logon=last_logon
     self.last_activity=last_activity
@@ -81,6 +82,7 @@ class UserContext(object):
     self.activities_started=activities_started
     self.activities_finished=activities_finished
     self.learning_score=learning_score
+    self.recentquiz_score = recentquiz_score
     self.quiz_badges = quiz_badges
     self.shields_badge = shields_badge
     self.courses_badges = courses_badges
