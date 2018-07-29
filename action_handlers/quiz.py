@@ -398,7 +398,7 @@ def user_badges(session, request):
   userContext=getUserContext(request)
   if userContext is None:
     userContext=UserContext()
-  if userContext.recentquiz_score == 0 & userContext.shields_badge is None:
+  if userContext.recentquiz_score == 0 and userContext.shields_badge is None:
     text = 'Currently you don\'t have any badges in your bucket'
     return Response(text).text(text).build()
   else:
